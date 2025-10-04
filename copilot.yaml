@@ -1,0 +1,106 @@
+# Hybrid eDiscovery Collector – GitHub Copilot Agent Manifest
+# Place at: ./copilot.yaml  (or .github/copilot/agent.yaml)
+
+name: "Hybrid eDiscovery Collector"
+description: >
+  Build and maintain a hybrid Microsoft 365 eDiscovery collection system:
+  Graph API for small custodians, Graph Data Connect (GDC) for large ones.
+  Includes .NET 8 Worker + Intake API, auto-router, and Docker POC.
+
+# Primary, persistent system context for the agent
+prompts:
+  - path: prompts/ediscovery_hybrid_collector.md
+    role: system
+    # If you add more design docs, list them here with role: system or developer.
+
+# What the agent should pay most attention to
+context:
+  include:
+    - HybridGraphCollectorWorker/**
+    - EDiscoveryIntakeApi/**
+    - prompts/**
+    - docker-compose.yml
+    - **/Dockerfile
+    - **/*.csproj
+    - **/*.sln
+    - README.md
+  exclude:
+    - "**/bin/**"
+    - "**/obj/**"
+    - "**/.vs/**"
+    - "**/.idea/**"
+    - "**/.vscode/**"
+    - "**/*.user"
+    - "**/*.lock"
+    - "**/.DS_Store"
+
+# Optional tools the agent may reference or generate config for
+tools:
+  - name: "dotnet"
+    description: "Use .NET 8 SDK for build/test/publish."
+  - name: "azure"
+    description: "Generate Bicep/Terraform and Key Vault/ADF/Storage configs."
+  - name: "docker"
+    description: "Dockerfiles and docker-compose for the POC."
+
+# Model and generation preferences (tweak as you like)
+generation:
+  model: "gpt-4o"           # or the latest model you prefer for Copilot Agents
+  temperature: 0.2          # low = precise, deterministic proposals
+  max_output_tokens: 3000
+
+# Guardrails & guidance
+policies:
+  - "Prefer Managed Identity over client secrets for production guidance."
+  - "Never print real secrets—use placeholders and Key Vault references."
+  - "Default to private networking (PE/PL) and least-privileged RBAC in Azure."
+  - "Respect legal hold and chain-of-custody; produce signed, immutable manifests."
+  - "When uncertain about GDC pricing/limits, generate links to official docs instead of guessing."
+
+# Handy commands you can ask Copilot to run or scaffold
+commands:
+  - name: "/poc-run-local"
+    about: "Guide me to run the POC locally without Azure Blob (NAS output)."
+    steps:
+      - "Open EDiscoveryIntakeApi and run: dotnet run --urls http://localhost:5200"
+      - "Open HybridGraphCollectorWorker/appsettings.json; set OutputMode=nas and NasRoot=./out."
+      - "Set Graph TenantId/ClientId/ClientSecret (Application perms: Files.Read.All, Sites.Read.All, Mail.Read)."
+      - "Run: dotnet run"
+      - "Verify in Swagger: GET /api/jobs; GET /api/items/by-job/{jobId}."
+
+  - name: "/poc-run-docker"
+    about: "Run the two services using Docker Compose."
+    steps:
+      - "Ensure docker-compose.yml and Dockerfiles are present."
+      - "Build and start: docker compose up --build"
+      - "Browse http://localhost:5200 for Swagger."
+
+  - name: "/add-delta"
+    about: "Add OneDrive and Mail delta queries to the worker."
+    steps:
+      - "Generate code updates for delta tokens storage and incremental sync."
+      - "Add configuration toggles and cursor persistence."
+
+  - name: "/gdc-wireup"
+    about: "Replace the GDC stub with an ADF pipeline trigger + status poller."
+    steps:
+      - "Create ADF pipeline JSON skeleton and REST trigger client."
+      - "Add job status polling and completion callback to Intake API."
+
+  - name: "/prod-hardening"
+    about: "Produce a checklist & diffs for Managed Identity, Key Vault, Private Endpoints, and logging."
+    steps:
+      - "Refactor to DefaultAzureCredential."
+      - "Add Key Vault config providers."
+      - "Emit Kusto-friendly telemetry and dashboard workbooks."
+
+# Optional CI hints Copilot can generate upon request
+ci:
+  provider: "github-actions"
+  templates:
+    - "dotnet-build-test"
+    - "container-build-push"
+    - "iac-validate-deploy"
+
+# Version this manifest so you can evolve it
+version: 1

@@ -1,0 +1,6 @@
+@EDiscoveryIntakeApi_HostAddress = http://localhost:5230
+
+GET {{EDiscoveryIntakeApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

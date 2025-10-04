@@ -1,0 +1,51 @@
+# Sample test requests for the eDiscovery API
+
+## 1. Create a Matter
+POST http://localhost:5230/api/matters
+Content-Type: application/json
+
+{
+  "name": "Financial Investigation 2024-001",
+  "description": "POC investigation for testing hybrid collection capabilities",
+  "caseNumber": "FIN-2024-001",
+  "createdBy": "admin@company.com"
+}
+
+## 2. Create a Collection Job
+POST http://localhost:5230/api/jobs
+Content-Type: application/json
+
+{
+  "matterId": 1,
+  "custodianEmail": "user@company.com",
+  "jobType": 1,
+  "startDate": "2024-01-01T00:00:00Z",
+  "endDate": "2024-12-31T23:59:59Z",
+  "keywords": ["contract", "agreement", "financial"],
+  "includeAttachments": true,
+  "outputPath": "./output/fin-2024-001"
+}
+
+## 3. Get All Matters
+GET http://localhost:5230/api/matters
+
+## 4. Get All Jobs
+GET http://localhost:5230/api/jobs
+
+## 5. Get Specific Job
+GET http://localhost:5230/api/jobs/1
+
+## 6. Start a Job
+POST http://localhost:5230/api/jobs/1/start
+
+## 7. Complete a Job
+POST http://localhost:5230/api/jobs/1/complete
+Content-Type: application/json
+
+{
+  "isSuccessful": true,
+  "actualDataSizeBytes": 1048576,
+  "actualItemCount": 25,
+  "manifestHash": "abc123def456",
+  "errorMessage": null
+}

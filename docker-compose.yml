@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  ediscovery-api:
+    build:
+      context: .
+      dockerfile: src/EDiscoveryIntakeApi/Dockerfile
+    ports:
+      - "7001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/ediscovery.db
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    networks:
+      - ediscovery-network
+
+  graph-collector-worker:
+    build:
+      context: .
+      dockerfile: src/HybridGraphCollectorWorker/Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - EDiscoveryApi__BaseUrl=http://ediscovery-api:8080
+      - AzureAd__TenantId=${AZURE_TENANT_ID}
+      - AzureAd__ClientId=${AZURE_CLIENT_ID}
+      - AzureAd__ClientSecret=${AZURE_CLIENT_SECRET}
+      - Worker__SampleCustodian=${SAMPLE_CUSTODIAN:-user@company.com}
+      - OutputPath=/app/output
+    volumes:
+      - ./output:/app/output
+    depends_on:
+      - ediscovery-api
+    networks:
+      - ediscovery-network
+
+networks:
+  ediscovery-network:
+    driver: bridge
+
+volumes:
+  ediscovery-data:
