@@ -1701,6 +1701,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.9",
           "Serilog.Extensions.Logging": "9.0.2"
         },

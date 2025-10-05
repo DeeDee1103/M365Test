@@ -13,6 +13,10 @@ public class EDiscoveryDbContext : DbContext
     public DbSet<CollectionJob> CollectionJobs { get; set; }
     public DbSet<CollectedItem> CollectedItems { get; set; }
     public DbSet<JobLog> JobLogs { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserSession> UserSessions { get; set; }
+    public DbSet<JobAssignment> JobAssignments { get; set; }
+    public DbSet<WorkerInstance> WorkerInstances { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -37,12 +41,83 @@ public class EDiscoveryDbContext : DbContext
             .HasForeignKey(l => l.JobId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Configure indexes for performance
+        // Configure User relationships
+        modelBuilder.Entity<CollectionJob>()
+            .HasOne(j => j.AssignedUser)
+            .WithMany(u => u.AssignedJobs)
+            .HasForeignKey(j => j.AssignedUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Matter>()
+            .HasOne(m => m.CreatedByUser)
+            .WithMany(u => u.CreatedMatters)
+            .HasForeignKey(m => m.CreatedByUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<UserSession>()
+            .HasOne(s => s.User)
+            .WithMany(u => u.Sessions)
+            .HasForeignKey(s => s.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<JobAssignment>()
+            .HasOne(a => a.Job)
+            .WithMany()
+            .HasForeignKey(a => a.JobId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<JobAssignment>()
+            .HasOne(a => a.User)
+            .WithMany()
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configure indexes for performance and concurrency
         modelBuilder.Entity<CollectionJob>()
             .HasIndex(j => j.CustodianEmail);
 
         modelBuilder.Entity<CollectionJob>()
             .HasIndex(j => j.Status);
+
+        modelBuilder.Entity<CollectionJob>()
+            .HasIndex(j => new { j.Status, j.Priority, j.CreatedDate });
+
+        modelBuilder.Entity<CollectionJob>()
+            .HasIndex(j => new { j.AssignedUserId, j.Status });
+
+        modelBuilder.Entity<CollectionJob>()
+            .HasIndex(j => j.LockExpiry);
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+
+        modelBuilder.Entity<UserSession>()
+            .HasIndex(s => s.SessionId)
+            .IsUnique();
+
+        modelBuilder.Entity<UserSession>()
+            .HasIndex(s => new { s.UserId, s.IsActive });
+
+        modelBuilder.Entity<JobAssignment>()
+            .HasIndex(a => new { a.JobId, a.WorkerId });
+
+        modelBuilder.Entity<JobAssignment>()
+            .HasIndex(a => new { a.UserId, a.Status });
+
+        modelBuilder.Entity<JobAssignment>()
+            .HasIndex(a => a.LockExpiry);
+
+        modelBuilder.Entity<WorkerInstance>()
+            .HasIndex(w => w.WorkerId)
+            .IsUnique();
+
+        modelBuilder.Entity<WorkerInstance>()
+            .HasIndex(w => new { w.Status, w.LastHeartbeat });
 
         modelBuilder.Entity<CollectedItem>()
             .HasIndex(i => i.ItemId);
@@ -54,6 +129,39 @@ public class EDiscoveryDbContext : DbContext
             .HasIndex(l => l.Timestamp);
 
         // Seed data for POC
+        modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                Username = "admin",
+                Email = "admin@company.com",
+                FirstName = "System",
+                LastName = "Administrator",
+                Role = UserRole.Administrator,
+                IsActive = true,
+                CreatedDate = DateTime.UtcNow,
+                MaxConcurrentJobs = 10,
+                MaxDataSizePerJobGB = 500,
+                Department = "IT",
+                Location = "HQ"
+            },
+            new User
+            {
+                Id = 2,
+                Username = "analyst1",
+                Email = "analyst1@company.com",
+                FirstName = "Jane",
+                LastName = "Smith",
+                Role = UserRole.Analyst,
+                IsActive = true,
+                CreatedDate = DateTime.UtcNow,
+                MaxConcurrentJobs = 5,
+                MaxDataSizePerJobGB = 100,
+                Department = "Legal",
+                Location = "HQ"
+            }
+        );
+
         modelBuilder.Entity<Matter>().HasData(
             new Matter
             {
@@ -62,6 +170,7 @@ public class EDiscoveryDbContext : DbContext
                 Description = "POC investigation for testing hybrid collection",
                 CaseNumber = "CASE-2024-001",
                 CreatedBy = "admin@company.com",
+                CreatedByUserId = 1,
                 CreatedDate = DateTime.UtcNow,
                 IsActive = true
             }

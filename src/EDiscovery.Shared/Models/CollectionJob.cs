@@ -22,6 +22,21 @@ public class CollectionJob
     [Required]
     public CollectionRoute Route { get; set; }
     
+    // User assignment and concurrency control
+    public int? AssignedUserId { get; set; }
+    
+    [StringLength(50)]
+    public string? AssignedWorkerId { get; set; }
+    
+    public DateTime? AssignedAt { get; set; }
+    
+    public int Priority { get; set; } = 5; // 1=Highest, 10=Lowest
+    
+    [StringLength(36)]
+    public string? LockToken { get; set; }
+    
+    public DateTime? LockExpiry { get; set; }
+    
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     
@@ -44,6 +59,7 @@ public class CollectionJob
     
     // Navigation properties
     public virtual Matter Matter { get; set; } = null!;
+    public virtual User? AssignedUser { get; set; }
     public virtual ICollection<CollectedItem> CollectedItems { get; set; } = new List<CollectedItem>();
     public virtual ICollection<JobLog> JobLogs { get; set; } = new List<JobLog>();
 }
@@ -60,11 +76,13 @@ public enum CollectionJobType
 public enum CollectionJobStatus
 {
     Pending = 1,
-    Running = 2,
-    Completed = 3,
-    Failed = 4,
-    Cancelled = 5,
-    PartiallyCompleted = 6
+    Assigned = 2,
+    Processing = 3,
+    Running = 4,
+    Completed = 5,
+    Failed = 6,
+    Cancelled = 7,
+    PartiallyCompleted = 8
 }
 
 public enum CollectionRoute

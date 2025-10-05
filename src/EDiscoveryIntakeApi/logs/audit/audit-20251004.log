@@ -22,3 +22,19 @@
 [2025-10-04 22:52:06.409 -04:00] Hosting environment: Development
 [2025-10-04 22:52:06.409 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi
 [2025-10-04 22:52:19.516 -04:00] Application is shutting down...
+[2025-10-04 23:18:15.084 -04:00] Starting eDiscovery Intake API
+[2025-10-04 23:18:15.529 -04:00] eDiscovery Intake API terminated unexpectedly
+[2025-10-04 23:18:56.171 -04:00] Starting eDiscovery Intake API
+[2025-10-04 23:18:57.463 -04:00] AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: eae00be5 | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-36352","Timestamp":"2025-10-05T03:18:57.3915633Z","CorrelationId":"eae00be5"}
+[2025-10-04 23:18:57.561 -04:00] eDiscovery Intake API started successfully
+[2025-10-04 23:18:57.667 -04:00] Now listening on: http://localhost:5230
+[2025-10-04 23:18:57.669 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-04 23:18:57.677 -04:00] Hosting environment: Development
+[2025-10-04 23:18:57.679 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi
+[2025-10-04 23:31:06.348 -04:00] Starting eDiscovery Intake API
+[2025-10-04 23:31:07.854 -04:00] AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 1456efb2 | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-29316","Timestamp":"2025-10-05T03:31:07.7895639Z","CorrelationId":"1456efb2"}
+[2025-10-04 23:31:07.947 -04:00] eDiscovery Intake API started successfully
+[2025-10-04 23:31:08.013 -04:00] Now listening on: http://localhost:5230
+[2025-10-04 23:31:08.016 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-04 23:31:08.017 -04:00] Hosting environment: Development
+[2025-10-04 23:31:08.018 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi

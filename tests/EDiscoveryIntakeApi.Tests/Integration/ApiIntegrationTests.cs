@@ -1,5 +1,5 @@
 using EDiscovery.Shared.Models;
-using EDiscoveryIntakeApi.Data;
+using EDiscovery.Shared.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

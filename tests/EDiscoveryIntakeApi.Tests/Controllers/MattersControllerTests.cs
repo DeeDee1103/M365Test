@@ -1,7 +1,6 @@
 using EDiscovery.Shared.Models;
 using EDiscovery.Shared.Services;
 using EDiscoveryIntakeApi.Controllers;
-using EDiscoveryIntakeApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

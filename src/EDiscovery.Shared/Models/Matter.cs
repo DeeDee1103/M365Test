@@ -24,8 +24,11 @@ public class Matter
     [StringLength(100)]
     public string CreatedBy { get; set; } = string.Empty;
     
+    public int? CreatedByUserId { get; set; }
+    
     public bool IsActive { get; set; } = true;
     
     // Navigation properties
+    public virtual User? CreatedByUser { get; set; }
     public virtual ICollection<CollectionJob> CollectionJobs { get; set; } = new List<CollectionJob>();
 }

@@ -162,3 +162,403 @@ Date: Sun, 05 Oct 2025 02:52:29 GMT
 [2025-10-04 22:52:29.965 -04:00 ERR] HybridGraphCollectorWorker.Worker: Collection failed: ClientSecretCredential authentication failed:  {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
 [2025-10-04 22:52:29.967 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 583ms | Items: 0 | Size: 0 bytes | CorrelationId: 5855857f | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
 [2025-10-04 22:52:49.994 -04:00 INF] Microsoft.Hosting.Lifetime: Application is shutting down... {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:12.981 -04:00 INF] : Starting Concurrent Hybrid Graph Collector Worker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:13.379 -04:00 FTL] : Concurrent Hybrid Graph Collector Worker terminated unexpectedly {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+System.AggregateException: Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: Microsoft.Extensions.Hosting.IHostedService Lifetime: Singleton ImplementationType: HybridGraphCollectorWorker.Worker': Cannot consume scoped service 'EDiscovery.Shared.Services.IComplianceLogger' from singleton 'Microsoft.Extensions.Hosting.IHostedService'.)
+ ---> System.InvalidOperationException: Error while validating the service descriptor 'ServiceType: Microsoft.Extensions.Hosting.IHostedService Lifetime: Singleton ImplementationType: HybridGraphCollectorWorker.Worker': Cannot consume scoped service 'EDiscovery.Shared.Services.IComplianceLogger' from singleton 'Microsoft.Extensions.Hosting.IHostedService'.
+ ---> System.InvalidOperationException: Cannot consume scoped service 'EDiscovery.Shared.Services.IComplianceLogger' from singleton 'Microsoft.Extensions.Hosting.IHostedService'.
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteValidator.VisitCallSite(ServiceCallSite callSite, CallSiteValidatorState argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteValidator.VisitConstructor(ConstructorCallSite constructorCallSite, CallSiteValidatorState state)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteValidator.VisitRootCache(ServiceCallSite singletonCallSite, CallSiteValidatorState state)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteValidator.VisitCallSite(ServiceCallSite callSite, CallSiteValidatorState argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteValidator.ValidateCallSite(ServiceCallSite callSite)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.OnCreate(ServiceCallSite callSite)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.ValidateService(ServiceDescriptor descriptor)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider..ctor(ICollection`1 serviceDescriptors, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.<>c__DisplayClass12_0.<.ctor>b__0()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Program.cs:line 49
+[2025-10-04 23:19:39.487 -04:00 INF] : Starting Concurrent Hybrid Graph Collector Worker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.687 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+PRAGMA journal_mode = 'wal'; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.902 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Users" PRIMARY KEY AUTOINCREMENT,
+    "Username" TEXT NOT NULL,
+    "Email" TEXT NOT NULL,
+    "FirstName" TEXT NOT NULL,
+    "LastName" TEXT NOT NULL,
+    "Role" TEXT NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "LastLoginDate" TEXT NULL,
+    "Department" TEXT NULL,
+    "Location" TEXT NULL,
+    "MaxConcurrentJobs" INTEGER NOT NULL,
+    "MaxDataSizePerJobGB" INTEGER NOT NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.918 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WorkerInstances" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_WorkerInstances" PRIMARY KEY AUTOINCREMENT,
+    "WorkerId" TEXT NOT NULL,
+    "MachineName" TEXT NOT NULL,
+    "IpAddress" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL,
+    "LastHeartbeat" TEXT NOT NULL,
+    "Status" TEXT NOT NULL,
+    "MaxConcurrentJobs" INTEGER NOT NULL,
+    "CurrentJobCount" INTEGER NOT NULL,
+    "AvailableMemoryMB" INTEGER NOT NULL,
+    "CpuUsagePercent" REAL NOT NULL,
+    "Version" TEXT NOT NULL,
+    "LastError" TEXT NULL,
+    "ShutdownTime" TEXT NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.922 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Matters" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Matters" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Description" TEXT NULL,
+    "CaseNumber" TEXT NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "CreatedBy" TEXT NOT NULL,
+    "CreatedByUserId" INTEGER NULL,
+    "IsActive" INTEGER NOT NULL,
+    CONSTRAINT "FK_Matters_Users_CreatedByUserId" FOREIGN KEY ("CreatedByUserId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.925 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "UserSessions" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_UserSessions" PRIMARY KEY AUTOINCREMENT,
+    "UserId" INTEGER NOT NULL,
+    "SessionId" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL,
+    "EndTime" TEXT NULL,
+    "IpAddress" TEXT NULL,
+    "UserAgent" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "LastActivityTime" TEXT NOT NULL,
+    CONSTRAINT "FK_UserSessions_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.928 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CollectionJobs" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_CollectionJobs" PRIMARY KEY AUTOINCREMENT,
+    "MatterId" INTEGER NOT NULL,
+    "CustodianEmail" TEXT NOT NULL,
+    "JobType" TEXT NOT NULL,
+    "Status" TEXT NOT NULL,
+    "Route" INTEGER NOT NULL,
+    "AssignedUserId" INTEGER NULL,
+    "AssignedWorkerId" TEXT NULL,
+    "AssignedAt" TEXT NULL,
+    "Priority" INTEGER NOT NULL,
+    "LockToken" TEXT NULL,
+    "LockExpiry" TEXT NULL,
+    "StartTime" TEXT NULL,
+    "EndTime" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "EstimatedDataSizeBytes" INTEGER NOT NULL,
+    "EstimatedItemCount" INTEGER NOT NULL,
+    "ActualDataSizeBytes" INTEGER NOT NULL,
+    "ActualItemCount" INTEGER NOT NULL,
+    "OutputPath" TEXT NULL,
+    "ManifestHash" TEXT NULL,
+    CONSTRAINT "FK_CollectionJobs_Matters_MatterId" FOREIGN KEY ("MatterId") REFERENCES "Matters" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_CollectionJobs_Users_AssignedUserId" FOREIGN KEY ("AssignedUserId") REFERENCES "Users" ("Id") ON DELETE SET NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.930 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CollectedItems" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_CollectedItems" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "ItemId" TEXT NOT NULL,
+    "ItemType" TEXT NOT NULL,
+    "Subject" TEXT NULL,
+    "From" TEXT NULL,
+    "To" TEXT NULL,
+    "ItemDate" TEXT NULL,
+    "CollectedDate" TEXT NOT NULL,
+    "SizeBytes" INTEGER NOT NULL,
+    "Sha256Hash" TEXT NOT NULL,
+    "FilePath" TEXT NULL,
+    "ErrorMessage" TEXT NULL,
+    "IsSuccessful" INTEGER NOT NULL,
+    CONSTRAINT "FK_CollectedItems_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.933 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobAssignments" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobAssignments" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "UserId" INTEGER NOT NULL,
+    "WorkerId" TEXT NOT NULL,
+    "AssignedAt" TEXT NOT NULL,
+    "CompletedAt" TEXT NULL,
+    "Status" TEXT NOT NULL,
+    "HeartbeatTime" TEXT NOT NULL,
+    "RetryCount" INTEGER NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "LockExpiry" TEXT NOT NULL,
+    "LockToken" TEXT NOT NULL,
+    "WorkerInstanceId" INTEGER NULL,
+    CONSTRAINT "FK_JobAssignments_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobAssignments_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobAssignments_WorkerInstances_WorkerInstanceId" FOREIGN KEY ("WorkerInstanceId") REFERENCES "WorkerInstances" ("Id")
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.936 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobLogs" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobLogs" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "Timestamp" TEXT NOT NULL,
+    "Level" TEXT NOT NULL,
+    "Category" TEXT NOT NULL,
+    "Message" TEXT NOT NULL,
+    "Details" TEXT NULL,
+    "CorrelationId" TEXT NULL,
+    CONSTRAINT "FK_JobLogs_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.938 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedDate", "Department", "Email", "FirstName", "IsActive", "LastLoginDate", "LastName", "Location", "MaxConcurrentJobs", "MaxDataSizePerJobGB", "Role", "Username")
+VALUES (1, '2025-10-05 03:19:40.3376818', NULL, 'admin@ediscovery.local', 'System', 1, NULL, 'Administrator', NULL, 10, 100, 'Administrator', 'admin');
+SELECT changes();
+
+INSERT INTO "Users" ("Id", "CreatedDate", "Department", "Email", "FirstName", "IsActive", "LastLoginDate", "LastName", "Location", "MaxConcurrentJobs", "MaxDataSizePerJobGB", "Role", "Username")
+VALUES (2, '2025-10-05 03:19:40.3377226', NULL, 'analyst@ediscovery.local', 'eDiscovery', 1, NULL, 'Analyst', NULL, 5, 50, 'Analyst', 'analyst');
+SELECT changes(); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.941 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_CollectedDate" ON "CollectedItems" ("CollectedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.943 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_JobId" ON "CollectedItems" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.945 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_CollectedItems_Sha256Hash" ON "CollectedItems" ("Sha256Hash"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.948 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_AssignedUserId" ON "CollectionJobs" ("AssignedUserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.950 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_CustodianEmail" ON "CollectionJobs" ("CustodianEmail"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.951 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_MatterId" ON "CollectionJobs" ("MatterId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.953 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_Status" ON "CollectionJobs" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.955 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_Status_Priority_CreatedDate" ON "CollectionJobs" ("Status", "Priority", "CreatedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.959 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_HeartbeatTime" ON "JobAssignments" ("HeartbeatTime"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.961 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_JobId_Status" ON "JobAssignments" ("JobId", "Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.964 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_JobAssignments_LockToken" ON "JobAssignments" ("LockToken"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.966 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_Status" ON "JobAssignments" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.968 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_UserId" ON "JobAssignments" ("UserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.970 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_WorkerId" ON "JobAssignments" ("WorkerId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.972 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_WorkerInstanceId" ON "JobAssignments" ("WorkerInstanceId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.976 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_JobId" ON "JobLogs" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.978 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_Level" ON "JobLogs" ("Level"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.980 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_Timestamp" ON "JobLogs" ("Timestamp"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.982 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Matters_CreatedByUserId" ON "Matters" ("CreatedByUserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.984 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Matters_Name" ON "Matters" ("Name"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.986 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.988 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Users_IsActive" ON "Users" ("IsActive"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.991 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Users_Role" ON "Users" ("Role"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.994 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_IsActive" ON "UserSessions" ("IsActive"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.996 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_LastActivityTime" ON "UserSessions" ("LastActivityTime"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:40.998 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_UserSessions_SessionId" ON "UserSessions" ("SessionId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:41.000 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_UserId" ON "UserSessions" ("UserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:41.001 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_WorkerInstances_LastHeartbeat" ON "WorkerInstances" ("LastHeartbeat"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:41.003 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_WorkerInstances_Status" ON "WorkerInstances" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:41.008 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_WorkerInstances_WorkerId" ON "WorkerInstances" ("WorkerId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:41.102 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: aa1f141b | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-36500","Timestamp":"2025-10-05T03:19:41.0370592Z","CorrelationId":"aa1f141b"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:41.104 -04:00 INF] : Concurrent Hybrid Graph Collector Worker started successfully {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:42.963 -04:00 INF] HybridGraphCollectorWorker.Worker: Hybrid Graph Collector Worker started at: "2025-10-04T23:19:42.9636138-04:00" | CorrelationId: c298a08d {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:42.972 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: c298a08d | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T23:19:42.9665855-04:00"},"Instance":"DONNELLD-BOOK-3-36500","Timestamp":"2025-10-05T03:19:42.9667005Z","CorrelationId":"c298a08d"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:42.980 -04:00 INF] HybridGraphCollectorWorker.Worker: Processing sample collection job for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:42.985 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Determining optimal route for custodian: user@company.com | CorrelationId: 0ae2d2a7 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:42.995 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionStarted | Custodian: user@company.com | CorrelationId: 0ae2d2a7 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"user@company.com","Data":{"CustodianEmail":"user@company.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T03:19:42.9830574Z","EndDate":"2025-10-05T03:19:42.9830859Z"}},"Instance":"DONNELLD-BOOK-3-36500","Timestamp":"2025-10-05T03:19:42.9868815Z","CorrelationId":"0ae2d2a7"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.006 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.008 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.010 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.040 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 0ae2d2a7 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.045 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision: Graph API selected - fits within limits | CorrelationId: 0ae2d2a7 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.046 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision completed: "GraphApi" (Confidence: 90.0 %) | CorrelationId: 0ae2d2a7 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.059 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionCompleted | Custodian: user@company.com | CorrelationId: 0ae2d2a7 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"user@company.com","Data":{"RecommendedRoute":"GraphApi","Reason":"Collection fits within Graph API limits","ConfidenceScore":0.9,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-36500","Timestamp":"2025-10-05T03:19:43.0488164Z","CorrelationId":"0ae2d2a7"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.062 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 77ms | Items: 0 | Size: 0 bytes | CorrelationId: 0ae2d2a7 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.067 -04:00 INF] HybridGraphCollectorWorker.Services.EDiscoveryApiClient: [Job 0] [AutoRouter] Route decision: GraphApi Reason: Collection fits within Graph API limits. Confidence: 90.0% {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.070 -04:00 INF] HybridGraphCollectorWorker.Worker: Executing Graph API collection for job type: "Email" {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.073 -04:00 INF] HybridGraphCollectorWorker.Services.GraphCollectorService: Starting email collection for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.713 -04:00 ERR] HybridGraphCollectorWorker.Services.GraphCollectorService: Error collecting email for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Azure.Identity.AuthenticationFailedException: ClientSecretCredential authentication failed: 
+ ---> MSAL.NetCore.4.76.0.0.MsalServiceException:
+	ErrorCode: invalid_request
+Microsoft.Identity.Client.MsalServiceException: AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 4e7ba28a-244f-4548-a103-1f1c15eb9301 Correlation ID: 022a9b08-abe8-4b65-949e-a3de1f1d17fc Timestamp: 2025-10-05 03:19:43Z
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ThrowServerException(HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.CreateResponse[T](HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ExecuteRequestAsync[T](Uri endPoint, HttpMethod method, RequestContext requestContext, Boolean expectErrorsOn200OK, Boolean addCommonHeaders, IList`1 onBeforePostRequestHandlers)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, String scopeOverride, String tokenEndpointOverride, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.GetAccessTokenAsync(CancellationToken cancellationToken, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.ExecuteAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.<>c__DisplayClass11_1.<<RunAsync>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.Identity.Client.Utils.StopwatchService.MeasureCodeBlockAsync(Func`1 codeBlock)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.RunAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.ApiConfig.Executors.ConfidentialClientExecutor.ExecuteAsync(AcquireTokenCommonParameters commonParameters, AcquireTokenForClientParameters clientParameters, CancellationToken cancellationToken)
+   at Azure.Identity.AbstractAcquireTokenParameterBuilderExtensions.ExecuteAsync[T](AbstractAcquireTokenParameterBuilder`1 builder, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientCoreAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+	StatusCode: 400 
+	ResponseBody: {"error":"invalid_request","error_description":"AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 4e7ba28a-244f-4548-a103-1f1c15eb9301 Correlation ID: 022a9b08-abe8-4b65-949e-a3de1f1d17fc Timestamp: 2025-10-05 03:19:43Z","error_codes":[900023],"timestamp":"2025-10-05 03:19:43Z","trace_id":"4e7ba28a-244f-4548-a103-1f1c15eb9301","correlation_id":"022a9b08-abe8-4b65-949e-a3de1f1d17fc","error_uri":"https://login.microsoftonline.com/error?code=900023"} 
+	Headers: Cache-Control: no-store, no-cache
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+P3P: CP="DSP CUR OTPi IND OTRi ONL FIN"
+client-request-id: 022a9b08-abe8-4b65-949e-a3de1f1d17fc
+x-ms-request-id: 4e7ba28a-244f-4548-a103-1f1c15eb9301
+x-ms-ests-server: 2.1.22096.4 - NCUS ProdSlices
+x-ms-clitelem: 1,900023,0,,
+x-ms-srs: 1.P
+Content-Security-Policy-Report-Only: object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-MFOrjKBj3iBW7Z-vqs0PxA' 'unsafe-inline' 'unsafe-eval' https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net https://*.msauthimages.net https://*.msidentity.com https://*.microsoftonline-p.com https://*.microsoftazuread-sso.com https://*.azureedge.net https://*.outlook.com https://*.office.com https://*.office365.com https://*.microsoft.com https://*.bing.com 'report-sample'; report-uri https://csp.microsoft.com/report/ESTS-UX-All
+Cross-Origin-Opener-Policy-Report-Only: same-origin; report-to="coop-endpoint"
+Reporting-Endpoints: coop-endpoint="https://idux.azurewebsites.net/api/coopReport"
+X-XSS-Protection: 0
+Set-Cookie: fpc=Am9DVot_7gtGn-WriooVtVY; expires=Tue, 04-Nov-2025 03:19:43 GMT; path=/; secure; HttpOnly; SameSite=None, x-ms-gateway-slice=estsfd; path=/; secure; samesite=none; httponly, stsservicecookie=estsfd; path=/; secure; samesite=none; httponly
+Date: Sun, 05 Oct 2025 03:19:42 GMT
+
+   --- End of inner exception stack trace ---
+   at Azure.Identity.CredentialDiagnosticScope.FailWrapAndThrow(Exception ex, String additionalMessage, Boolean isCredentialUnavailable)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Authentication.Azure.AzureIdentityAccessTokenProvider.GetAuthorizationTokenAsync(Uri uri, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Abstractions.Authentication.BaseBearerTokenAuthenticationProvider.AuthenticateRequestAsync(RequestInformation request, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.GetHttpResponseMessageAsync(RequestInformation requestInfo, CancellationToken cancellationToken, Activity activityForAttributes, String claims, Boolean isStreamResponse)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.SendAsync[ModelType](RequestInformation requestInfo, ParsableFactory`1 factory, Dictionary`2 errorMapping, CancellationToken cancellationToken)
+   at Microsoft.Graph.Users.Item.UserItemRequestBuilder.GetAsync(Action`1 requestConfiguration, CancellationToken cancellationToken)
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.<>c__DisplayClass4_0.<<CollectEmailAsync>b__0>d.MoveNext() in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 42
+--- End of stack trace from previous location ---
+   at HybridGraphCollectorWorker.Services.RetryPolicy.ExecuteAsync[T](Func`1 operation) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\RetryPolicy.cs:line 31
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.CollectEmailAsync(CollectionRequest request, CancellationToken cancellationToken) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 41
+[2025-10-04 23:19:43.743 -04:00 ERR] HybridGraphCollectorWorker.Worker: Collection failed: ClientSecretCredential authentication failed:  {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:19:43.744 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 768ms | Items: 0 | Size: 0 bytes | CorrelationId: d43f1760 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:20:13.751 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: e469c412 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:20:43.773 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 3430a39e | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:21:13.786 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 34ef3788 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:21:43.800 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 0ad394f1 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:22:13.826 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: a7d07ba3 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:22:43.839 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 73bc4677 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:23:13.862 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: d820c493 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:23:43.882 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 54c2c5a9 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:24:13.918 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 79f7db4a | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:24:43.945 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: a1681238 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:25:13.955 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 0381ecd0 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:25:43.986 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 77a39fcd | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:26:14.022 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 8bf788a4 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:26:44.052 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: d032431c | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:27:14.061 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 67790c12 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:27:44.084 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 45f3b65f | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:28:14.098 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 43b077b6 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:28:44.109 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: a1642c43 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:29:14.122 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 3df0497d | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:29:43.061 -04:00 INF] Microsoft.Hosting.Lifetime: Application is shutting down... {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:29.486 -04:00 INF] : Starting Concurrent Hybrid Graph Collector Worker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:30.823 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:30.923 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: adf65945 | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-34568","Timestamp":"2025-10-05T03:31:30.8389675Z","CorrelationId":"adf65945"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:30.929 -04:00 INF] : Concurrent Hybrid Graph Collector Worker started successfully {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.120 -04:00 INF] HybridGraphCollectorWorker.Worker: Hybrid Graph Collector Worker started at: "2025-10-04T23:31:33.1204053-04:00" | CorrelationId: bc399544 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.132 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: bc399544 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T23:31:33.124977-04:00"},"Instance":"DONNELLD-BOOK-3-34568","Timestamp":"2025-10-05T03:31:33.1251078Z","CorrelationId":"bc399544"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.141 -04:00 INF] HybridGraphCollectorWorker.Worker: Processing sample collection job for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.146 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Determining optimal route for custodian: user@company.com | CorrelationId: 17f97b1b {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.159 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionStarted | Custodian: user@company.com | CorrelationId: 17f97b1b | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"user@company.com","Data":{"CustodianEmail":"user@company.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T03:31:33.1438445Z","EndDate":"2025-10-05T03:31:33.1438706Z"}},"Instance":"DONNELLD-BOOK-3-34568","Timestamp":"2025-10-05T03:31:33.1509597Z","CorrelationId":"17f97b1b"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.166 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.169 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.172 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.201 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 17f97b1b {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.206 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision: Graph API selected - fits within limits | CorrelationId: 17f97b1b {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.208 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision completed: "GraphApi" (Confidence: 90.0 %) | CorrelationId: 17f97b1b {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.222 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionCompleted | Custodian: user@company.com | CorrelationId: 17f97b1b | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"user@company.com","Data":{"RecommendedRoute":"GraphApi","Reason":"Collection fits within Graph API limits","ConfidenceScore":0.9,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-34568","Timestamp":"2025-10-05T03:31:33.2113815Z","CorrelationId":"17f97b1b"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.225 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 78ms | Items: 0 | Size: 0 bytes | CorrelationId: 17f97b1b | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.229 -04:00 INF] HybridGraphCollectorWorker.Services.EDiscoveryApiClient: [Job 0] [AutoRouter] Route decision: GraphApi Reason: Collection fits within Graph API limits. Confidence: 90.0% {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.233 -04:00 INF] HybridGraphCollectorWorker.Worker: Executing Graph API collection for job type: "Email" {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.237 -04:00 INF] HybridGraphCollectorWorker.Services.GraphCollectorService: Starting email collection for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.834 -04:00 ERR] HybridGraphCollectorWorker.Services.GraphCollectorService: Error collecting email for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Azure.Identity.AuthenticationFailedException: ClientSecretCredential authentication failed: 
+ ---> MSAL.NetCore.4.76.0.0.MsalServiceException:
+	ErrorCode: invalid_request
+Microsoft.Identity.Client.MsalServiceException: AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 8212bed7-8950-485e-b028-b85e8e5c5c00 Correlation ID: 17c3a657-f2f2-4b39-8263-71835be2cf68 Timestamp: 2025-10-05 03:31:33Z
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ThrowServerException(HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.CreateResponse[T](HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ExecuteRequestAsync[T](Uri endPoint, HttpMethod method, RequestContext requestContext, Boolean expectErrorsOn200OK, Boolean addCommonHeaders, IList`1 onBeforePostRequestHandlers)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, String scopeOverride, String tokenEndpointOverride, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.GetAccessTokenAsync(CancellationToken cancellationToken, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.ExecuteAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.<>c__DisplayClass11_1.<<RunAsync>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.Identity.Client.Utils.StopwatchService.MeasureCodeBlockAsync(Func`1 codeBlock)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.RunAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.ApiConfig.Executors.ConfidentialClientExecutor.ExecuteAsync(AcquireTokenCommonParameters commonParameters, AcquireTokenForClientParameters clientParameters, CancellationToken cancellationToken)
+   at Azure.Identity.AbstractAcquireTokenParameterBuilderExtensions.ExecuteAsync[T](AbstractAcquireTokenParameterBuilder`1 builder, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientCoreAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+	StatusCode: 400 
+	ResponseBody: {"error":"invalid_request","error_description":"AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 8212bed7-8950-485e-b028-b85e8e5c5c00 Correlation ID: 17c3a657-f2f2-4b39-8263-71835be2cf68 Timestamp: 2025-10-05 03:31:33Z","error_codes":[900023],"timestamp":"2025-10-05 03:31:33Z","trace_id":"8212bed7-8950-485e-b028-b85e8e5c5c00","correlation_id":"17c3a657-f2f2-4b39-8263-71835be2cf68","error_uri":"https://login.microsoftonline.com/error?code=900023"} 
+	Headers: Cache-Control: no-store, no-cache
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+P3P: CP="DSP CUR OTPi IND OTRi ONL FIN"
+client-request-id: 17c3a657-f2f2-4b39-8263-71835be2cf68
+x-ms-request-id: 8212bed7-8950-485e-b028-b85e8e5c5c00
+x-ms-ests-server: 2.1.22024.3 - EUS ProdSlices
+x-ms-clitelem: 1,900023,0,,
+x-ms-srs: 1.P
+Content-Security-Policy-Report-Only: object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-GW_Ryo_YxW88Np3Nn8OZSg' 'unsafe-inline' 'unsafe-eval' https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net https://*.msauthimages.net https://*.msidentity.com https://*.microsoftonline-p.com https://*.microsoftazuread-sso.com https://*.azureedge.net https://*.outlook.com https://*.office.com https://*.office365.com https://*.microsoft.com https://*.bing.com 'report-sample'; report-uri https://csp.microsoft.com/report/ESTS-UX-All
+Cross-Origin-Opener-Policy-Report-Only: same-origin; report-to="coop-endpoint"
+Reporting-Endpoints: coop-endpoint="https://idux.azurewebsites.net/api/coopReport"
+X-XSS-Protection: 0
+Set-Cookie: fpc=Ak3qBzF-JHlOhfYzFiN9W34; expires=Tue, 04-Nov-2025 03:31:33 GMT; path=/; secure; HttpOnly; SameSite=None, x-ms-gateway-slice=estsfd; path=/; secure; samesite=none; httponly, stsservicecookie=estsfd; path=/; secure; samesite=none; httponly
+Date: Sun, 05 Oct 2025 03:31:32 GMT
+
+   --- End of inner exception stack trace ---
+   at Azure.Identity.CredentialDiagnosticScope.FailWrapAndThrow(Exception ex, String additionalMessage, Boolean isCredentialUnavailable)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Authentication.Azure.AzureIdentityAccessTokenProvider.GetAuthorizationTokenAsync(Uri uri, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Abstractions.Authentication.BaseBearerTokenAuthenticationProvider.AuthenticateRequestAsync(RequestInformation request, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.GetHttpResponseMessageAsync(RequestInformation requestInfo, CancellationToken cancellationToken, Activity activityForAttributes, String claims, Boolean isStreamResponse)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.SendAsync[ModelType](RequestInformation requestInfo, ParsableFactory`1 factory, Dictionary`2 errorMapping, CancellationToken cancellationToken)
+   at Microsoft.Graph.Users.Item.UserItemRequestBuilder.GetAsync(Action`1 requestConfiguration, CancellationToken cancellationToken)
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.<>c__DisplayClass4_0.<<CollectEmailAsync>b__0>d.MoveNext() in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 42
+--- End of stack trace from previous location ---
+   at HybridGraphCollectorWorker.Services.RetryPolicy.ExecuteAsync[T](Func`1 operation) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\RetryPolicy.cs:line 31
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.CollectEmailAsync(CollectionRequest request, CancellationToken cancellationToken) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 41
+[2025-10-04 23:31:33.860 -04:00 ERR] HybridGraphCollectorWorker.Worker: Collection failed: ClientSecretCredential authentication failed:  {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:33.862 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 724ms | Items: 0 | Size: 0 bytes | CorrelationId: 63dc7ba8 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 23:31:42.076 -04:00 INF] Microsoft.Hosting.Lifetime: Application is shutting down... {"Application":"HybridGraphCollectorWorker","Environment":"Development"}

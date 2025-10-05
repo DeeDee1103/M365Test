@@ -1,5 +1,4 @@
 using EDiscovery.Shared.Services;
-using EDiscoveryIntakeApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -25,10 +24,13 @@ try
     // Add services to the container.
     builder.Services.AddControllers();
 
-    // Add Entity Framework
-    builder.Services.AddDbContext<EDiscoveryDbContext>(options =>
+    // Add Entity Framework with shared context factory for multi-threading
+    builder.Services.AddDbContextFactory<EDiscovery.Shared.Services.EDiscoveryDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
             "Data Source=ediscovery.db"));
+
+    // Add concurrent job management services
+    builder.Services.AddScoped<IConcurrentJobManager, ConcurrentJobManager>();
 
     // Add AutoRouter service
     builder.Services.AddScoped<IAutoRouterService, AutoRouterService>();
@@ -44,7 +46,7 @@ try
         { 
             Title = "eDiscovery Intake API", 
             Version = "v1",
-            Description = "API for managing eDiscovery matters, jobs, and collection tracking"
+            Description = "API for managing eDiscovery matters, jobs, and collection tracking with multi-user concurrent processing"
         });
     });
 
@@ -53,11 +55,12 @@ try
     // Ensure database is created
     using (var scope = app.Services.CreateScope())
     {
-        var context = scope.ServiceProvider.GetRequiredService<EDiscoveryDbContext>();
+        var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<EDiscovery.Shared.Services.EDiscoveryDbContext>>();
+        using var context = dbContextFactory.CreateDbContext();
         context.Database.EnsureCreated();
         
         var complianceLogger = scope.ServiceProvider.GetRequiredService<IComplianceLogger>();
-        complianceLogger.LogAudit("DatabaseInitialized", new { DatabaseProvider = "SQLite" });
+        complianceLogger.LogAudit("DatabaseInitialized", new { DatabaseProvider = "SQLite", ConcurrentProcessingEnabled = true });
     }
 
     // Configure the HTTP request pipeline.

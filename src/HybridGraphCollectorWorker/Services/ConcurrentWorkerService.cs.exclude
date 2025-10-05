@@ -1,0 +1,451 @@
+using EDiscovery.Shared.Models;
+using EDiscovery.Shared.Services;
+using HybridGraphCollectorWorker.Services;
+using System.Diagnostics;
+
+namespace HybridGraphCollectorWorker.Services;
+
+public class ConcurrentWorkerService : BackgroundService
+{
+    private readonly ILogger<ConcurrentWorkerService> _logger;
+    private readonly IComplianceLogger _complianceLogger;
+    private readonly IGraphCollectorService _graphCollector;
+    private readonly IAutoRouterService _autoRouter;
+    private readonly IEDiscoveryApiClient _apiClient;
+    private readonly IConcurrentJobManager _jobManager;
+    private readonly IConfiguration _configuration;
+    private readonly SemaphoreSlim _jobSemaphore;
+    private readonly string _workerId;
+    private readonly int _maxConcurrentJobs;
+    private readonly Dictionary<int, CancellationTokenSource> _activeJobs;
+    private readonly Timer _heartbeatTimer;
+    private readonly Timer _cleanupTimer;
+
+    public ConcurrentWorkerService(
+        ILogger<ConcurrentWorkerService> logger,
+        IComplianceLogger complianceLogger,
+        IGraphCollectorService graphCollector,
+        IAutoRouterService autoRouter,
+        IEDiscoveryApiClient apiClient,
+        IConcurrentJobManager jobManager,
+        IConfiguration configuration)
+    {
+        _logger = logger;
+        _complianceLogger = complianceLogger;
+        _graphCollector = graphCollector;
+        _autoRouter = autoRouter;
+        _apiClient = apiClient;
+        _jobManager = jobManager;
+        _configuration = configuration;
+        
+        _workerId = $"{Environment.MachineName}-{Guid.NewGuid().ToString()[..8]}";
+        _maxConcurrentJobs = configuration.GetValue<int>("Worker:MaxConcurrentJobs", 3);
+        _jobSemaphore = new SemaphoreSlim(_maxConcurrentJobs, _maxConcurrentJobs);
+        _activeJobs = new Dictionary<int, CancellationTokenSource>();
+        
+        // Setup periodic timers
+        _heartbeatTimer = new Timer(SendHeartbeat, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
+        _cleanupTimer = new Timer(CleanupExpiredLocks, null, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(5));
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        
+        _logger.LogInformation("Concurrent Hybrid Graph Collector Worker {WorkerId} started at: {Time} | CorrelationId: {CorrelationId}", 
+            _workerId, DateTimeOffset.Now, correlationId);
+        
+        // Register this worker instance
+        await RegisterWorkerAsync();
+        
+        _complianceLogger.LogAudit("ConcurrentWorkerServiceStarted", new 
+        { 
+            WorkerId = _workerId,
+            MaxConcurrentJobs = _maxConcurrentJobs,
+            StartTime = DateTimeOffset.Now 
+        }, null, correlationId);
+
+        try
+        {
+            // Main processing loop
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    await ProcessNextJobAsync(stoppingToken);
+                    
+                    // Brief pause before checking for next job
+                    await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                }
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+                {
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error in worker main loop | WorkerId: {WorkerId}", _workerId);
+                    await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken); // Back off on error
+                }
+            }
+        }
+        finally
+        {
+            await ShutdownWorkerAsync();
+        }
+    }
+
+    private async Task ProcessNextJobAsync(CancellationToken stoppingToken)
+    {
+        // Wait for available slot
+        if (!await _jobSemaphore.WaitAsync(TimeSpan.FromSeconds(1), stoppingToken))
+        {
+            return; // No slots available, try again later
+        }
+
+        try
+        {
+            // Get default user for POC (in production, this would come from authentication)
+            var userId = _configuration.GetValue<int>("Worker:DefaultUserId", 1);
+            
+            // Get next available job
+            var job = await _jobManager.GetNextAvailableJobAsync(_workerId, userId, stoppingToken);
+            
+            if (job == null)
+            {
+                return; // No jobs available
+            }
+
+            // Create cancellation token for this specific job
+            var jobCts = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+            
+            lock (_activeJobs)
+            {
+                _activeJobs[job.Id] = jobCts;
+            }
+
+            // Process job concurrently
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await ProcessJobAsync(job, jobCts.Token);
+                }
+                finally
+                {
+                    lock (_activeJobs)
+                    {
+                        _activeJobs.Remove(job.Id);
+                    }
+                    
+                    jobCts.Dispose();
+                    _jobSemaphore.Release();
+                }
+            }, stoppingToken);
+        }
+        catch
+        {
+            _jobSemaphore.Release();
+            throw;
+        }
+    }
+
+    private async Task ProcessJobAsync(CollectionJob job, CancellationToken cancellationToken)
+    {
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        var performanceTimer = _complianceLogger.StartPerformanceTimer();
+        
+        _logger.LogInformation("Processing job {JobId} for custodian {Custodian} | WorkerId: {WorkerId} | CorrelationId: {CorrelationId}", 
+            job.Id, job.CustodianEmail, _workerId, correlationId);
+        
+        _complianceLogger.LogAudit("JobProcessingStarted", new 
+        {
+            JobId = job.Id,
+            WorkerId = _workerId,
+            CustodianEmail = job.CustodianEmail,
+            JobType = job.JobType.ToString(),
+            Priority = job.Priority
+        }, job.CustodianEmail, correlationId);
+
+        try
+        {
+            // Start heartbeat for this job
+            using var heartbeatTimer = new Timer(
+                async _ => await _jobManager.UpdateJobHeartbeatAsync(job.Id, _workerId, cancellationToken),
+                null, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(5));
+
+            // Determine collection route using AutoRouter
+            _logger.LogInformation("Determining optimal route for job {JobId} | WorkerId: {WorkerId}", job.Id, _workerId);
+            
+            var routeDecision = await _autoRouter.DetermineOptimalRouteAsync(
+                job.CustodianEmail, 
+                job.JobType, 
+                DateTime.UtcNow.AddDays(-30), 
+                DateTime.UtcNow,
+                correlationId,
+                cancellationToken);
+
+            // Log routing decision
+            await _apiClient.LogAutoRouterDecisionAsync(job.Id, routeDecision);
+
+            // Create collection request
+            var collectionRequest = new CollectionRequest
+            {
+                CustodianEmail = job.CustodianEmail,
+                JobType = job.JobType,
+                StartDate = DateTime.UtcNow.AddDays(-30),
+                EndDate = DateTime.UtcNow,
+                OutputPath = $"./output/{job.CustodianEmail}"
+            };
+
+            var collectionResult = new CollectionResult();
+
+            // Execute collection based on route
+            switch (routeDecision.RecommendedRoute)
+            {
+                case CollectionRoute.GraphApi:
+                    _logger.LogInformation("Executing Graph API collection for job {JobId} | WorkerId: {WorkerId}", job.Id, _workerId);
+                    collectionResult = await ExecuteGraphApiCollectionAsync(collectionRequest, cancellationToken);
+                    break;
+                    
+                case CollectionRoute.GraphDataConnect:
+                    _logger.LogInformation("Executing Graph Data Connect collection for job {JobId} | WorkerId: {WorkerId}", job.Id, _workerId);
+                    collectionResult = await ExecuteGraphDataConnectCollectionAsync(collectionRequest, cancellationToken);
+                    break;
+                    
+                default:
+                    throw new InvalidOperationException($"Unsupported collection route: {routeDecision.RecommendedRoute}");
+            }
+
+            // Record collected items
+            if (collectionResult.CollectedItems?.Any() == true)
+            {
+                await _apiClient.RecordCollectedItemsAsync(job.Id, collectionResult.CollectedItems);
+            }
+
+            // Mark job as completed
+            await _apiClient.CompleteJobAsync(job.Id, collectionResult.TotalItemsCollected, collectionResult.TotalSizeBytes);
+            
+            // Release job lock
+            await _jobManager.ReleaseJobLockAsync(job.Id, _workerId, cancellationToken);
+            
+            _complianceLogger.LogPerformance("Job.ProcessJob", performanceTimer.ElapsedMilliseconds, 
+                collectionResult.TotalItemsCollected, collectionResult.TotalSizeBytes, correlationId);
+            
+            _complianceLogger.LogAudit("JobProcessingCompleted", new 
+            {
+                JobId = job.Id,
+                WorkerId = _workerId,
+                ItemsCollected = collectionResult.TotalItemsCollected,
+                SizeBytes = collectionResult.TotalSizeBytes,
+                DurationMs = performanceTimer.ElapsedMilliseconds
+            }, job.CustodianEmail, correlationId);
+            
+            _logger.LogInformation("Successfully completed job {JobId} | WorkerId: {WorkerId} | Items: {Items} | Duration: {Duration}ms", 
+                job.Id, _workerId, collectionResult.TotalItemsCollected, performanceTimer.ElapsedMilliseconds);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            _logger.LogWarning("Job {JobId} was cancelled | WorkerId: {WorkerId}", job.Id, _workerId);
+            
+            _complianceLogger.LogAudit("JobProcessingCancelled", new 
+            {
+                JobId = job.Id,
+                WorkerId = _workerId,
+                DurationMs = performanceTimer.ElapsedMilliseconds
+            }, job.CustodianEmail, correlationId);
+            
+            await _jobManager.ReleaseJobLockAsync(job.Id, _workerId, CancellationToken.None);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Collection failed for job {JobId} | WorkerId: {WorkerId}", job.Id, _workerId);
+            
+            _complianceLogger.LogAudit("JobProcessingFailed", new 
+            {
+                JobId = job.Id,
+                WorkerId = _workerId,
+                Error = ex.Message,
+                DurationMs = performanceTimer.ElapsedMilliseconds
+            }, job.CustodianEmail, correlationId);
+            
+            await _apiClient.FailJobAsync(job.Id, ex.Message);
+            await _jobManager.ReleaseJobLockAsync(job.Id, _workerId, CancellationToken.None);
+        }
+    }
+
+    private async Task<CollectionResult> ExecuteGraphApiCollectionAsync(CollectionRequest request, CancellationToken cancellationToken)
+    {
+        switch (request.JobType)
+        {
+            case CollectionJobType.Email:
+                return await _graphCollector.CollectEmailAsync(request, cancellationToken);
+            
+            case CollectionJobType.OneDrive:
+                return await _graphCollector.CollectOneDriveAsync(request, cancellationToken);
+            
+            default:
+                throw new NotSupportedException($"Job type {request.JobType} not supported for Graph API collection");
+        }
+    }
+
+    private async Task<CollectionResult> ExecuteGraphDataConnectCollectionAsync(CollectionRequest request, CancellationToken cancellationToken)
+    {
+        // Placeholder for Graph Data Connect implementation
+        _logger.LogWarning("Graph Data Connect collection not yet implemented. Falling back to Graph API.");
+        return await ExecuteGraphApiCollectionAsync(request, cancellationToken);
+    }
+
+    private async Task RegisterWorkerAsync()
+    {
+        try
+        {
+            var worker = new WorkerInstance
+            {
+                WorkerId = _workerId,
+                MachineName = Environment.MachineName,
+                IpAddress = GetLocalIpAddress(),
+                MaxConcurrentJobs = _maxConcurrentJobs,
+                Version = GetType().Assembly.GetName().Version?.ToString() ?? "1.0.0",
+                AvailableMemoryMB = GetAvailableMemoryMB(),
+                CpuUsagePercent = GetCpuUsagePercent()
+            };
+            
+            await _jobManager.RegisterWorkerAsync(worker);
+            
+            _logger.LogInformation("Worker {WorkerId} registered successfully", _workerId);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to register worker {WorkerId}", _workerId);
+        }
+    }
+
+    private async Task ShutdownWorkerAsync()
+    {
+        try
+        {
+            _logger.LogInformation("Shutting down worker {WorkerId}", _workerId);
+            
+            await _jobManager.UpdateWorkerStatusAsync(_workerId, WorkerStatus.Shutting_Down);
+            
+            // Cancel all active jobs
+            List<CancellationTokenSource> activeJobTokens;
+            lock (_activeJobs)
+            {
+                activeJobTokens = _activeJobs.Values.ToList();
+                _activeJobs.Clear();
+            }
+            
+            foreach (var cts in activeJobTokens)
+            {
+                cts.Cancel();
+                cts.Dispose();
+            }
+            
+            // Wait for jobs to complete (with timeout)
+            var timeout = TimeSpan.FromMinutes(2);
+            var completionTime = DateTime.UtcNow.Add(timeout);
+            
+            while (_jobSemaphore.CurrentCount < _maxConcurrentJobs && DateTime.UtcNow < completionTime)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+            
+            await _jobManager.UpdateWorkerStatusAsync(_workerId, WorkerStatus.Offline);
+            
+            _complianceLogger.LogAudit("ConcurrentWorkerServiceShutdown", new 
+            {
+                WorkerId = _workerId,
+                ShutdownTime = DateTimeOffset.Now
+            }, null, _complianceLogger.CreateCorrelationId());
+            
+            _logger.LogInformation("Worker {WorkerId} shutdown completed", _workerId);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during worker {WorkerId} shutdown", _workerId);
+        }
+        finally
+        {
+            _heartbeatTimer?.Dispose();
+            _cleanupTimer?.Dispose();
+        }
+    }
+
+    private async void SendHeartbeat(object? state)
+    {
+        try
+        {
+            await _jobManager.UpdateWorkerStatusAsync(_workerId, WorkerStatus.Available);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error sending heartbeat for worker {WorkerId}", _workerId);
+        }
+    }
+
+    private async void CleanupExpiredLocks(object? state)
+    {
+        try
+        {
+            await _jobManager.CleanupExpiredLocksAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error cleaning up expired locks");
+        }
+    }
+
+    private static string GetLocalIpAddress()
+    {
+        try
+        {
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            return host.AddressList.FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)?.ToString() ?? "Unknown";
+        }
+        catch
+        {
+            return "Unknown";
+        }
+    }
+
+    private static long GetAvailableMemoryMB()
+    {
+        try
+        {
+            var process = Process.GetCurrentProcess();
+            return (GC.GetTotalMemory(false) / 1024 / 1024);
+        }
+        catch
+        {
+            return 0;
+        }
+    }
+
+    private static double GetCpuUsagePercent()
+    {
+        try
+        {
+            var process = Process.GetCurrentProcess();
+            return process.TotalProcessorTime.TotalMilliseconds / Environment.TickCount * 100;
+        }
+        catch
+        {
+            return 0;
+        }
+    }
+
+    public override void Dispose()
+    {
+        _jobSemaphore?.Dispose();
+        _heartbeatTimer?.Dispose();
+        _cleanupTimer?.Dispose();
+        
+        foreach (var cts in _activeJobs.Values)
+        {
+            cts.Dispose();
+        }
+        
+        base.Dispose();
+    }
+}
