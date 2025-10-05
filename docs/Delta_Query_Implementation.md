@@ -70,6 +70,7 @@ CREATE TABLE DeltaCursors (
 **Interface**: `IDeltaQueryService`
 
 **Core Methods**:
+
 - `InitializeDeltaTrackingAsync()` - Creates new delta cursor for custodian/type
 - `GetActiveDeltaCursorsAsync()` - Retrieves active delta cursors for processing
 - `QueryMailDeltaAsync()` - Executes incremental mail collection
@@ -82,12 +83,14 @@ CREATE TABLE DeltaCursors (
 ### 📊 **Delta Models** (`src/EDiscovery.Shared/Models/DeltaModels.cs`)
 
 **DeltaCursor Entity**:
+
 - Tracks delta state per custodian and data type
 - Stores Microsoft Graph delta tokens
 - Maintains query metrics and error information
 - Supports automatic cleanup and age management
 
 **DeltaQueryResult Class**:
+
 - Encapsulates results from delta query execution
 - Includes success status, item count, size metrics
 - Provides next delta token for subsequent queries
@@ -114,12 +117,12 @@ CREATE TABLE DeltaCursors (
 
 **Environment-Specific Settings**:
 
-| Setting                    | Development | Staging | Production |
-| -------------------------- | ----------- | ------- | ---------- |
+| Setting                     | Development | Staging | Production |
+| --------------------------- | ----------- | ------- | ---------- |
 | `DeltaQueryIntervalMinutes` | 15          | 30      | 60         |
-| `MaxDeltaAgeDays`          | 7           | 14      | 30         |
-| `MaxDeltaItemsPerQuery`    | 500         | 750     | 1000       |
-| `MaxDeltaFailures`         | 2           | 3       | 3          |
+| `MaxDeltaAgeDays`           | 7           | 14      | 30         |
+| `MaxDeltaItemsPerQuery`     | 500         | 750     | 1000       |
+| `MaxDeltaFailures`          | 2           | 3       | 3          |
 
 ## 🔄 **Operational Flow**
 
@@ -136,11 +139,13 @@ CREATE TABLE DeltaCursors (
 ### 🕐 **Timing and Intervals**
 
 **Background Processing**:
+
 - Worker service polls for active cursors every 15 seconds (configurable)
 - Delta queries execute based on `DeltaQueryIntervalMinutes` setting
 - Automatic cleanup runs periodically based on `MaxDeltaAgeDays`
 
 **Interval Logic**:
+
 ```csharp
 var timeSinceLastQuery = DateTime.UtcNow - cursor.LastDeltaTime;
 var intervalMinutes = TimeSpan.FromMinutes(_deltaOptions.DeltaQueryIntervalMinutes);
@@ -195,12 +200,14 @@ env:
 ### ✅ **Successful Implementation Validation**
 
 **Build Success**:
+
 ```
 EDiscovery.Shared succeeded (0.4s) → src\EDiscovery.Shared\bin\Debug\net9.0\EDiscovery.Shared.dll
 HybridGraphCollectorWorker succeeded with 3 warning(s) (0.4s) → src\HybridGraphCollectorWorker\bin\Debug\net9.0\HybridGraphCollectorWorker.dll
 ```
 
 **Runtime Validation**:
+
 ```
 [00:19:12 INF] Starting Concurrent Hybrid Graph Collector Worker
 [00:19:12 DBG] Processing delta queries | CorrelationId: a1481793
@@ -208,6 +215,7 @@ SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", ... FROM "Del
 ```
 
 **Configuration Loading**:
+
 - ✅ Delta query configuration properly loaded from appsettings.json
 - ✅ Environment-specific intervals applied (Development: 15 minutes)
 - ✅ Service scoping correctly implemented for database dependencies
@@ -216,6 +224,7 @@ SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", ... FROM "Del
 ### 🔍 **Expected Database Behavior**
 
 The system correctly generates Entity Framework queries for the DeltaCursors table:
+
 - ✅ Proper SQL generation for cursor retrieval
 - ✅ Correlation ID tracking in logs
 - ✅ Service scope creation for database operations
@@ -226,12 +235,14 @@ The system correctly generates Entity Framework queries for the DeltaCursors tab
 ### 📊 **Cost & Performance Optimization**
 
 **Before Delta Queries**:
+
 - Full collection required for every execution
 - High Microsoft Graph API usage
 - Redundant processing of unchanged data
 - Linear cost increase with data growth
 
 **After Delta Queries**:
+
 - Only new/changed items collected
 - ~90% reduction in API calls after initial baseline
 - Faster collection completion times
@@ -240,6 +251,7 @@ The system correctly generates Entity Framework queries for the DeltaCursors tab
 ### 📈 **Metrics & Monitoring**
 
 **Tracked Metrics**:
+
 - Delta query execution count per cursor
 - Items collected in each delta query
 - Bytes processed per delta operation
@@ -247,6 +259,7 @@ The system correctly generates Entity Framework queries for the DeltaCursors tab
 - Error rates and failure patterns
 
 **Logging Examples**:
+
 ```json
 {
   "Level": "Information",

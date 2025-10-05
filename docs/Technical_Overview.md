@@ -67,7 +67,7 @@ The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution des
    - Comprehensive indexes for optimal concurrent access performance
    - Entity Framework migrations with proper relationships and constraints
 
-3. **Concurrent Job Management Services**
+5. **Concurrent Job Management Services**
 
    - ConcurrentJobManager with GetNextAvailableJobAsync for atomic job acquisition
    - Pessimistic locking with automatic lock expiration and cleanup
@@ -76,7 +76,7 @@ The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution des
    - Retry logic with exponential backoff for failed operations
    - Job status tracking through complete lifecycle (Pending → Assigned → Processing → Completed)
 
-4. **Enterprise-Grade Logging System** - Comprehensive Serilog implementation with structured logging
+6. **Enterprise-Grade Logging System** - Comprehensive Serilog implementation with structured logging
 
    - ComplianceLogger service for eDiscovery-specific audit requirements
    - Correlation ID tracking across distributed operations and multiple users
@@ -84,7 +84,7 @@ The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution des
    - Separate audit logs with 365-day retention for compliance
    - JSON structured format for machine analysis and alerts
 
-5. **Worker Service Enhancements** - Multi-user aware concurrent processing
+7. **Worker Service Enhancements** - Multi-user aware concurrent processing
 
    - ConcurrentWorkerService with configurable max concurrent jobs per worker
    - Worker registration and health monitoring with CPU and memory metrics
@@ -92,7 +92,7 @@ The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution des
    - Graceful shutdown with job completion guarantees
    - Background heartbeat and cleanup timers for reliability
 
-6. **API Service Enhancements** - Multi-user database integration
+8. **API Service Enhancements** - Multi-user database integration
    - DbContextFactory pattern for safe multi-threading database access
    - IConcurrentJobManager integration for job assignment operations
    - Enhanced dependency injection with proper service lifetimes
@@ -450,12 +450,12 @@ return GraphDataConnect; // Bulk, scheduled collection
 
 **Supported Data Types**:
 
-| Data Type  | Delta Support | Token Storage        | Status      |
-| ---------- | ------------- | -------------------- | ----------- |
-| **Mail**   | ✅ Complete   | Database DeltaCursor | ✅ Ready    |
-| **OneDrive** | ✅ Complete   | Database DeltaCursor | ✅ Ready    |
-| **SharePoint** | 🚧 Planned   | Future enhancement   | 🚧 Roadmap |
-| **Teams**  | 🚧 Planned   | Future enhancement   | 🚧 Roadmap |
+| Data Type      | Delta Support | Token Storage        | Status     |
+| -------------- | ------------- | -------------------- | ---------- |
+| **Mail**       | ✅ Complete   | Database DeltaCursor | ✅ Ready   |
+| **OneDrive**   | ✅ Complete   | Database DeltaCursor | ✅ Ready   |
+| **SharePoint** | 🚧 Planned    | Future enhancement   | 🚧 Roadmap |
+| **Teams**      | 🚧 Planned    | Future enhancement   | 🚧 Roadmap |
 
 **Configuration Options**:
 

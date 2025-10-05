@@ -208,30 +208,30 @@ env:
 The Delta Query system provides incremental collection to avoid re-pulling unchanged content:
 
 - **Mail Delta Queries**: Track changes since last collection using Microsoft Graph delta tokens
-- **OneDrive Delta Queries**: Monitor file and folder changes incrementally  
+- **OneDrive Delta Queries**: Monitor file and folder changes incrementally
 - **Cursor Storage**: Simple table-based tracking of delta state per custodian and data type
 - **Background Processing**: Configurable intervals for delta query execution
 - **Automatic Cleanup**: Remove stale cursors and force periodic full resyncs
 
 ### 🎯 **Delta Query Features**
 
-| Feature                | Description                               | Configuration                    |
-| ---------------------- | ----------------------------------------- | -------------------------------- |
-| **Mail Incremental**   | Only collect new/changed emails          | `EnableMailDelta: true`          |
-| **OneDrive Changes**   | Only sync modified files                  | `EnableOneDriveDelta: true`      |
-| **Interval Control**   | Configurable query frequency             | `DeltaQueryIntervalMinutes: 60`  |
-| **Cursor Cleanup**     | Automatic stale cursor removal           | `EnableAutomaticCleanup: true`   |
-| **Failure Handling**   | Force full resync after failures         | `MaxDeltaFailures: 3`            |
-| **Age Limits**        | Periodic full resync for data integrity  | `MaxDeltaAgeDays: 30`            |
+| Feature              | Description                             | Configuration                   |
+| -------------------- | --------------------------------------- | ------------------------------- |
+| **Mail Incremental** | Only collect new/changed emails         | `EnableMailDelta: true`         |
+| **OneDrive Changes** | Only sync modified files                | `EnableOneDriveDelta: true`     |
+| **Interval Control** | Configurable query frequency            | `DeltaQueryIntervalMinutes: 60` |
+| **Cursor Cleanup**   | Automatic stale cursor removal          | `EnableAutomaticCleanup: true`  |
+| **Failure Handling** | Force full resync after failures        | `MaxDeltaFailures: 3`           |
+| **Age Limits**       | Periodic full resync for data integrity | `MaxDeltaAgeDays: 30`           |
 
 ## 📊 Supported Collection Types
 
-| Type       | Graph API | GDC | Delta Queries | Status      |
-| ---------- | --------- | --- | ------------- | ----------- |
-| Email      | ✅        | 🚧  | ✅            | Ready       |
-| OneDrive   | ✅        | 🚧  | ✅            | Ready       |
-| SharePoint | 🚧        | 🚧  | 🚧            | Planned     |
-| Teams      | 🚧        | 🚧  | 🚧            | Planned     |
+| Type       | Graph API | GDC | Delta Queries | Status  |
+| ---------- | --------- | --- | ------------- | ------- |
+| Email      | ✅        | 🚧  | ✅            | Ready   |
+| OneDrive   | ✅        | 🚧  | ✅            | Ready   |
+| SharePoint | 🚧        | 🚧  | 🚧            | Planned |
+| Teams      | 🚧        | 🚧  | 🚧            | Planned |
 
 ### 🔄 **Delta Query Status**
 
