@@ -529,7 +529,7 @@ The Hybrid eDiscovery Collector represents a significant advancement in Microsof
 - **Test Coverage**: 🎯 Core functionality validated
 - **Security Review**: 🔒 Compliance requirements addressed
 - **Performance**: ⚡ Meets throughput and latency targets
-
+ 
 ### Next Steps
 
 1. **Azure AD Configuration**: Set up app registration and permissions
