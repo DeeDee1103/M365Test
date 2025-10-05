@@ -1,4 +1,5 @@
 # Hybrid eDiscovery Collector - Technical Overview Document
+# 10/4/2025
 
 **Project:** Hybrid Microsoft 365 eDiscovery Collection System  
 **Date:** October 4, 2025  
