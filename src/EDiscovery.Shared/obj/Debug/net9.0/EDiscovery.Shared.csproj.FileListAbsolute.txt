@@ -6,6 +6,7 @@ C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\ob
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\EDiscovery.Shared.AssemblyInfoInputs.cache
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\EDiscovery.Shared.AssemblyInfo.cs
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\EDiscovery.Shared.csproj.CoreCompileInputs.cache
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\EDiscovery.Shared.sourcelink.json
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\EDiscovery.Shared.dll
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\refint\EDiscovery.Shared.dll
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\obj\Debug\net9.0\EDiscovery.Shared.pdb
