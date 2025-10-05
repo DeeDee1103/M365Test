@@ -1,6 +1,7 @@
 using EDiscovery.Shared.Services;
 using EDiscovery.Shared.Configuration;
 using EDiscovery.Shared.Models;
+using EDiscovery.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -27,7 +28,7 @@ try
     builder.Services.AddControllers();
 
     // Add Entity Framework with shared context factory for multi-threading
-    builder.Services.AddDbContextFactory<EDiscovery.Shared.Services.EDiscoveryDbContext>(options =>
+    builder.Services.AddDbContextFactory<EDiscoveryDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
             "Data Source=ediscovery.db"));
 
@@ -85,7 +86,7 @@ try
     // Ensure database is created
     using (var scope = app.Services.CreateScope())
     {
-        var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<EDiscovery.Shared.Services.EDiscoveryDbContext>>();
+        var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<EDiscoveryDbContext>>();
         using var context = dbContextFactory.CreateDbContext();
         context.Database.EnsureCreated();
         

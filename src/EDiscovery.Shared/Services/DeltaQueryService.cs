@@ -1,5 +1,6 @@
 using EDiscovery.Shared.Models;
 using EDiscovery.Shared.Configuration;
+using EDiscovery.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

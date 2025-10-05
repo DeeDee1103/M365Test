@@ -1,6 +1,7 @@
 using EDiscovery.Shared.Models;
 using EDiscovery.Shared.Services;
 using EDiscovery.Shared.Configuration;
+using EDiscovery.Shared.Data;
 using HybridGraphCollectorWorker;
 using HybridGraphCollectorWorker.Services;
 using Microsoft.EntityFrameworkCore;

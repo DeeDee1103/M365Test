@@ -1,4 +1,5 @@
 using EDiscovery.Shared.Models;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace EDiscovery.Shared.Services;

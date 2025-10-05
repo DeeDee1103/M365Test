@@ -1,5 +1,5 @@
 using EDiscovery.Shared.Models;
-using EDiscoveryIntakeApi.Data;
+using EDiscovery.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
