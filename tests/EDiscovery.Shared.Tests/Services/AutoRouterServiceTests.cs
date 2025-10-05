@@ -1,6 +1,8 @@
 using EDiscovery.Shared.Models;
 using EDiscovery.Shared.Services;
+using EDiscovery.Shared.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
 
@@ -10,6 +12,7 @@ public class AutoRouterServiceTests
 {
     private readonly Mock<ILogger<AutoRouterService>> _mockLogger;
     private readonly Mock<IComplianceLogger> _mockComplianceLogger;
+    private readonly Mock<IOptions<AutoRouterOptions>> _mockOptions;
     private readonly AutoRouterService _autoRouterService;
 
     public AutoRouterServiceTests()
@@ -19,7 +22,27 @@ public class AutoRouterServiceTests
         _mockComplianceLogger.Setup(x => x.CreateCorrelationId()).Returns("test-correlation-id");
         _mockComplianceLogger.Setup(x => x.StartPerformanceTimer(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(Mock.Of<IDisposable>());
-        _autoRouterService = new AutoRouterService(_mockLogger.Object, _mockComplianceLogger.Object);
+
+        // Configure default test options
+        var options = new AutoRouterOptions
+        {
+            GraphApiThresholds = new GraphApiThresholds
+            {
+                MaxSizeBytes = 107374182400L, // 100GB
+                MaxItemCount = 500_000
+            },
+            RoutingConfidence = new RoutingConfidence
+            {
+                HighConfidence = 90.0,
+                MediumConfidence = 80.0,
+                LowConfidence = 70.0
+            }
+        };
+        
+        _mockOptions = new Mock<IOptions<AutoRouterOptions>>();
+        _mockOptions.Setup(x => x.Value).Returns(options);
+        
+        _autoRouterService = new AutoRouterService(_mockLogger.Object, _mockComplianceLogger.Object, _mockOptions.Object);
     }
 
     [Fact]

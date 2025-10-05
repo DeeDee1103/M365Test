@@ -55,3 +55,220 @@ System.AggregateException: Some services are not able to be constructed (Error w
 [2025-10-04 23:31:08.016 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
 [2025-10-04 23:31:08.017 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
 [2025-10-04 23:31:08.018 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:33.738 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:34.839 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+PRAGMA journal_mode = 'wal'; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.037 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Users" PRIMARY KEY AUTOINCREMENT,
+    "Username" TEXT NOT NULL,
+    "Email" TEXT NOT NULL,
+    "FirstName" TEXT NOT NULL,
+    "LastName" TEXT NOT NULL,
+    "Role" TEXT NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "LastLoginDate" TEXT NULL,
+    "Department" TEXT NULL,
+    "Location" TEXT NULL,
+    "MaxConcurrentJobs" INTEGER NOT NULL,
+    "MaxDataSizePerJobGB" INTEGER NOT NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.045 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WorkerInstances" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_WorkerInstances" PRIMARY KEY AUTOINCREMENT,
+    "WorkerId" TEXT NOT NULL,
+    "MachineName" TEXT NOT NULL,
+    "IpAddress" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL,
+    "LastHeartbeat" TEXT NOT NULL,
+    "Status" TEXT NOT NULL,
+    "MaxConcurrentJobs" INTEGER NOT NULL,
+    "CurrentJobCount" INTEGER NOT NULL,
+    "AvailableMemoryMB" INTEGER NOT NULL,
+    "CpuUsagePercent" REAL NOT NULL,
+    "Version" TEXT NOT NULL,
+    "LastError" TEXT NULL,
+    "ShutdownTime" TEXT NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.054 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Matters" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Matters" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Description" TEXT NULL,
+    "CaseNumber" TEXT NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "CreatedBy" TEXT NOT NULL,
+    "CreatedByUserId" INTEGER NULL,
+    "IsActive" INTEGER NOT NULL,
+    CONSTRAINT "FK_Matters_Users_CreatedByUserId" FOREIGN KEY ("CreatedByUserId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.056 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "UserSessions" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_UserSessions" PRIMARY KEY AUTOINCREMENT,
+    "UserId" INTEGER NOT NULL,
+    "SessionId" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL,
+    "EndTime" TEXT NULL,
+    "IpAddress" TEXT NULL,
+    "UserAgent" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "LastActivityTime" TEXT NOT NULL,
+    CONSTRAINT "FK_UserSessions_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.058 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CollectionJobs" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_CollectionJobs" PRIMARY KEY AUTOINCREMENT,
+    "MatterId" INTEGER NOT NULL,
+    "CustodianEmail" TEXT NOT NULL,
+    "JobType" TEXT NOT NULL,
+    "Status" TEXT NOT NULL,
+    "Route" INTEGER NOT NULL,
+    "AssignedUserId" INTEGER NULL,
+    "AssignedWorkerId" TEXT NULL,
+    "AssignedAt" TEXT NULL,
+    "Priority" INTEGER NOT NULL,
+    "LockToken" TEXT NULL,
+    "LockExpiry" TEXT NULL,
+    "StartTime" TEXT NULL,
+    "EndTime" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "EstimatedDataSizeBytes" INTEGER NOT NULL,
+    "EstimatedItemCount" INTEGER NOT NULL,
+    "ActualDataSizeBytes" INTEGER NOT NULL,
+    "ActualItemCount" INTEGER NOT NULL,
+    "OutputPath" TEXT NULL,
+    "ManifestHash" TEXT NULL,
+    CONSTRAINT "FK_CollectionJobs_Matters_MatterId" FOREIGN KEY ("MatterId") REFERENCES "Matters" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_CollectionJobs_Users_AssignedUserId" FOREIGN KEY ("AssignedUserId") REFERENCES "Users" ("Id") ON DELETE SET NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.061 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CollectedItems" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_CollectedItems" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "ItemId" TEXT NOT NULL,
+    "ItemType" TEXT NOT NULL,
+    "Subject" TEXT NULL,
+    "From" TEXT NULL,
+    "To" TEXT NULL,
+    "ItemDate" TEXT NULL,
+    "CollectedDate" TEXT NOT NULL,
+    "SizeBytes" INTEGER NOT NULL,
+    "Sha256Hash" TEXT NOT NULL,
+    "FilePath" TEXT NULL,
+    "ErrorMessage" TEXT NULL,
+    "IsSuccessful" INTEGER NOT NULL,
+    CONSTRAINT "FK_CollectedItems_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.064 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobAssignments" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobAssignments" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "UserId" INTEGER NOT NULL,
+    "WorkerId" TEXT NOT NULL,
+    "AssignedAt" TEXT NOT NULL,
+    "CompletedAt" TEXT NULL,
+    "Status" TEXT NOT NULL,
+    "HeartbeatTime" TEXT NOT NULL,
+    "RetryCount" INTEGER NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "LockExpiry" TEXT NOT NULL,
+    "LockToken" TEXT NOT NULL,
+    "WorkerInstanceId" INTEGER NULL,
+    CONSTRAINT "FK_JobAssignments_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobAssignments_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobAssignments_WorkerInstances_WorkerInstanceId" FOREIGN KEY ("WorkerInstanceId") REFERENCES "WorkerInstances" ("Id")
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.066 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobLogs" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobLogs" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "Timestamp" TEXT NOT NULL,
+    "Level" TEXT NOT NULL,
+    "Category" TEXT NOT NULL,
+    "Message" TEXT NOT NULL,
+    "Details" TEXT NULL,
+    "CorrelationId" TEXT NULL,
+    CONSTRAINT "FK_JobLogs_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.068 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedDate", "Department", "Email", "FirstName", "IsActive", "LastLoginDate", "LastName", "Location", "MaxConcurrentJobs", "MaxDataSizePerJobGB", "Role", "Username")
+VALUES (1, '2025-10-05 03:58:34.4811102', NULL, 'admin@ediscovery.local', 'System', 1, NULL, 'Administrator', NULL, 10, 100, 'Administrator', 'admin');
+SELECT changes();
+
+INSERT INTO "Users" ("Id", "CreatedDate", "Department", "Email", "FirstName", "IsActive", "LastLoginDate", "LastName", "Location", "MaxConcurrentJobs", "MaxDataSizePerJobGB", "Role", "Username")
+VALUES (2, '2025-10-05 03:58:34.4811432', NULL, 'analyst@ediscovery.local', 'eDiscovery', 1, NULL, 'Analyst', NULL, 5, 50, 'Analyst', 'analyst');
+SELECT changes(); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.070 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_CollectedDate" ON "CollectedItems" ("CollectedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.073 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_JobId" ON "CollectedItems" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.075 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_CollectedItems_Sha256Hash" ON "CollectedItems" ("Sha256Hash"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.077 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_AssignedUserId" ON "CollectionJobs" ("AssignedUserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.080 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_CustodianEmail" ON "CollectionJobs" ("CustodianEmail"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.082 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_MatterId" ON "CollectionJobs" ("MatterId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.083 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_Status" ON "CollectionJobs" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.085 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_Status_Priority_CreatedDate" ON "CollectionJobs" ("Status", "Priority", "CreatedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.087 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_HeartbeatTime" ON "JobAssignments" ("HeartbeatTime"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.089 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_JobId_Status" ON "JobAssignments" ("JobId", "Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.091 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_JobAssignments_LockToken" ON "JobAssignments" ("LockToken"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.093 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_Status" ON "JobAssignments" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.095 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_UserId" ON "JobAssignments" ("UserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.097 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_WorkerId" ON "JobAssignments" ("WorkerId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.099 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_WorkerInstanceId" ON "JobAssignments" ("WorkerInstanceId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.101 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_JobId" ON "JobLogs" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.103 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_Level" ON "JobLogs" ("Level"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.105 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_Timestamp" ON "JobLogs" ("Timestamp"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.107 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Matters_CreatedByUserId" ON "Matters" ("CreatedByUserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.110 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Matters_Name" ON "Matters" ("Name"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.112 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.114 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Users_IsActive" ON "Users" ("IsActive"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.117 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Users_Role" ON "Users" ("Role"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.119 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_IsActive" ON "UserSessions" ("IsActive"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.121 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_LastActivityTime" ON "UserSessions" ("LastActivityTime"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.123 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_UserSessions_SessionId" ON "UserSessions" ("SessionId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.125 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_UserId" ON "UserSessions" ("UserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.127 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_WorkerInstances_LastHeartbeat" ON "WorkerInstances" ("LastHeartbeat"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.129 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_WorkerInstances_Status" ON "WorkerInstances" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.131 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_WorkerInstances_WorkerId" ON "WorkerInstances" ("WorkerId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.224 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 8c9a8c5f | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-1792","Timestamp":"2025-10-05T03:58:35.1573742Z","CorrelationId":"8c9a8c5f"} {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.300 -04:00 INF] : eDiscovery Intake API started successfully {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.303 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting starting {"EventId":{"Id":1,"Name":"Starting"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.380 -04:00 INF] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5230 {"EventId":{"Id":14,"Name":"ListeningOnAddress"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.383 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.384 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.385 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:35.387 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting started {"EventId":{"Id":2,"Name":"Started"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:41.286 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/swagger?id=16b48ac6-4526-46e0-988c-ef4425b3e430&vscodeBrowserReqId=1759636721219 - null null {"EventId":{"Id":1},"RequestId":"0HNG3ODSBQSM9:00000001","RequestPath":"/swagger","ConnectionId":"0HNG3ODSBQSM9","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:41.370 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/swagger?id=16b48ac6-4526-46e0-988c-ef4425b3e430&vscodeBrowserReqId=1759636721219 - 301 0 null 88.0052ms {"EventId":{"Id":2},"RequestId":"0HNG3ODSBQSM9:00000001","RequestPath":"/swagger","ConnectionId":"0HNG3ODSBQSM9","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:41.519 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/swagger/v1/swagger.json - null null {"EventId":{"Id":1},"RequestId":"0HNG3ODSBQSM9:00000002","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNG3ODSBQSM9","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 23:58:41.680 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 160.9172ms {"EventId":{"Id":2},"RequestId":"0HNG3ODSBQSM9:00000002","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNG3ODSBQSM9","Application":"EDiscoveryIntakeApi","Environment":"Development"}

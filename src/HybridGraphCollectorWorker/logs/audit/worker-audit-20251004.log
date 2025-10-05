@@ -329,3 +329,30 @@ SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NO
 [2025-10-04 23:31:33.860 -04:00] Collection failed: ClientSecretCredential authentication failed: 
 [2025-10-04 23:31:33.862 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 724ms | Items: 0 | Size: 0 bytes | CorrelationId: 63dc7ba8 | Throughput: 0.00 items/sec, 0.00 MB/sec
 [2025-10-04 23:31:42.076 -04:00] Application is shutting down...
+[2025-10-04 23:58:47.771 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-04 23:58:48.956 -04:00] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-04 23:58:49.052 -04:00] AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: b10ade38 | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-36048","Timestamp":"2025-10-05T03:58:48.9799656Z","CorrelationId":"b10ade38"}
+[2025-10-04 23:58:49.054 -04:00] Concurrent Hybrid Graph Collector Worker started successfully
+[2025-10-04 23:58:49.218 -04:00] AutoRouter configured with thresholds: 10.0 GB, 50,000 items
+[2025-10-04 23:58:49.237 -04:00] Hybrid Graph Collector Worker started at: "2025-10-04T23:58:49.2377325-04:00" | CorrelationId: 51286ff1
+[2025-10-04 23:58:49.247 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: 51286ff1 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T23:58:49.2423085-04:00"},"Instance":"DONNELLD-BOOK-3-36048","Timestamp":"2025-10-05T03:58:49.2424364Z","CorrelationId":"51286ff1"}
+[2025-10-04 23:58:49.261 -04:00] Processing sample collection job for custodian: test.user@development.com
+[2025-10-04 23:58:49.266 -04:00] Determining optimal route for custodian: test.user@development.com | CorrelationId: 524f54ff
+[2025-10-04 23:58:49.277 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: test.user@development.com | CorrelationId: 524f54ff | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T03:58:49.2623799Z","EndDate":"2025-10-05T03:58:49.2624052Z"}},"Instance":"DONNELLD-BOOK-3-36048","Timestamp":"2025-10-05T03:58:49.2712748Z","CorrelationId":"524f54ff"}
+[2025-10-04 23:58:49.298 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-04 23:58:49.302 -04:00] Hosting environment: Development
+[2025-10-04 23:58:49.306 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-04 23:58:49.334 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 524f54ff
+[2025-10-04 23:58:49.340 -04:00] Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: 524f54ff
+[2025-10-04 23:58:49.342 -04:00] Route decision completed: "GraphDataConnect" (Confidence: 95.0 %) | CorrelationId: 524f54ff
+[2025-10-04 23:58:49.355 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: test.user@development.com | CorrelationId: 524f54ff | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"test.user@development.com","Data":{"RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-36048","Timestamp":"2025-10-05T03:58:49.344174Z","CorrelationId":"524f54ff"}
+[2025-10-04 23:58:49.358 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 93ms | Items: 0 | Size: 0 bytes | CorrelationId: 524f54ff | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 23:58:49.364 -04:00] [Job 0] [AutoRouter] Route decision: GraphDataConnect Reason: Current quota usage exceeds Graph API thresholds. Confidence: 95.0%
+[2025-10-04 23:58:49.366 -04:00] Graph Data Connect collection requested for job type: "Email"
+[2025-10-04 23:58:49.475 -04:00] Collection failed: Graph Data Connect collection not implemented in POC
+[2025-10-04 23:58:49.486 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 230ms | Items: 0 | Size: 0 bytes | CorrelationId: b506ed96 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 23:59:04.534 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 11ms | Items: 0 | Size: 0 bytes | CorrelationId: 5bc44469 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 23:59:19.554 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 3ms | Items: 0 | Size: 0 bytes | CorrelationId: cfd897e3 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 23:59:34.582 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 19ms | Items: 0 | Size: 0 bytes | CorrelationId: 39081ca2 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 23:59:49.629 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 18ms | Items: 0 | Size: 0 bytes | CorrelationId: 319c18fc | Throughput: 0.00 items/sec, 0.00 MB/sec

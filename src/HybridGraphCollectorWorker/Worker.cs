@@ -1,6 +1,8 @@
 using EDiscovery.Shared.Models;
 using EDiscovery.Shared.Services;
+using EDiscovery.Shared.Configuration;
 using HybridGraphCollectorWorker.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HybridGraphCollectorWorker;
 
@@ -10,23 +12,29 @@ public class Worker : BackgroundService
     private readonly IComplianceLogger _complianceLogger;
     private readonly IGraphCollectorService _graphCollector;
     private readonly IAutoRouterService _autoRouter;
+    private readonly IServiceProvider _serviceProvider;
     private readonly IEDiscoveryApiClient _apiClient;
     private readonly IConfiguration _configuration;
+    private readonly EDiscovery.Shared.Configuration.DeltaQueryOptions _deltaOptions;
 
     public Worker(
         ILogger<Worker> logger,
         IComplianceLogger complianceLogger,
         IGraphCollectorService graphCollector,
         IAutoRouterService autoRouter,
+        IServiceProvider serviceProvider,
         IEDiscoveryApiClient apiClient,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        Microsoft.Extensions.Options.IOptions<EDiscovery.Shared.Configuration.DeltaQueryOptions> deltaOptions)
     {
         _logger = logger;
         _complianceLogger = complianceLogger;
         _graphCollector = graphCollector;
         _autoRouter = autoRouter;
+        _serviceProvider = serviceProvider;
         _apiClient = apiClient;
         _configuration = configuration;
+        _deltaOptions = deltaOptions.Value;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -82,6 +90,133 @@ public class Worker : BackgroundService
         if (_configuration.GetValue<bool>("Worker:EnableSampleJob", false))
         {
             await ProcessSampleJobAsync(cancellationToken);
+        }
+
+        // Process delta queries if enabled and background processing is configured
+        if (_deltaOptions.BackgroundDeltaQueries)
+        {
+            await ProcessDeltaQueriesAsync(cancellationToken);
+        }
+    }
+
+    private async Task ProcessDeltaQueriesAsync(CancellationToken cancellationToken)
+    {
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        
+        using var performanceTimer = _complianceLogger.StartPerformanceTimer("Worker.ProcessDeltaQueries", correlationId);
+        
+        _logger.LogDebug("Processing delta queries | CorrelationId: {CorrelationId}", correlationId);
+
+        try
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var deltaQueryService = scope.ServiceProvider.GetRequiredService<IDeltaQueryService>();
+            
+            // Get all active delta cursors
+            var activeCursors = await deltaQueryService.GetActiveDeltaCursorsAsync();
+            
+            if (!activeCursors.Any())
+            {
+                _logger.LogDebug("No active delta cursors found | CorrelationId: {CorrelationId}", correlationId);
+                return;
+            }
+
+            _logger.LogInformation("Processing {CursorCount} active delta cursors | CorrelationId: {CorrelationId}", 
+                activeCursors.Count, correlationId);
+
+            foreach (var cursor in activeCursors)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                await ProcessSingleDeltaCursorAsync(cursor, correlationId, cancellationToken);
+            }
+
+            // Periodic cleanup of stale cursors
+            if (_deltaOptions.EnableAutomaticCleanup)
+            {
+                await deltaQueryService.CleanupStaleDeltaCursorsAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error processing delta queries | CorrelationId: {CorrelationId}", correlationId);
+        }
+    }
+
+    private async Task ProcessSingleDeltaCursorAsync(DeltaCursor cursor, string correlationId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            // Check if enough time has passed since last delta query
+            var timeSinceLastQuery = DateTime.UtcNow - cursor.LastDeltaTime;
+            var intervalMinutes = TimeSpan.FromMinutes(_deltaOptions.DeltaQueryIntervalMinutes);
+            
+            if (timeSinceLastQuery < intervalMinutes)
+            {
+                _logger.LogDebug("Skipping delta query for {ScopeId} - interval not reached (last: {LastQuery}) | CorrelationId: {CorrelationId}", 
+                    cursor.ScopeId, cursor.LastDeltaTime, correlationId);
+                return;
+            }
+
+            _logger.LogInformation("Executing delta query for {ScopeId} ({DeltaType}) | CorrelationId: {CorrelationId}", 
+                cursor.ScopeId, cursor.DeltaType, correlationId);
+
+            using var scope = _serviceProvider.CreateScope();
+            var deltaQueryService = scope.ServiceProvider.GetRequiredService<IDeltaQueryService>();
+
+            // Execute the appropriate delta query based on type
+            DeltaQueryResult? result = cursor.DeltaType switch
+            {
+                DeltaType.Mail => await deltaQueryService.QueryMailDeltaAsync(cursor.CustodianEmail, cursor, cancellationToken),
+                DeltaType.OneDrive => await deltaQueryService.QueryOneDriveDeltaAsync(cursor.CustodianEmail, cursor, cancellationToken),
+                _ => null
+            };
+
+            if (result == null)
+            {
+                _logger.LogWarning("Unsupported delta type: {DeltaType} for {ScopeId} | CorrelationId: {CorrelationId}", 
+                    cursor.DeltaType, cursor.ScopeId, correlationId);
+                return;
+            }
+
+            if (result.IsSuccessful)
+            {
+                // Update cursor with new delta token
+                if (!string.IsNullOrEmpty(result.NextDeltaToken))
+                {
+                    await deltaQueryService.UpdateDeltaCursorAsync(cursor.ScopeId, result.NextDeltaToken, result.ItemCount, result.TotalSizeBytes);
+                }
+
+                // Log collection results to API if items were found
+                if (result.ItemCount > 0)
+                {
+                    await _apiClient.LogJobEventAsync(cursor.CollectionJobId ?? 0, EDiscovery.Shared.Models.LogLevel.Information, "DeltaQuery",
+                        $"Delta collection completed for {cursor.DeltaType}: {result.ItemCount} items, {result.TotalSizeBytes:N0} bytes",
+                        $"Scope: {cursor.ScopeId}, Duration: {result.QueryDuration.TotalMilliseconds:F1}ms");
+
+                    _logger.LogInformation("Delta query completed for {ScopeId}: {ItemCount} items, {SizeBytes} bytes in {Duration}ms | CorrelationId: {CorrelationId}",
+                        cursor.ScopeId, result.ItemCount, result.TotalSizeBytes, result.QueryDuration.TotalMilliseconds, correlationId);
+                }
+                else
+                {
+                    _logger.LogDebug("No new items found in delta query for {ScopeId} | CorrelationId: {CorrelationId}", 
+                        cursor.ScopeId, correlationId);
+                }
+            }
+            else
+            {
+                _logger.LogError("Delta query failed for {ScopeId}: {ErrorMessage} | CorrelationId: {CorrelationId}", 
+                    cursor.ScopeId, result.ErrorMessage, correlationId);
+                
+                await _apiClient.LogJobEventAsync(cursor.CollectionJobId ?? 0, EDiscovery.Shared.Models.LogLevel.Error, "DeltaQuery",
+                    $"Delta query failed for {cursor.DeltaType}: {result.ErrorMessage}",
+                    $"Scope: {cursor.ScopeId}");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error processing delta cursor {ScopeId} | CorrelationId: {CorrelationId}", cursor.ScopeId, correlationId);
         }
     }
 

@@ -2,7 +2,7 @@
 
 **Project:** Hybrid Microsoft 365 eDiscovery Collection System  
 **Date:** October 4, 2025  
-**Version:** 2.0 - Multi-User Concurrent Processing
+**Version:** 2.1 - Production Ready with Delta Query Optimization
 
 ---
 
@@ -32,12 +32,14 @@ graph TB
 
     subgraph "Intelligence Layer"
         AR[AutoRouter Service]
+        DQS[Delta Query Service]
         JM[Job Manager]
         LB[Load Balancer]
     end
 
     subgraph "Data Layer"
         DB[(Multi-User Database<br/>SQLite/Azure SQL)]
+        DC[(Delta Cursors<br/>Incremental Tracking)]
         LOGS[Structured Logs<br/>Audit Trails]
     end
 

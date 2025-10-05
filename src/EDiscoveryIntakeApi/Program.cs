@@ -1,4 +1,6 @@
 using EDiscovery.Shared.Services;
+using EDiscovery.Shared.Configuration;
+using EDiscovery.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -29,11 +31,22 @@ try
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
             "Data Source=ediscovery.db"));
 
+    // Configure AutoRouter options
+    builder.Services.Configure<AutoRouterOptions>(
+        builder.Configuration.GetSection(AutoRouterOptions.SectionName));
+
+    // Configure DeltaQuery options
+    builder.Services.Configure<EDiscovery.Shared.Configuration.DeltaQueryOptions>(
+        builder.Configuration.GetSection(EDiscovery.Shared.Configuration.DeltaQueryOptions.SectionName));
+
     // Add concurrent job management services
     builder.Services.AddScoped<IConcurrentJobManager, ConcurrentJobManager>();
 
     // Add AutoRouter service
     builder.Services.AddScoped<IAutoRouterService, AutoRouterService>();
+
+    // Add Delta Query service
+    builder.Services.AddScoped<IDeltaQueryService, DeltaQueryService>();
 
     // Add Compliance Logger
     builder.Services.AddScoped<IComplianceLogger, ComplianceLogger>();

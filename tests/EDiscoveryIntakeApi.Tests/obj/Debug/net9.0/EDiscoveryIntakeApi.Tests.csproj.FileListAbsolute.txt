@@ -4,6 +4,7 @@ C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeAp
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\EDiscoveryIntakeApi.deps.json
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\EDiscoveryIntakeApi.runtimeconfig.json
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\appsettings.Docker.json
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\appsettings.json
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\EDiscoveryIntakeApi.staticwebassets.endpoints.json
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\bin\Debug\net9.0\EDiscoveryIntakeApi.exe

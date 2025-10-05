@@ -1,8 +1,8 @@
-# Enhanced Logging Implementation for Hybrid eDiscovery Collector
+# Enhanced Logging Implementation for Hybrid eDiscovery Collector v2.1
 
 ## Overview
 
-This implementation adds comprehensive structured logging using **Serilog** with specialized compliance logging for eDiscovery requirements.
+This implementation adds comprehensive structured logging using **Serilog** with specialized compliance logging for eDiscovery requirements and Delta query monitoring.
 
 ## 🔧 Components Added
 

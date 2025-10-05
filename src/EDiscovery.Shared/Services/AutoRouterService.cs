@@ -1,5 +1,7 @@
 using EDiscovery.Shared.Models;
+using EDiscovery.Shared.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace EDiscovery.Shared.Services;
 
@@ -13,15 +15,21 @@ public class AutoRouterService : IAutoRouterService
 {
     private readonly ILogger<AutoRouterService> _logger;
     private readonly IComplianceLogger _complianceLogger;
+    private readonly AutoRouterOptions _options;
     
-    // Thresholds for routing decisions
-    private const long GRAPH_API_SIZE_LIMIT = 100L * 1024 * 1024 * 1024; // 100GB
-    private const int GRAPH_API_ITEM_LIMIT = 500_000; // 500k items
-    
-    public AutoRouterService(ILogger<AutoRouterService> logger, IComplianceLogger complianceLogger)
+    public AutoRouterService(
+        ILogger<AutoRouterService> logger, 
+        IComplianceLogger complianceLogger,
+        IOptions<AutoRouterOptions> options)
     {
         _logger = logger;
         _complianceLogger = complianceLogger;
+        _options = options.Value;
+        
+        // Log configuration on startup
+        _logger.LogInformation("AutoRouter configured with thresholds: {MaxSize}, {MaxItems} items", 
+            _options.GraphApiThresholds.MaxSizeFormatted, 
+            _options.GraphApiThresholds.MaxItemCountFormatted);
     }
     
     public async Task<AutoRouterDecision> DetermineOptimalRouteAsync(CollectionRequest request)
@@ -65,15 +73,21 @@ public class AutoRouterService : IAutoRouterService
                 }
             };
             
-            // Apply routing logic with detailed logging
-            if (quota.UsedBytes < GRAPH_API_SIZE_LIMIT && quota.UsedItems < GRAPH_API_ITEM_LIMIT)
+            // Apply routing logic with detailed logging using configured thresholds
+            var maxSizeBytes = _options.GraphApiThresholds.MaxSizeBytes;
+            var maxItemCount = _options.GraphApiThresholds.MaxItemCount;
+            
+            _logger.LogDebug("Applying routing logic with thresholds: {MaxSize} bytes, {MaxItems} items | CorrelationId: {CorrelationId}", 
+                maxSizeBytes, maxItemCount, correlationId);
+            
+            if (quota.UsedBytes < maxSizeBytes && quota.UsedItems < maxItemCount)
             {
-                if (estimatedSize + quota.UsedBytes < GRAPH_API_SIZE_LIMIT && 
-                    estimatedItems + quota.UsedItems < GRAPH_API_ITEM_LIMIT)
+                if (estimatedSize + quota.UsedBytes < maxSizeBytes && 
+                    estimatedItems + quota.UsedItems < maxItemCount)
                 {
                     decision.RecommendedRoute = CollectionRoute.GraphApi;
                     decision.Reason = "Collection fits within Graph API limits";
-                    decision.ConfidenceScore = 0.9;
+                    decision.ConfidenceScore = _options.RoutingConfidence.HighConfidenceDecimal;
                     
                     _logger.LogInformation("Route decision: Graph API selected - fits within limits | CorrelationId: {CorrelationId}", correlationId);
                 }
@@ -81,7 +95,7 @@ public class AutoRouterService : IAutoRouterService
                 {
                     decision.RecommendedRoute = CollectionRoute.GraphDataConnect;
                     decision.Reason = "Collection would exceed Graph API limits";
-                    decision.ConfidenceScore = 0.8;
+                    decision.ConfidenceScore = _options.RoutingConfidence.MediumConfidenceDecimal;
                     
                     _logger.LogInformation("Route decision: Graph Data Connect selected - would exceed Graph API limits | CorrelationId: {CorrelationId}", correlationId);
                 }
@@ -90,7 +104,7 @@ public class AutoRouterService : IAutoRouterService
             {
                 decision.RecommendedRoute = CollectionRoute.GraphDataConnect;
                 decision.Reason = "Current quota usage exceeds Graph API thresholds";
-                decision.ConfidenceScore = 0.95;
+                decision.ConfidenceScore = _options.RoutingConfidence.HighConfidenceDecimal;
                 
                 _logger.LogInformation("Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: {CorrelationId}", correlationId);
             }
@@ -131,9 +145,9 @@ public class AutoRouterService : IAutoRouterService
         return new CollectionQuota
         {
             UsedBytes = 50L * 1024 * 1024 * 1024, // 50GB used
-            LimitBytes = GRAPH_API_SIZE_LIMIT,
+            LimitBytes = _options.GraphApiThresholds.MaxSizeBytes,
             UsedItems = 250_000, // 250k items used
-            LimitItems = GRAPH_API_ITEM_LIMIT,
+            LimitItems = _options.GraphApiThresholds.MaxItemCount,
             LastUpdated = DateTime.UtcNow
         };
     }

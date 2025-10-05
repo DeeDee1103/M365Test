@@ -19,16 +19,20 @@ A hybrid eDiscovery collection system that intelligently routes between Microsof
    - **AutoRouter** determines optimal collection route:
      - **Graph API**: `< 100GB` and `< 500k` items
      - **Graph Data Connect**: Above thresholds
+   - **Delta Queries**: Incremental collection to avoid re-pulling unchanged content
    - Features:
      - Retry/backoff for 429s and 5xx errors
      - Chain-of-custody logging with SHA-256 hashes
      - NAS or Azure Blob outputs
      - Integration with Intake API
+     - Delta cursor tracking for Mail and OneDrive
 
 3. **EDiscovery.Shared**
    - Common models and services
-   - AutoRouter service
-   - Data entities (Matter, CollectionJob, CollectedItem, JobLog)
+   - AutoRouter service with configurable thresholds
+   - Delta Query service for incremental collection
+   - Data entities (Matter, CollectionJob, CollectedItem, JobLog, DeltaCursor)
+   - Comprehensive logging and compliance services
 
 ## 🚀 Quick Start (POC)
 
@@ -121,25 +125,121 @@ curl "http://localhost:7001/api/jobs/1"
 
 ## 🔄 AutoRouter Logic
 
-The AutoRouter determines the optimal collection route based on:
+The AutoRouter determines the optimal collection route based on configurable thresholds and current system state:
 
-- **Current Quota Usage**: Graph API limits (100GB, 500k items)
-- **Estimated Collection Size**: Based on custodian and job type
-- **Historical Performance**: Success rates and throughput
+### 📐 **Configurable Routing Thresholds**
+
+Routing decisions are now **fully configurable** per environment through `appsettings.json` or environment variables:
+
+```json
+{
+  "AutoRouter": {
+    "GraphApiThresholds": {
+      "MaxSizeBytes": 107374182400, // 100GB default
+      "MaxItemCount": 500000, // 500k items default
+      "Description": "Graph API routing limits"
+    },
+    "RoutingConfidence": {
+      "HighConfidence": 90, // 90% for clear decisions
+      "MediumConfidence": 80, // 80% for borderline cases
+      "LowConfidence": 70 // 70% for fallback scenarios
+    }
+  },
+  "DeltaQuery": {
+    "EnableMailDelta": true, // Enable incremental Mail collection
+    "EnableOneDriveDelta": true, // Enable incremental OneDrive collection
+    "MaxDeltaAgeDays": 30, // Force full resync after 30 days
+    "DeltaQueryIntervalMinutes": 60, // Query for changes every hour
+    "MaxDeltaItemsPerQuery": 1000, // Limit items per delta query
+    "MaxDeltaFailures": 3, // Force resync after 3 failures
+    "BackgroundDeltaQueries": true, // Run delta queries in background
+    "EnableAutomaticCleanup": true // Automatically cleanup stale cursors
+  }
+}
+```
+
+### 🎯 **Environment-Specific Thresholds**
+
+| Environment     | Max Size | Max Items | Delta Interval | Use Case                    |
+| --------------- | -------- | --------- | -------------- | --------------------------- |
+| **Development** | 10GB     | 50k       | 15 minutes     | Fast testing and validation |
+| **Staging**     | 100GB    | 500k      | 30 minutes     | Production-like testing     |
+| **Production**  | 500GB+   | 1M+       | 60 minutes     | High-volume enterprise      |
+| **Docker**      | 200GB    | 1M        | 45 minutes     | Container deployment        |
+
+### 🔀 **Decision Logic**
+
+- **Current Quota Usage**: Configurable Graph API limits per environment
+- **Estimated Collection Size**: Based on custodian profile and job type
+- **Confidence Scoring**: Configurable confidence levels for routing decisions
+- **Historical Performance**: Success rates and throughput metrics
+
+### 🚀 **Environment Variable Overrides**
+
+```bash
+# Override via environment variables
+export AutoRouter__GraphApiThresholds__MaxSizeBytes=214748364800  # 200GB
+export AutoRouter__GraphApiThresholds__MaxItemCount=1000000       # 1M items
+export DeltaQuery__DeltaQueryIntervalMinutes=30                   # 30 minutes
+export DeltaQuery__MaxDeltaAgeDays=7                              # Weekly full resync
+
+# Docker deployment
+docker run -e AutoRouter__GraphApiThresholds__MaxSizeBytes=200GB \
+           -e DeltaQuery__DeltaQueryIntervalMinutes=30 my-app
+
+# Kubernetes deployment
+env:
+  - name: AutoRouter__GraphApiThresholds__MaxSizeBytes
+    value: "214748364800"
+  - name: DeltaQuery__DeltaQueryIntervalMinutes
+    value: "30"
+```
 
 **Decision Matrix:**
 
-- ✅ **Graph API**: Fast, real-time, < 100GB
-- ✅ **Graph Data Connect**: Bulk, scheduled, > 100GB
+- ✅ **Graph API**: Fast, real-time, below configured thresholds
+- ✅ **Graph Data Connect**: Bulk, scheduled, above configured thresholds
+- 🔄 **Delta Queries**: Incremental updates for both Graph API and GDC collections
+
+## 🔄 Delta Query System
+
+### 📈 **Performance & Cost Optimization**
+
+The Delta Query system provides incremental collection to avoid re-pulling unchanged content:
+
+- **Mail Delta Queries**: Track changes since last collection using Microsoft Graph delta tokens
+- **OneDrive Delta Queries**: Monitor file and folder changes incrementally  
+- **Cursor Storage**: Simple table-based tracking of delta state per custodian and data type
+- **Background Processing**: Configurable intervals for delta query execution
+- **Automatic Cleanup**: Remove stale cursors and force periodic full resyncs
+
+### 🎯 **Delta Query Features**
+
+| Feature                | Description                               | Configuration                    |
+| ---------------------- | ----------------------------------------- | -------------------------------- |
+| **Mail Incremental**   | Only collect new/changed emails          | `EnableMailDelta: true`          |
+| **OneDrive Changes**   | Only sync modified files                  | `EnableOneDriveDelta: true`      |
+| **Interval Control**   | Configurable query frequency             | `DeltaQueryIntervalMinutes: 60`  |
+| **Cursor Cleanup**     | Automatic stale cursor removal           | `EnableAutomaticCleanup: true`   |
+| **Failure Handling**   | Force full resync after failures         | `MaxDeltaFailures: 3`            |
+| **Age Limits**        | Periodic full resync for data integrity  | `MaxDeltaAgeDays: 30`            |
 
 ## 📊 Supported Collection Types
 
-| Type       | Graph API | GDC | Status  |
-| ---------- | --------- | --- | ------- |
-| Email      | ✅        | 🚧  | Ready   |
-| OneDrive   | ✅        | 🚧  | Ready   |
-| SharePoint | 🚧        | 🚧  | Planned |
-| Teams      | 🚧        | 🚧  | Planned |
+| Type       | Graph API | GDC | Delta Queries | Status      |
+| ---------- | --------- | --- | ------------- | ----------- |
+| Email      | ✅        | 🚧  | ✅            | Ready       |
+| OneDrive   | ✅        | 🚧  | ✅            | Ready       |
+| SharePoint | 🚧        | 🚧  | 🚧            | Planned     |
+| Teams      | 🚧        | 🚧  | 🚧            | Planned     |
+
+### 🔄 **Delta Query Status**
+
+- **✅ Implemented**: Mail and OneDrive delta query support
+- **✅ Cursor Storage**: Database table for tracking delta state
+- **✅ Background Processing**: Worker service integration
+- **✅ Configuration**: Environment-specific delta query settings
+- **✅ Cleanup**: Automatic stale cursor management
 
 ## 🔒 Security Features
 
@@ -190,12 +290,13 @@ dotnet ef database update
 
 ## 📈 Phase 2 Roadmap (Production)
 
+- [x] **Delta Queries**: Incremental collection ✅ **COMPLETED**
 - [ ] **Security**: Managed Identity + Key Vault
 - [ ] **Storage**: Azure Blob Storage with CMK
 - [ ] **GDC**: Azure Data Factory pipelines
 - [ ] **Monitoring**: Azure Monitor + Log Analytics
-- [ ] **Delta Queries**: Incremental collection
 - [ ] **Signed Manifests**: Immutable evidence packages
+- [ ] **Database Migration**: Entity Framework migrations for DeltaCursors table
 
 ## 📈 Phase 3 Roadmap (Enterprise)
 

@@ -1,12 +1,12 @@
-# Automated Testing Summary
+# Automated Testing Summary - v2.1
 
 ## ✅ Testing Infrastructure Added
 
 ### Test Projects Created:
 
-1. **EDiscovery.Shared.Tests** - Unit tests for shared library
+1. **EDiscovery.Shared.Tests** - Unit tests for shared library including Delta query services
 2. **EDiscoveryIntakeApi.Tests** - API controller and integration tests
-3. **HybridGraphCollectorWorker.Tests** - Worker service tests
+3. **HybridGraphCollectorWorker.Tests** - Worker service tests including AutoRouter and Delta query integration
 
 ### Testing Frameworks:
 

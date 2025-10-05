@@ -2,7 +2,7 @@
 
 **Project:** Hybrid Microsoft 365 eDiscovery Collection System  
 **Date:** October 4, 2025  
-**Version:** 2.0 - Multi-User Concurrent Processing  
+**Version:** 2.1 - Production Ready with Delta Query Optimization  
 **Target Audience:** Beginners, Legal Teams, IT Professionals
 
 ---
@@ -230,7 +230,46 @@ For proof-of-concept testing, the default configuration works out of the box:
 }
 ```
 
-### Step 6.3: Azure AD Configuration (Optional)
+### Step 6.3: AutoRouter Configuration (Important!)
+
+**NEW in v2.0**: The system now uses **configurable routing thresholds** instead of hardcoded limits!
+
+The AutoRouter decides whether to use Graph API or Graph Data Connect based on configurable thresholds:
+
+```json
+{
+  "AutoRouter": {
+    "GraphApiThresholds": {
+      "MaxSizeBytes": 10737418240, // 10GB for development
+      "MaxItemCount": 50000, // 50k items for development
+      "Description": "Development environment limits"
+    },
+    "RoutingConfidence": {
+      "HighConfidence": 95, // 95% confidence for clear decisions
+      "MediumConfidence": 85, // 85% for borderline cases
+      "LowConfidence": 75 // 75% for fallback scenarios
+    }
+  }
+}
+```
+
+**Environment-Specific Thresholds:**
+
+| Environment     | MaxSizeBytes | MaxItemCount | Purpose                     |
+| --------------- | ------------ | ------------ | --------------------------- |
+| **Development** | 10GB         | 50k          | Fast testing and validation |
+| **Production**  | 100GB        | 500k         | Standard enterprise limits  |
+| **High-Volume** | 500GB+       | 1M+          | Large-scale operations      |
+
+**Environment Variable Override Example:**
+
+```powershell
+# Override for testing with 50GB limit
+$env:AutoRouter__GraphApiThresholds__MaxSizeBytes = "53687091200"
+$env:AutoRouter__GraphApiThresholds__MaxItemCount = "250000"
+```
+
+### Step 6.4: Azure AD Configuration (Optional)
 
 For production use with real Microsoft 365 data, update these settings:
 

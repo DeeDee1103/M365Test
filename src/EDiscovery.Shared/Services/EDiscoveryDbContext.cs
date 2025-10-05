@@ -12,6 +12,14 @@ public class EDiscoveryDbContext : DbContext
     {
     }
 
+    /// <summary>
+    /// Ensures the database is created and updated to the latest schema
+    /// </summary>
+    public void EnsureDatabaseCreated()
+    {
+        Database.EnsureCreated();
+    }
+
     // Core entities
     public DbSet<Matter> Matters { get; set; }
     public DbSet<CollectionJob> CollectionJobs { get; set; }
@@ -23,6 +31,9 @@ public class EDiscoveryDbContext : DbContext
     public DbSet<UserSession> UserSessions { get; set; }
     public DbSet<JobAssignment> JobAssignments { get; set; }
     public DbSet<WorkerInstance> WorkerInstances { get; set; }
+
+    // Delta query entities for incremental collection
+    public DbSet<DeltaCursor> DeltaCursors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -170,6 +181,31 @@ public class EDiscoveryDbContext : DbContext
             entity.HasIndex(e => e.WorkerId).IsUnique();
             entity.HasIndex(e => e.Status);
             entity.HasIndex(e => e.LastHeartbeat);
+        });
+
+        // Configure DeltaCursor entity for incremental collection
+        modelBuilder.Entity<DeltaCursor>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.ScopeId).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.CustodianEmail).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.DeltaToken).IsRequired().HasMaxLength(2000);
+            entity.Property(e => e.DeltaType).HasConversion<string>();
+            entity.Property(e => e.ErrorMessage).HasMaxLength(1000);
+            entity.Property(e => e.Metadata).HasMaxLength(4000);
+            
+            // Indexes for performance
+            entity.HasIndex(e => new { e.ScopeId, e.DeltaType }).IsUnique();
+            entity.HasIndex(e => e.CustodianEmail);
+            entity.HasIndex(e => e.DeltaType);
+            entity.HasIndex(e => e.LastDeltaTime);
+            entity.HasIndex(e => e.IsActive);
+            
+            // Relationship with CollectionJob
+            entity.HasOne(e => e.CollectionJob)
+                  .WithMany()
+                  .HasForeignKey(e => e.CollectionJobId)
+                  .OnDelete(DeleteBehavior.SetNull);
         });
 
         // Seed data for default users

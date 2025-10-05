@@ -1,0 +1,300 @@
+[2025-10-05 00:00:04.043 -04:00] Application is shutting down...
+[2025-10-05 00:16:08.228 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-05 00:16:08.348 -04:00] Concurrent Hybrid Graph Collector Worker terminated unexpectedly
+[2025-10-05 00:16:52.173 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-05 00:16:52.288 -04:00] Concurrent Hybrid Graph Collector Worker terminated unexpectedly
+[2025-10-05 00:19:10.637 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-05 00:19:11.381 -04:00] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 00:19:11.470 -04:00] AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: c5ae4234 | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-27292","Timestamp":"2025-10-05T04:19:11.4211223Z","CorrelationId":"c5ae4234"}
+[2025-10-05 00:19:11.472 -04:00] Concurrent Hybrid Graph Collector Worker started successfully
+[2025-10-05 00:19:11.557 -04:00] AutoRouter configured with thresholds: 10.0 GB, 50,000 items
+[2025-10-05 00:19:11.570 -04:00] Hybrid Graph Collector Worker started at: "2025-10-05T00:19:11.5703961-04:00" | CorrelationId: 61342a32
+[2025-10-05 00:19:11.576 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: 61342a32 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-05T00:19:11.5731767-04:00"},"Instance":"DONNELLD-BOOK-3-27292","Timestamp":"2025-10-05T04:19:11.5732346Z","CorrelationId":"61342a32"}
+[2025-10-05 00:19:11.582 -04:00] Processing sample collection job for custodian: test.user@development.com
+[2025-10-05 00:19:11.585 -04:00] Determining optimal route for custodian: test.user@development.com | CorrelationId: bd1eb786
+[2025-10-05 00:19:11.591 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: test.user@development.com | CorrelationId: bd1eb786 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T04:19:11.583318Z","EndDate":"2025-10-05T04:19:11.5833465Z"}},"Instance":"DONNELLD-BOOK-3-27292","Timestamp":"2025-10-05T04:19:11.5873152Z","CorrelationId":"bd1eb786"}
+[2025-10-05 00:19:11.595 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 00:19:11.596 -04:00] Hosting environment: Development
+[2025-10-05 00:19:11.597 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-05 00:19:11.633 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: bd1eb786
+[2025-10-05 00:19:11.640 -04:00] Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: bd1eb786
+[2025-10-05 00:19:11.641 -04:00] Route decision completed: "GraphDataConnect" (Confidence: 95.0 %) | CorrelationId: bd1eb786
+[2025-10-05 00:19:11.653 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: test.user@development.com | CorrelationId: bd1eb786 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"test.user@development.com","Data":{"RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-27292","Timestamp":"2025-10-05T04:19:11.6434275Z","CorrelationId":"bd1eb786"}
+[2025-10-05 00:19:11.655 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 70ms | Items: 0 | Size: 0 bytes | CorrelationId: bd1eb786 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:11.659 -04:00] [Job 0] [AutoRouter] Route decision: GraphDataConnect Reason: Current quota usage exceeds Graph API thresholds. Confidence: 95.0%
+[2025-10-05 00:19:11.661 -04:00] Graph Data Connect collection requested for job type: "Email"
+[2025-10-05 00:19:11.782 -04:00] Collection failed: Graph Data Connect collection not implemented in POC
+[2025-10-05 00:19:12.045 -04:00] Failed executing DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:19:12.061 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:19:12.072 -04:00] Error processing delta queries | CorrelationId: a1481793
+[2025-10-05 00:19:12.083 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 297ms | Items: 0 | Size: 0 bytes | CorrelationId: a1481793 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:12.086 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 507ms | Items: 0 | Size: 0 bytes | CorrelationId: c57c3f33 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:27.165 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:19:27.171 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:19:27.180 -04:00] Error processing delta queries | CorrelationId: 79474902
+[2025-10-05 00:19:27.187 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 84ms | Items: 0 | Size: 0 bytes | CorrelationId: 79474902 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:27.190 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 90ms | Items: 0 | Size: 0 bytes | CorrelationId: 4563de55 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:42.213 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:19:42.216 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:19:42.221 -04:00] Error processing delta queries | CorrelationId: e5a5ce1d
+[2025-10-05 00:19:42.224 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 23ms | Items: 0 | Size: 0 bytes | CorrelationId: e5a5ce1d | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:42.225 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 28ms | Items: 0 | Size: 0 bytes | CorrelationId: 8c7fb37a | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:57.253 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:19:57.257 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:19:57.262 -04:00] Error processing delta queries | CorrelationId: 0e07789e
+[2025-10-05 00:19:57.266 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 23ms | Items: 0 | Size: 0 bytes | CorrelationId: 0e07789e | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:19:57.269 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 29ms | Items: 0 | Size: 0 bytes | CorrelationId: 2daa8af7 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:12.299 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:20:12.303 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:20:12.309 -04:00] Error processing delta queries | CorrelationId: 0f8ac59b
+[2025-10-05 00:20:12.312 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 23ms | Items: 0 | Size: 0 bytes | CorrelationId: 0f8ac59b | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:12.313 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 31ms | Items: 0 | Size: 0 bytes | CorrelationId: 1387cc1b | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:27.342 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:20:27.345 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:20:27.351 -04:00] Error processing delta queries | CorrelationId: 20d73049
+[2025-10-05 00:20:27.355 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 24ms | Items: 0 | Size: 0 bytes | CorrelationId: 20d73049 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:27.357 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 39ms | Items: 0 | Size: 0 bytes | CorrelationId: 702fa681 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:42.377 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:20:42.381 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:20:42.387 -04:00] Error processing delta queries | CorrelationId: 06d33710
+[2025-10-05 00:20:42.390 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 24ms | Items: 0 | Size: 0 bytes | CorrelationId: 06d33710 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:42.392 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 28ms | Items: 0 | Size: 0 bytes | CorrelationId: 7c76e843 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:57.412 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:20:57.416 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:20:57.422 -04:00] Error processing delta queries | CorrelationId: b1c1b425
+[2025-10-05 00:20:57.426 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 24ms | Items: 0 | Size: 0 bytes | CorrelationId: b1c1b425 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:20:57.427 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 29ms | Items: 0 | Size: 0 bytes | CorrelationId: bd93b8e3 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:12.450 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:21:12.454 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:21:12.459 -04:00] Error processing delta queries | CorrelationId: 3f5e8da0
+[2025-10-05 00:21:12.462 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 22ms | Items: 0 | Size: 0 bytes | CorrelationId: 3f5e8da0 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:12.463 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 27ms | Items: 0 | Size: 0 bytes | CorrelationId: d07f04ea | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:27.489 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:21:27.492 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:21:27.497 -04:00] Error processing delta queries | CorrelationId: 9ce54dd3
+[2025-10-05 00:21:27.501 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 22ms | Items: 0 | Size: 0 bytes | CorrelationId: 9ce54dd3 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:27.503 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 26ms | Items: 0 | Size: 0 bytes | CorrelationId: 114f4752 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:42.530 -04:00] Failed executing DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:21:42.534 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:21:42.540 -04:00] Error processing delta queries | CorrelationId: 8fcdc3ab
+[2025-10-05 00:21:42.543 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 23ms | Items: 0 | Size: 0 bytes | CorrelationId: 8fcdc3ab | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:42.544 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 29ms | Items: 0 | Size: 0 bytes | CorrelationId: 7819ea31 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:57.571 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:21:57.575 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:21:57.579 -04:00] Error processing delta queries | CorrelationId: c71378a4
+[2025-10-05 00:21:57.582 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 22ms | Items: 0 | Size: 0 bytes | CorrelationId: c71378a4 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:21:57.583 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 31ms | Items: 0 | Size: 0 bytes | CorrelationId: fca02fa5 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:22:12.608 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 00:22:12.612 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 00:22:12.617 -04:00] Error processing delta queries | CorrelationId: 912e9e0a
+[2025-10-05 00:22:12.620 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 21ms | Items: 0 | Size: 0 bytes | CorrelationId: 912e9e0a | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 00:22:12.622 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 27ms | Items: 0 | Size: 0 bytes | CorrelationId: 78b4d859 | Throughput: 0.00 items/sec, 0.00 MB/sec

@@ -1,5 +1,6 @@
 using EDiscovery.Shared.Models;
 using EDiscovery.Shared.Services;
+using EDiscovery.Shared.Configuration;
 using HybridGraphCollectorWorker;
 using HybridGraphCollectorWorker.Services;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,14 @@ try
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") 
             ?? "Data Source=ediscovery.db"));
 
+    // Configure AutoRouter options
+    builder.Services.Configure<AutoRouterOptions>(
+        builder.Configuration.GetSection(AutoRouterOptions.SectionName));
+
+    // Configure DeltaQuery options
+    builder.Services.Configure<EDiscovery.Shared.Configuration.DeltaQueryOptions>(
+        builder.Configuration.GetSection(EDiscovery.Shared.Configuration.DeltaQueryOptions.SectionName));
+
     // Add HTTP client for API communication
     builder.Services.AddHttpClient<IEDiscoveryApiClient, EDiscoveryApiClient>();
 
@@ -37,6 +46,7 @@ try
     // Add application services as Singleton to match IHostedService lifetime
     builder.Services.AddSingleton<IGraphCollectorService, GraphCollectorService>();
     builder.Services.AddSingleton<IAutoRouterService, AutoRouterService>();
+    builder.Services.AddScoped<IDeltaQueryService, DeltaQueryService>(); // Scoped due to DbContext dependency
     builder.Services.AddSingleton<IEDiscoveryApiClient, EDiscoveryApiClient>();
     builder.Services.AddSingleton<IComplianceLogger, ComplianceLogger>();
 

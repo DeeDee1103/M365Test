@@ -1,20 +1,21 @@
 # Hybrid eDiscovery Collector - Technical Overview Document
 
 **Project:** Hybrid Microsoft 365 eDiscovery Collection System  
-**Date:** October 4, 2025  
-**Version:** 2.0 (POC) - Multi-User Concurrent Processing  
+**Date:** October 5, 2025  
+**Version:** 2.1 (POC) - Delta Query Implementation  
 **Author:** Donnell Douglas
 
 ---
 
 ## Executive Summary
 
-The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution designed to replace Microsoft Purview's collection limitations by intelligently routing between Microsoft Graph API and Graph Data Connect (GDC) based on collection size and complexity. This system provides secure, scalable, and compliant data collection for large financial organizations with **multi-user concurrent processing capabilities**.
+The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution designed to replace Microsoft Purview's collection limitations by intelligently routing between Microsoft Graph API and Graph Data Connect (GDC) based on collection size and complexity. This system provides secure, scalable, and compliant data collection for large financial organizations with **multi-user concurrent processing capabilities** and **incremental delta query collection**.
 
 ### Key Benefits
 
+- **Delta Query System**: Incremental collection to avoid re-pulling unchanged content for Mail and OneDrive
 - **Multi-User Concurrent Processing**: Support for multiple users running collections simultaneously with proper job assignment and locking
-- **Intelligent Routing**: Automatic selection between Graph API and GDC based on data size thresholds
+- **Intelligent Routing**: Automatic selection between Graph API and GDC based on configurable data size thresholds
 - **Chain of Custody**: SHA-256 hashing and immutable audit trails for legal compliance
 - **Enterprise Logging**: Comprehensive structured logging with Serilog, correlation tracking, and compliance audit trails
 - **User Management**: Role-based access control with configurable concurrency limits and data size restrictions
@@ -26,11 +27,28 @@ The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution des
 
 ---
 
-## 🆕 Latest Updates (October 4, 2025)
+## 🆕 Latest Updates (October 5, 2025)
 
 ### ✅ Recently Completed:
 
-1. **Multi-User Concurrent Processing Architecture** - Enterprise-scale concurrent job management
+1. **Delta Query System Implementation** - Incremental collection for performance & cost optimization
+
+   - Delta Query Service with Mail and OneDrive incremental collection support
+   - DeltaCursor entity for tracking delta state per custodian and data type
+   - Background delta query processing with configurable intervals
+   - Automatic cleanup of stale cursors and periodic full resync capabilities
+   - Environment-specific delta query configuration (Development: 15min, Production: 60min)
+   - Database integration with proper Entity Framework configuration
+   - Service scope management for proper dependency injection lifecycle
+
+2. **Enhanced AutoRouter Configuration** - Fully configurable routing thresholds
+
+   - Environment-specific routing thresholds (Development: 10GB, Production: 500GB+)
+   - JSON configuration with environment variable override support
+   - Runtime validation showing correct threshold application
+   - Docker and Kubernetes deployment configuration examples
+
+3. **Multi-User Concurrent Processing Architecture** - Enterprise-scale concurrent job management
 
    - User management system with role-based access control (Analyst, Manager, Administrator)
    - JobAssignment entity with pessimistic locking mechanisms for concurrent job processing
@@ -39,8 +57,9 @@ The Hybrid eDiscovery Collector is a comprehensive enterprise-grade solution des
    - IConcurrentJobManager service with atomic job acquisition and release
    - Database-backed job coordination with lock tokens and heartbeat mechanisms
 
-2. **Enhanced Database Schema** - Multi-user concurrent processing support
+4. **Enhanced Database Schema** - Multi-user concurrent processing and delta query support
 
+   - DeltaCursor entity with indexes for performance optimization
    - User entity with configurable concurrency limits and data size restrictions per role
    - UserSession entity for active session tracking and security monitoring
    - JobAssignment entity with lock management and worker assignment tracking
@@ -417,18 +436,83 @@ if (quota.UsedBytes < 100GB && quota.UsedItems < 500k) {
 return GraphDataConnect; // Bulk, scheduled collection
 ```
 
-### 2.3 EDiscovery.Shared (.NET 9.0 Class Library)
+### 2.3 Delta Query System (Incremental Collection)
+
+**Purpose**: Provides incremental data collection to avoid re-pulling unchanged content, optimizing both performance and cost.
+
+**Key Features**:
+
+- **Delta Token Management**: Tracks changes using Microsoft Graph delta tokens per custodian and data type
+- **Cursor Storage**: Database-backed tracking of delta state with automatic cleanup
+- **Background Processing**: Configurable interval processing with environment-specific settings
+- **Failure Recovery**: Automatic fallback to full collection after consecutive failures
+- **Age Management**: Periodic full resync to ensure data integrity
+
+**Supported Data Types**:
+
+| Data Type  | Delta Support | Token Storage        | Status      |
+| ---------- | ------------- | -------------------- | ----------- |
+| **Mail**   | ✅ Complete   | Database DeltaCursor | ✅ Ready    |
+| **OneDrive** | ✅ Complete   | Database DeltaCursor | ✅ Ready    |
+| **SharePoint** | 🚧 Planned   | Future enhancement   | 🚧 Roadmap |
+| **Teams**  | 🚧 Planned   | Future enhancement   | 🚧 Roadmap |
+
+**Configuration Options**:
+
+```json
+{
+  "DeltaQuery": {
+    "EnableMailDelta": true,
+    "EnableOneDriveDelta": true,
+    "DeltaQueryIntervalMinutes": 60,
+    "MaxDeltaAgeDays": 30,
+    "MaxDeltaFailures": 3,
+    "BackgroundDeltaQueries": true,
+    "EnableAutomaticCleanup": true
+  }
+}
+```
+
+**Delta Query Architecture**:
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│                 │    │                  │    │                 │
+│ Worker Service  │◄──►│ DeltaQueryService│◄──►│ DeltaCursor     │
+│ Background      │    │                  │    │ Database        │
+│ Processing      │    │                  │    │                 │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│                 │    │                  │    │                 │
+│ Graph API       │    │ Delta Token      │    │ Incremental     │
+│ Delta Queries   │    │ Management       │    │ Collection      │
+│ Mail/OneDrive   │    │ & Validation     │    │ Processing      │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+**Environment-Specific Intervals**:
+
+| Environment     | Delta Interval | Max Age | Cleanup Frequency |
+| --------------- | -------------- | ------- | ----------------- |
+| **Development** | 15 minutes     | 7 days  | Every hour        |
+| **Staging**     | 30 minutes     | 14 days | Every 4 hours     |
+| **Production**  | 60 minutes     | 30 days | Daily             |
+
+### 2.4 EDiscovery.Shared (.NET 9.0 Class Library)
 
 **Purpose**: Common functionality and models shared across all components.
 
 **Contents**:
 
-- **Models**: Data entities and DTOs
-- **Services**: AutoRouter and shared business logic
-- **Enums**: Job types, statuses, routing options
-- **Interfaces**: Service contracts and abstractions
+- **Models**: Data entities and DTOs including DeltaCursor for incremental collection
+- **Services**: AutoRouter, DeltaQueryService, and shared business logic
+- **Configuration**: AutoRouterOptions and DeltaQueryOptions for environment-specific settings
+- **Enums**: Job types, statuses, routing options, and DeltaType enumeration
+- **Interfaces**: Service contracts and abstractions including IDeltaQueryService
 
-### 2.4 ComplianceLogger Service (Enterprise Logging)
+### 2.5 ComplianceLogger Service (Enterprise Logging)
 
 **Purpose**: Specialized logging service for eDiscovery compliance and audit requirements.
 

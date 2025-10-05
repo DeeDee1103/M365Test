@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EDiscovery.Shared.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8002a203c1adab7c4736afb6c895dcd0f752e380")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+016c46bc4aa826fe368ddcab79168a122bd50edc")]
 [assembly: System.Reflection.AssemblyProductAttribute("EDiscovery.Shared.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EDiscovery.Shared.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
