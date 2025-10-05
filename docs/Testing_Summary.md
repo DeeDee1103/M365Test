@@ -37,6 +37,37 @@
 - Some enum default values differ from test expectations
 - Graph API authentication tests (expected to fail without real credentials)
 
+### 🔐 Chain of Custody Testing:
+
+**Manifest Generation Tests**:
+
+- ✅ JobManifest model validation
+- ✅ Manifest entry creation and serialization
+- 🔄 JSON and CSV format generation tests
+- 🔄 SHA-256 hash verification tests
+
+**Digital Signature Tests**:
+
+- 🔄 X.509 certificate validation
+- 🔄 Manifest signing process tests
+- 🔄 Signature verification tests
+- 🔄 Certificate chain validation
+
+**WORM Storage Tests**:
+
+- 🔄 Immutability policy enforcement
+- 🔄 Retention period validation
+- 🔄 Write-once verification tests
+- 🔄 Audit trail integrity tests
+
+**API Endpoint Tests**:
+
+- 🔄 POST `/api/chainofcustody/manifest/{jobId}` - Manifest generation
+- 🔄 POST `/api/chainofcustody/seal/{jobId}` - Manifest sealing
+- 🔄 GET `/api/chainofcustody/verify/{jobId}` - Integrity verification
+- 🔄 GET `/api/chainofcustody/download/{jobId}` - Manifest download
+- 🔄 GET `/api/chainofcustody/validate/{jobId}` - Full validation
+
 ## 🚀 Running Tests
 
 ### Run All Tests:

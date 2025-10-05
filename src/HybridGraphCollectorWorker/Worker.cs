@@ -12,29 +12,35 @@ public class Worker : BackgroundService
     private readonly IComplianceLogger _complianceLogger;
     private readonly IGraphCollectorService _graphCollector;
     private readonly IAutoRouterService _autoRouter;
+    private readonly IGraphDataConnectService _gdcService;
     private readonly IServiceProvider _serviceProvider;
     private readonly IEDiscoveryApiClient _apiClient;
     private readonly IConfiguration _configuration;
     private readonly EDiscovery.Shared.Configuration.DeltaQueryOptions _deltaOptions;
+    private readonly HybridGraphCollectorWorker.Services.ObservabilityHelper _observability;
 
     public Worker(
         ILogger<Worker> logger,
         IComplianceLogger complianceLogger,
         IGraphCollectorService graphCollector,
         IAutoRouterService autoRouter,
+        IGraphDataConnectService gdcService,
         IServiceProvider serviceProvider,
         IEDiscoveryApiClient apiClient,
         IConfiguration configuration,
-        Microsoft.Extensions.Options.IOptions<EDiscovery.Shared.Configuration.DeltaQueryOptions> deltaOptions)
+        Microsoft.Extensions.Options.IOptions<EDiscovery.Shared.Configuration.DeltaQueryOptions> deltaOptions,
+        HybridGraphCollectorWorker.Services.ObservabilityHelper observability)
     {
         _logger = logger;
         _complianceLogger = complianceLogger;
         _graphCollector = graphCollector;
         _autoRouter = autoRouter;
+        _gdcService = gdcService;
         _serviceProvider = serviceProvider;
         _apiClient = apiClient;
         _configuration = configuration;
         _deltaOptions = deltaOptions.Value;
+        _observability = observability;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -84,9 +90,15 @@ public class Worker : BackgroundService
         using var performanceTimer = _complianceLogger.StartPerformanceTimer("Worker.ProcessPendingJobs", correlationId);
         
         _logger.LogDebug("Checking for pending collection jobs | CorrelationId: {CorrelationId}", correlationId);
+        
+        // Process sharded jobs if enabled
+        if (_configuration.GetValue<bool>("Worker:EnableShardedJobs", true))
+        {
+            await ProcessShardedJobsAsync(cancellationToken);
+        }
+        
         // For POC, simulate a sample collection job
         // In production, this would query the API for pending jobs
-        
         if (_configuration.GetValue<bool>("Worker:EnableSampleJob", false))
         {
             await ProcessSampleJobAsync(cancellationToken);
@@ -220,11 +232,95 @@ public class Worker : BackgroundService
         }
     }
 
+    private async Task ProcessShardedJobsAsync(CancellationToken cancellationToken)
+    {
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        _logger.LogDebug("Checking for available job shards | CorrelationId: {CorrelationId}", correlationId);
+
+        try
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var shardingService = scope.ServiceProvider.GetService<IJobShardingService>();
+            var shardProcessor = scope.ServiceProvider.GetService<IShardedJobProcessor>();
+            
+            if (shardingService == null || shardProcessor == null)
+            {
+                _logger.LogDebug("Sharded job services not available, skipping shard processing | CorrelationId: {CorrelationId}", correlationId);
+                return;
+            }
+
+            // Get worker and user IDs from configuration
+            var workerId = Environment.MachineName + "_" + Environment.ProcessId;
+            var userId = _configuration.GetValue<int>("Worker:DefaultUserId", 1);
+
+            // Get next available shard
+            var shard = await shardingService.GetNextAvailableShardAsync(workerId, userId, cancellationToken);
+            
+            if (shard == null)
+            {
+                _logger.LogDebug("No available job shards found | CorrelationId: {CorrelationId}", correlationId);
+                return;
+            }
+
+            // Acquire lock on the shard
+            var lockAcquired = await shardingService.AcquireShardLockAsync(shard.Id, workerId, userId, cancellationToken);
+            
+            if (!lockAcquired)
+            {
+                _logger.LogWarning("Failed to acquire lock on shard {ShardId} | CorrelationId: {CorrelationId}", shard.Id, correlationId);
+                return;
+            }
+
+            _logger.LogInformation("Acquired shard {ShardId} for processing | Custodian: {Custodian} | {StartDate} to {EndDate} | CorrelationId: {CorrelationId}", 
+                shard.Id, shard.CustodianEmail, shard.StartDate, shard.EndDate, correlationId);
+
+            try
+            {
+                // Validate shard before processing
+                var isValid = await shardProcessor.ValidateShardForProcessingAsync(shard, cancellationToken);
+                
+                if (!isValid)
+                {
+                    _logger.LogWarning("Shard {ShardId} failed validation, skipping processing | CorrelationId: {CorrelationId}", shard.Id, correlationId);
+                    await shardingService.ReleaseShardLockAsync(shard.Id, workerId, cancellationToken);
+                    return;
+                }
+
+                // Process the shard
+                var result = await shardProcessor.ProcessShardAsync(shard, cancellationToken);
+                
+                if (result.IsSuccessful)
+                {
+                    _logger.LogInformation("Successfully processed shard {ShardId} | Items: {Items} | Size: {Size} bytes | CorrelationId: {CorrelationId}", 
+                        shard.Id, result.TotalItemCount, result.TotalSizeBytes, correlationId);
+                }
+                else
+                {
+                    _logger.LogError("Failed to process shard {ShardId}: {Error} | CorrelationId: {CorrelationId}", 
+                        shard.Id, result.ErrorMessage, correlationId);
+                    
+                    // Attempt retry if within retry limits
+                    await shardingService.RetryShardAsync(shard.Id, result.ErrorMessage ?? "Unknown error", cancellationToken);
+                }
+            }
+            finally
+            {
+                // Always release the lock when done
+                await shardingService.ReleaseShardLockAsync(shard.Id, workerId, cancellationToken);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error processing sharded jobs | CorrelationId: {CorrelationId}", correlationId);
+        }
+    }
+
     private async Task ProcessSampleJobAsync(CancellationToken cancellationToken)
     {
+        var correlationId = _complianceLogger.CreateCorrelationId();
         var sampleCustodian = _configuration["Worker:SampleCustodian"] ?? "user@company.com";
         
-        _logger.LogInformation("Processing sample collection job for custodian: {CustodianEmail}", sampleCustodian);
+        _logger.LogInformation("Processing sample collection job for custodian: {CustodianEmail} | CorrelationId: {CorrelationId}", sampleCustodian, correlationId);
 
         // Create a sample collection request
         var request = new CollectionRequest
@@ -238,12 +334,23 @@ public class Worker : BackgroundService
             OutputPath = "./output"
         };
 
+        // Log structured JobStarted event
+        _observability.LogJobStarted(request, correlationId);
+
+        var startTime = DateTime.UtcNow;
+
         // Use AutoRouter to determine the best collection route
         var routerDecision = await _autoRouter.DetermineOptimalRouteAsync(request);
         
         await _apiClient.LogJobEventAsync(0, EDiscovery.Shared.Models.LogLevel.Information, "AutoRouter", 
             $"Route decision: {routerDecision.RecommendedRoute}", 
             $"Reason: {routerDecision.Reason}. Confidence: {routerDecision.ConfidenceScore:P1}");
+
+        // Log structured AutoRoutedToGDC event if GDC was selected
+        if (routerDecision.RecommendedRoute == CollectionRoute.GraphDataConnect)
+        {
+            _observability.LogAutoRoutedToGDC(request, routerDecision, correlationId);
+        }
 
         // Execute collection based on route decision
         CollectionResult result;
@@ -264,15 +371,21 @@ public class Worker : BackgroundService
         }
 
         // Log collection results
+        var endTime = DateTime.UtcNow;
+        var duration = endTime - startTime;
+        
         if (result.IsSuccessful)
         {
-            _logger.LogInformation("Collection completed successfully. Items: {ItemCount}, Size: {SizeBytes} bytes", 
-                result.TotalItemCount, result.TotalSizeBytes);
+            _logger.LogInformation("Collection completed successfully. Items: {ItemCount}, Size: {SizeBytes} bytes | CorrelationId: {CorrelationId}", 
+                result.TotalItemCount, result.TotalSizeBytes, correlationId);
         }
         else
         {
-            _logger.LogError("Collection failed: {ErrorMessage}", result.ErrorMessage);
+            _logger.LogError("Collection failed: {ErrorMessage} | CorrelationId: {CorrelationId}", result.ErrorMessage, correlationId);
         }
+
+        // Log structured JobCompleted event
+        _observability.LogJobCompleted(request, result, duration, correlationId);
 
         // Disable sample job after running once
         _configuration["Worker:EnableSampleJob"] = "false";
@@ -280,9 +393,10 @@ public class Worker : BackgroundService
 
     private async Task<CollectionResult> ExecuteGraphApiCollection(CollectionRequest request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Executing Graph API collection for job type: {JobType}", request.JobType);
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        _logger.LogInformation("Executing Graph API collection for job type: {JobType} | CorrelationId: {CorrelationId}", request.JobType, correlationId);
 
-        return request.JobType switch
+        var result = request.JobType switch
         {
             CollectionJobType.Email => await _graphCollector.CollectEmailAsync(request, cancellationToken),
             CollectionJobType.OneDrive => await _graphCollector.CollectOneDriveAsync(request, cancellationToken),
@@ -290,21 +404,49 @@ public class Worker : BackgroundService
             CollectionJobType.Teams => await _graphCollector.CollectTeamsAsync(request, cancellationToken),
             _ => new CollectionResult { ErrorMessage = $"Unsupported job type: {request.JobType}" }
         };
+
+        // Log individual items collected (simulated for demonstration)
+        if (result.IsSuccessful && result.Items.Any())
+        {
+            foreach (var item in result.Items.Take(5)) // Log first 5 items as examples
+            {
+                _observability.LogItemCollected(
+                    item.ItemId, 
+                    item.ItemType, 
+                    item.SizeBytes, 
+                    request.CustodianEmail, 
+                    correlationId);
+            }
+
+            if (result.Items.Count > 5)
+            {
+                _logger.LogInformation("... and {RemainingCount} more items collected | CorrelationId: {CorrelationId}", 
+                    result.Items.Count - 5, correlationId);
+            }
+        }
+
+        return result;
     }
 
     private async Task<CollectionResult> ExecuteGraphDataConnectCollection(CollectionRequest request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Graph Data Connect collection requested for job type: {JobType}", request.JobType);
         
-        // For POC, Graph Data Connect is not implemented
-        // In production, this would trigger Azure Data Factory pipelines
+        // Use the GDC service to trigger Azure Data Factory pipeline
+        var result = await _gdcService.TriggerCollectionAsync(request, cancellationToken);
         
-        await Task.Delay(100, cancellationToken); // Simulate processing
-        
-        return new CollectionResult
+        if (result.IsSuccessful)
         {
-            IsSuccessful = false,
-            ErrorMessage = "Graph Data Connect collection not implemented in POC"
-        };
+            _logger.LogInformation("Graph Data Connect collection triggered successfully for custodian: {CustodianEmail} | PipelineRunId: {PipelineRunId}", 
+                request.CustodianEmail, 
+                result.CollectionMetadata?.GetValueOrDefault("PipelineRunId", "Unknown"));
+        }
+        else
+        {
+            _logger.LogError("Graph Data Connect collection failed for custodian: {CustodianEmail} | Error: {ErrorMessage}", 
+                request.CustodianEmail, result.ErrorMessage);
+        }
+        
+        return result;
     }
 }

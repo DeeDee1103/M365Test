@@ -161,7 +161,10 @@ _complianceLogger.LogAudit("MatterCreated", new {
 
 ### **Chain of Custody Tracking**
 
+The enhanced Chain of Custody system integrates with comprehensive logging:
+
 ```csharp
+// Item-level chain of custody
 _complianceLogger.LogChainOfCustody(
     itemId: "email-12345",
     action: "Collected",
@@ -169,7 +172,42 @@ _complianceLogger.LogChainOfCustody(
     metadata: new { Source = "Exchange Online", Custodian = "user@company.com" },
     correlationId: correlationId
 );
+
+// Manifest generation logging
+_complianceLogger.LogManifestGeneration(
+    jobId: jobId,
+    manifestFormat: "JSON",
+    itemCount: 1250,
+    manifestHash: "sha256-manifest-hash...",
+    correlationId: correlationId
+);
+
+// Digital signature logging
+_complianceLogger.LogDigitalSignature(
+    jobId: jobId,
+    certificateThumbprint: "cert-thumbprint",
+    signatureAlgorithm: "SHA256withRSA",
+    signatureHash: "sha256-signature...",
+    correlationId: correlationId
+);
+
+// WORM storage compliance
+_complianceLogger.LogWormStorage(
+    jobId: jobId,
+    immutabilityPolicy: "Legal",
+    retentionPeriod: TimeSpan.FromDays(2555),
+    storageLocation: "azure-blob-worm",
+    correlationId: correlationId
+);
 ```
+
+**Key Chain of Custody Features:**
+
+- **Tamper-Evident Manifests**: Every collection generates JSON/CSV manifests with SHA-256 integrity hashes
+- **Digital Signatures**: X.509 certificate-based signing with full audit trails
+- **WORM Compliance**: Write-Once-Read-Many storage with immutability policies
+- **Verification Logging**: Complete verification chain with timestamp attestation
+- **API Audit Trails**: All Chain of Custody API calls logged with correlation tracking
 
 ### **Performance Monitoring**
 

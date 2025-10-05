@@ -190,6 +190,48 @@ env:
 6. **✅ Well Documented**: Comprehensive documentation and examples
 7. **✅ Enterprise Ready**: Supports Azure Key Vault and Kubernetes deployments
 
+## 🔐 **Chain of Custody Integration**
+
+The AutoRouter now works seamlessly with Chain of Custody hardening:
+
+### **Manifest Generation Impact**
+
+```json
+{
+  "AutoRouter": {
+    "RoutingDecision": {
+      "Method": "GraphApi",
+      "Confidence": 90,
+      "Reasoning": "Collection size under threshold"
+    }
+  },
+  "ChainOfCustody": {
+    "ManifestMetadata": {
+      "RoutingMethod": "GraphApi",
+      "RoutingConfidence": 90,
+      "ConfigurationSnapshot": {
+        "MaxSizeBytes": 107374182400,
+        "MaxItemCount": 500000
+      }
+    }
+  }
+}
+```
+
+### **Audit Trail Enhancement**
+
+- **Routing decisions** are captured in manifests for legal transparency
+- **Configuration snapshots** preserve routing logic at collection time
+- **Delta query metadata** shows incremental vs full collection methods
+- **WORM storage** ensures routing decisions cannot be altered post-collection
+
+### **Compliance Benefits**
+
+- **Reproducible decisions**: Manifests show exact routing logic used
+- **Configuration audit**: Threshold settings preserved in tamper-evident format
+- **Legal transparency**: Court can verify why specific collection method was chosen
+- **Delta query integrity**: Incremental collection cursors tracked and verified
+
 ## 🎊 **Mission Accomplished!**
 
 The AutoRouter routing thresholds (100GB / 500k-item rules) are now **fully configurable** per environment with JSON + environment variable overrides, exactly as requested. The worker successfully reads these from `appsettings.json` and environment variables, providing complete deployment flexibility while maintaining enterprise-grade functionality.

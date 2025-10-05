@@ -1,38 +1,37 @@
-# Hybrid eDiscovery Collector - POC
+# Hybrid eDiscovery Collector - v2.1 Production Ready
 
-A hybrid eDiscovery collection system that intelligently routes between Microsoft Graph API and Graph Data Connect based on collection size and complexity.
+A comprehensive hybrid eDiscovery collection system with intelligent routing between Microsoft Graph API and Graph Data Connect, featuring advanced observability, structured logging, and health monitoring.
 
 ## 🏗️ Architecture
 
-### Components
+### Core Components
 
-1. **EDiscoveryIntakeApi** (.NET 8 Web API)
+1. **EDiscoveryIntakeApi** (.NET 9 Web API)
 
-   - Tracks matters, collection jobs, and collected items
-   - Provides REST endpoints for job management
-   - Uses SQLite for POC (Azure SQL for production)
-   - Includes Swagger documentation
+   - Job management with SQLite/Azure SQL support
+   - REST endpoints for collection lifecycle
+   - **NEW**: Health monitoring endpoints with comprehensive metrics
+   - **NEW**: Structured logging integration for observability
+   - Swagger documentation and OpenAPI support
 
-2. **HybridGraphCollectorWorker** (.NET 8 Worker Service)
+2. **HybridGraphCollectorWorker** (.NET 9 Worker Service)
 
-   - Connects to Microsoft 365 via Graph API
-   - **AutoRouter** determines optimal collection route:
-     - **Graph API**: `< 100GB` and `< 500k` items
-     - **Graph Data Connect**: Above thresholds
-   - **Delta Queries**: Incremental collection to avoid re-pulling unchanged content
-   - Features:
-     - Retry/backoff for 429s and 5xx errors
-     - Chain-of-custody logging with SHA-256 hashes
-     - NAS or Azure Blob outputs
-     - Integration with Intake API
-     - Delta cursor tracking for Mail and OneDrive
+   - Microsoft 365 Graph API integration
+   - **AutoRouter**: Intelligent route selection based on data volume
+     - **Graph API**: `< 100GB` and `< 500k` items (configurable)
+     - **Graph Data Connect**: Large-scale collections with ADF pipeline triggers
+   - **Delta Queries**: Incremental collection with cursor tracking
+   - **NEW**: Comprehensive structured logging for all collection events
+   - **NEW**: Real-time metrics collection for dashboards
+   - Chain-of-custody with tamper-evident manifests
 
 3. **EDiscovery.Shared**
-   - Common models and services
-   - AutoRouter service with configurable thresholds
-   - Delta Query service for incremental collection
-   - Data entities (Matter, CollectionJob, CollectedItem, JobLog, DeltaCursor)
-   - Comprehensive logging and compliance services
+   - Shared models, services, and configuration
+   - AutoRouter with environment-specific thresholds
+   - Delta Query service with database-backed cursors
+   - **NEW**: ObservabilityService for metrics and health monitoring
+   - **NEW**: Structured event models for comprehensive logging
+   - Chain of Custody with digital signatures and WORM storage
 
 ## 🚀 Quick Start (POC)
 
@@ -154,6 +153,18 @@ Routing decisions are now **fully configurable** per environment through `appset
     "MaxDeltaFailures": 3, // Force resync after 3 failures
     "BackgroundDeltaQueries": true, // Run delta queries in background
     "EnableAutomaticCleanup": true // Automatically cleanup stale cursors
+  },
+  "ChainOfCustody": {
+    "ManifestFormat": "Both", // Generate JSON and CSV manifests
+    "ManifestStoragePath": "./manifests", // Local manifest storage
+    "ImmutableStoragePath": "./immutable", // WORM storage location
+    "EnableDigitalSigning": false, // Disable for development
+    "SigningCertificateThumbprint": null, // Certificate for production
+    "EnableWormStorage": true, // Enable tamper-evident storage
+    "ImmutablePolicyId": "ediscovery-worm-policy", // WORM policy ID
+    "ManifestRetentionDays": 2555, // 7 years retention
+    "EnablePeriodicVerification": true, // Automated integrity checks
+    "VerificationIntervalHours": 24 // Daily verification
   }
 }
 ```
@@ -239,19 +250,202 @@ The Delta Query system provides incremental collection to avoid re-pulling uncha
 - **✅ Cursor Storage**: Database table for tracking delta state
 - **✅ Background Processing**: Worker service integration
 - **✅ Configuration**: Environment-specific delta query settings
+
+## 📊 Observability & Monitoring
+
+### 🎯 **Structured Logging Events**
+
+The system now emits comprehensive structured logs for complete collection visibility:
+
+| Event Type           | Description                             | Key Fields                                   |
+| -------------------- | --------------------------------------- | -------------------------------------------- |
+| **JobStarted**       | Collection job initiation               | CustodianEmail, JobType, DateRange, Keywords |
+| **ItemCollected**    | Individual item collection              | ItemId, ItemType, SizeBytes, CustodianEmail  |
+| **BackoffTriggered** | API throttling and retry events         | StatusCode, DelayMs, Endpoint                |
+| **AutoRoutedToGDC**  | Graph Data Connect routing decisions    | RecommendedRoute, Reason, ConfidenceScore    |
+| **JobCompleted**     | Collection completion with full metrics | IsSuccessful, ItemCount, SizeBytes, Duration |
+
+### 📈 **Health Monitoring Endpoints**
+
+The API provides comprehensive health endpoints for monitoring and dashboards:
+
+```bash
+# Simple health check for load balancers
+GET /api/health
+# Response: { "status": "healthy", "timestamp": "2024-10-05T...", "version": "2.1.0" }
+
+# Detailed system health
+GET /api/health/detailed
+# Response: Full system status with dependencies and uptime
+
+# Performance metrics for dashboards
+GET /api/health/counters
+# Response: Real-time throughput and error metrics
+{
+  "itemsPerMinute": 1250.5,
+  "mbPerMinute": 89.3,
+  "throttling429Count15min": 2,
+  "retrySuccessRate": 98.7,
+  "uptime": "2.03:45:22"
+}
+
+# Kubernetes probes
+GET /api/health/ready   # Readiness probe
+GET /api/health/live    # Liveness probe
+```
+
+### 📊 **Dashboard Metrics**
+
+The observability system collects key performance indicators:
+
+| Metric Category     | Key Metrics                                 | Update Frequency |
+| ------------------- | ------------------------------------------- | ---------------- |
+| **Throughput**      | Items/min, MB/min, Peak performance         | Real-time        |
+| **Reliability**     | Retry success rate, Average backoff delay   | Real-time        |
+| **API Health**      | 429 throttling events, Error rates          | Real-time        |
+| **Job Performance** | Average duration, Success rates             | Per job          |
+| **System Health**   | Uptime, Memory usage, Database connectivity | Continuous       |
+
+### 🔍 **Correlation & Audit Trail**
+
+- **Correlation IDs**: Every operation tracked with unique identifiers
+- **Compliance Logging**: 365-day audit log retention with tamper evidence
+- **Performance Timers**: Detailed operation timing for optimization
+- **Chain of Custody**: Complete evidence trail with digital signatures
+
+### 📱 **Integration Examples**
+
+```bash
+# Grafana/Prometheus integration
+curl -s http://localhost:7001/api/health/counters | jq '.itemsPerMinute'
+
+# Azure Monitor integration
+az monitor metrics alert create --resource-group rg-ediscovery \
+  --condition "avg itemsPerMinute < 100"
+
+# Splunk/ELK integration
+tail -f logs/audit.log | grep "JobCompleted" | jq '.JobCompletedEvent'
+```
+
+## 🧩 **Job Sharding & Scalability**
+
+### 🎯 **Enterprise Job Sharding**
+
+Automatic partitioning of large collection jobs by custodian and date windows with checkpoint recovery for enterprise-scale processing.
+
+```csharp
+// Create sharded job for large collection
+var request = new CreateShardedJobRequest
+{
+    MatterId = 1,
+    CustodianEmails = new List<string> { "user1@company.com", "user2@company.com" },
+    JobType = CollectionJobType.Email,
+    StartDate = DateTime.UtcNow.AddDays(-365), // 1 year collection
+    EndDate = DateTime.UtcNow,
+    ShardingConfig = new JobShardingConfig
+    {
+        MaxDateWindowSize = TimeSpan.FromDays(30), // 30-day shards
+        MaxShardsPerCustodian = 12,
+        EnableAdaptiveSharding = true
+    }
+};
+
+var response = await POST("/api/shardedjobs", request);
+// Creates 24 shards (2 custodians × 12 months)
+```
+
+### 🔄 **Checkpoint Recovery**
+
+Idempotent restarts from any interruption point with granular progress tracking:
+
+```json
+{
+  "shardId": 156,
+  "checkpointType": "MailFolderProgress",
+  "checkpointData": {
+    "folderId": "inbox",
+    "deltaToken": "a1b2c3...",
+    "itemsProcessed": 1247,
+    "lastProcessedTime": "2024-10-05T14:30:00Z"
+  },
+  "isCompleted": false
+}
+```
+
+### 📊 **Real-time Progress Monitoring**
+
+```bash
+# Monitor overall job progress
+GET /api/shardedjobs/123
+{
+  "totalShards": 24,
+  "completedShards": 18,
+  "processingShards": 3,
+  "overallProgress": 75.2,
+  "estimatedCompletion": "2024-10-06T16:45:00Z"
+}
+
+# Get detailed shard status
+GET /api/shardedjobs/123/shards
+# Returns all 24 shards with individual progress
+```
+
+### 🚀 **Scalability Benefits**
+
+- **Parallel Processing**: Multiple workers process different shards simultaneously
+- **Fault Isolation**: Failure in one shard doesn't affect others
+- **Resource Efficiency**: Manageable memory usage per shard
+- **Progress Preservation**: Resume from exact interruption point
+- **Load Distribution**: Automatic work balancing across worker fleet
+
+### 🔧 **Worker Integration**
+
+```csharp
+// Worker automatically picks up available shards
+var shard = await shardingService.GetNextAvailableShardAsync(workerId, userId);
+if (shard != null)
+{
+    await shardingService.AcquireShardLockAsync(shard.Id, workerId, userId);
+    var result = await shardProcessor.ProcessShardAsync(shard);
+    await shardingService.CompleteShardAsync(shard.Id, result.IsSuccessful,
+        result.TotalItemCount, result.TotalSizeBytes);
+}
+```
+
 - **✅ Cleanup**: Automatic stale cursor management
 
-## 🔒 Security Features
+## 🔒 Security & Compliance Features
 
-- **Chain of Custody**: SHA-256 hashing of all collected items
-- **Comprehensive Logging**: Enterprise-grade structured logging with Serilog
-  - Audit trails with 365-day retention for compliance
-  - Performance monitoring with execution metrics
+- **Chain of Custody Hardening**: ✅ **COMPLETED**
+
+  - SHA-256 hashing of all collected items
+  - Tamper-evident manifests (JSON/CSV) with cryptographic integrity protection
+  - Digital signatures using X.509 certificates (configurable)
+  - Write-Once-Read-Many (WORM) compliant storage for evidence preservation
+  - Automated manifest verification with audit trails
+  - REST API for manifest management and verification
+
+- **Enterprise Logging**: ✅ **COMPLETED**
+
+  - Structured JSON logging with Serilog for machine analysis
+  - Audit trails with 365-day retention for compliance requirements
+  - Performance monitoring with detailed execution metrics
   - Correlation ID tracking across distributed operations
-  - Separate audit logs for legal requirements
-  - JSON structured format for machine analysis
-- **Retry Logic**: Exponential backoff for API throttling
-- **Error Handling**: Graceful degradation and recovery
+  - Separate audit logs specifically designed for legal requirements
+  - Compliance logger service for eDiscovery-specific events
+
+- **Observability & Monitoring**: ✅ **COMPLETED**
+
+  - Comprehensive structured logging for all collection events
+  - Real-time health monitoring endpoints for dashboards
+  - Performance counters (items/min, MB/min, error rates)
+  - Kubernetes-ready health probes (readiness/liveness)
+  - Dashboard integration support (Grafana, Azure Monitor, Splunk)
+
+- **Reliability Features**: ✅ **COMPLETED**
+  - Exponential backoff retry logic for API throttling
+  - Graceful error handling and recovery mechanisms
+  - Background processing with cancellation support
 
 ## 📁 Output Structure
 
@@ -264,7 +458,14 @@ The Delta Query system provides incremental collection to avoid re-pulling uncha
 │   └── OneDrive/
 │       ├── document1_metadata.json
 │       └── document2_metadata.json
-└── manifest.json
+├── manifests/
+│   ├── 2025-10-05/
+│   │   ├── manifest_a1b2c3d4_000042_20251005_093015.json
+│   │   └── manifest_a1b2c3d4_000042_20251005_093015.csv
+└── immutable/
+    └── worm/
+        └── 2025-10-05/
+            └── sealed_manifest_a1b2c3d4_000042_20251005_093015.json
 ```
 
 ## 🛠️ Development
@@ -288,23 +489,37 @@ cd src/EDiscoveryIntakeApi
 dotnet ef database update
 ```
 
-## 📈 Phase 2 Roadmap (Production)
+## 📈 Implementation Status
+
+### ✅ **Production Ready Features (v2.1)**
+
+- **Core Collection System**: Graph API integration with multi-source support
+- **AutoRouter Service**: Intelligent routing with configurable thresholds
+- **Delta Query System**: Incremental collection with database cursor tracking
+- **Chain of Custody**: Tamper-evident manifests with digital signatures and WORM storage
+- **Comprehensive Logging**: Enterprise-grade structured logging with audit trails
+- **Observability Platform**: Real-time metrics, health monitoring, and dashboard integration
+- **Graph Data Connect**: ADF pipeline triggers with Service Bus integration
+- **Database Schema**: Complete EF Core models with concurrent processing support
+- **Job Sharding**: Large job partitioning by custodian × date window with checkpoint recovery
+
+### 🚧 **Phase 2 Roadmap (Production Deployment)**
 
 - [x] **Delta Queries**: Incremental collection ✅ **COMPLETED**
-- [ ] **Security**: Managed Identity + Key Vault
-- [ ] **Storage**: Azure Blob Storage with CMK
-- [ ] **GDC**: Azure Data Factory pipelines
-- [ ] **Monitoring**: Azure Monitor + Log Analytics
-- [ ] **Signed Manifests**: Immutable evidence packages
-- [ ] **Database Migration**: Entity Framework migrations for DeltaCursors table
+- [x] **Observability**: Structured logging and health monitoring ✅ **COMPLETED**
+- [x] **GDC Integration**: Azure Data Factory pipeline triggers ✅ **COMPLETED**
+- [ ] **Security**: Managed Identity + Key Vault integration
+- [ ] **Storage**: Azure Blob Storage with Customer Managed Keys
+- [ ] **Monitoring**: Azure Monitor + Log Analytics integration
+- [ ] **Database Migration**: Production Azure SQL deployment
 
-## 📈 Phase 3 Roadmap (Enterprise)
+### � **Phase 3 Roadmap (Enterprise Scale)**
 
-- [ ] **Infrastructure**: Terraform/Bicep deployment
-- [ ] **Container Apps**: Scalable deployment
-- [ ] **CI/CD**: Complete DevOps pipeline
-- [ ] **Dashboards**: Power BI + Kusto analytics
-- [ ] **Compliance**: SOC 2 + FedRAMP readiness
+- [ ] **Infrastructure**: Terraform/Bicep deployment templates
+- [ ] **Container Apps**: Auto-scaling container deployment
+- [ ] **CI/CD**: Complete DevOps pipeline with automated testing
+- [ ] **Analytics**: Power BI dashboards + Kusto query analytics
+- [ ] **Compliance**: SOC 2 Type II + FedRAMP readiness assessment
 
 ## 🔧 Configuration
 

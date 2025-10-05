@@ -39,17 +39,34 @@ try
     builder.Services.Configure<EDiscovery.Shared.Configuration.DeltaQueryOptions>(
         builder.Configuration.GetSection(EDiscovery.Shared.Configuration.DeltaQueryOptions.SectionName));
 
+    // Configure ChainOfCustody options
+    builder.Services.Configure<ChainOfCustodyOptions>(
+        builder.Configuration.GetSection(ChainOfCustodyOptions.SectionName));
+
+    // Configure GraphDataConnect options
+    builder.Services.Configure<GdcOptions>(
+        builder.Configuration.GetSection(GdcOptions.SectionName));
+
     // Add concurrent job management services
     builder.Services.AddScoped<IConcurrentJobManager, ConcurrentJobManager>();
 
     // Add AutoRouter service
     builder.Services.AddScoped<IAutoRouterService, AutoRouterService>();
 
+    // Add Graph Data Connect service
+    builder.Services.AddScoped<IGraphDataConnectService, GraphDataConnectService>();
+
     // Add Delta Query service
     builder.Services.AddScoped<IDeltaQueryService, DeltaQueryService>();
 
+    // Add Chain of Custody service
+    builder.Services.AddScoped<IChainOfCustodyService, ChainOfCustodyService>();
+
     // Add Compliance Logger
     builder.Services.AddScoped<IComplianceLogger, ComplianceLogger>();
+
+    // TODO: Add Observability service after resolving compilation issues
+    // builder.Services.AddSingleton<IObservabilityService, ObservabilityService>();
 
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddOpenApi();

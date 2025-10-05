@@ -420,11 +420,52 @@ The system supports 4 user roles:
 | **Legal Analyst** | Create cases, basic collections      | 3               | 10GB       |
 | **Auditor**       | Read-only access, compliance reports | 5               | View only  |
 
-### 📊 **Dashboard Access**
+### � **Chain of Custody Configuration**
+
+The system includes comprehensive Chain of Custody hardening for legal compliance:
+
+#### **Manifest Configuration**
+
+Add to your `appsettings.json`:
+
+```json
+{
+  "ChainOfCustody": {
+    "ManifestFormat": "JSON",
+    "DigitalSignatures": {
+      "Enabled": true,
+      "CertificateThumbprint": "your-cert-thumbprint",
+      "SigningAlgorithm": "SHA256withRSA"
+    },
+    "WormStorage": {
+      "Enabled": true,
+      "RetentionPeriod": "2555",
+      "ImmutabilityPolicy": "Legal"
+    }
+  }
+}
+```
+
+#### **Key Features**
+
+- **Tamper-Evident Manifests**: Every job generates JSON/CSV manifests with SHA-256 hashes
+- **Digital Signatures**: X.509 certificate-based manifest signing for authenticity
+- **WORM Storage**: Write-Once-Read-Many compliance for evidence preservation
+- **Verification API**: REST endpoints for manifest integrity checking
+
+#### **API Endpoints**
+
+- **Generate Manifest**: `POST /api/chainofcustody/manifest/{jobId}`
+- **Seal Manifest**: `POST /api/chainofcustody/seal/{jobId}`
+- **Verify Integrity**: `GET /api/chainofcustody/verify/{jobId}`
+- **Download Manifest**: `GET /api/chainofcustody/download/{jobId}`
+
+### �📊 **Dashboard Access**
 
 - **API Documentation**: http://localhost:5230/swagger
 - **Health Monitoring**: http://localhost:5230/health
 - **Log Files**: `src/EDiscoveryIntakeApi/logs/` directory
+- **Chain of Custody**: Swagger UI includes manifest management endpoints
 
 ### 🔄 **Typical Workflow**
 
@@ -432,7 +473,10 @@ The system supports 4 user roles:
 2. **Define Custodians** → People whose data to collect
 3. **Create Collection Job** → Specify what data to collect
 4. **Monitor Progress** → Watch job status in real-time
-5. **Review Results** → Examine collected data and audit logs
+5. **Generate Manifest** → Create tamper-evident evidence manifest
+6. **Seal Manifest** → Apply digital signatures and WORM protection
+7. **Review Results** → Examine collected data and audit logs
+8. **Verify Integrity** → Validate manifest authenticity for court
 
 ---
 

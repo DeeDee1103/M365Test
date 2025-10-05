@@ -1174,3 +1174,355 @@ Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such tab
 [2025-10-05 00:22:12.620 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 21ms | Items: 0 | Size: 0 bytes | CorrelationId: 912e9e0a | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
 [2025-10-05 00:22:12.622 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 27ms | Items: 0 | Size: 0 bytes | CorrelationId: 78b4d859 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
 [2025-10-05 00:22:12.623 -04:00 DBG] HybridGraphCollectorWorker.Worker: Waiting 15 seconds before next poll {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:55.835 -04:00 INF] : Starting Concurrent Hybrid Graph Collector Worker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.179 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: An 'IServiceProvider' was created for internal use by Entity Framework. {"EventId":{"Id":10401,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ServiceProviderCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.555 -04:00 DBG] Microsoft.EntityFrameworkCore.Model: The index {'JobId'} was not created on entity type 'JobAssignment' as the properties are already covered by the index {'JobId', 'Status'}. {"EventId":{"Id":10601,"Name":"Microsoft.EntityFrameworkCore.Model.RedundantIndexRemoved"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.660 -04:00 DBG] Microsoft.EntityFrameworkCore.Model.Validation: The property 'JobAssignment.WorkerInstanceId' was created in shadow state because there are no eligible CLR members with a matching name. {"EventId":{"Id":10600,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.ShadowPropertyCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.723 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 9.0.9 initialized 'EDiscoveryDbContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:9.0.9' with options: None {"EventId":{"Id":10403,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ContextInitialized"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.735 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Creating DbConnection. {"EventId":{"Id":20005,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.743 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Created DbConnection. (6ms). {"EventId":{"Id":20006,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.746 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opening connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20000,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpening"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.754 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opened connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20001,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpened"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.758 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposing connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20007,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.763 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposed connection to database 'main' on server 'ediscovery.db' (3ms). {"EventId":{"Id":20008,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.769 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Creating DbCommand for 'ExecuteScalar'. {"EventId":{"Id":20103,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.770 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Creating DbConnection. {"EventId":{"Id":20005,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.771 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Created DbConnection. (0ms). {"EventId":{"Id":20006,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.775 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Created DbCommand for 'ExecuteScalar' (6ms). {"EventId":{"Id":20104,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.777 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Initialized DbCommand for 'ExecuteScalar' (10ms). {"EventId":{"Id":20106,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandInitialized"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.778 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opening connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20000,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpening"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.781 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opened connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20001,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpened"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.786 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL; {"EventId":{"Id":20100,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuting"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.806 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.810 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Closing connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20002,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionClosing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.813 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Closed connection to database 'main' on server 'ediscovery.db' (3ms). {"EventId":{"Id":20003,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionClosed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.816 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: 'EDiscoveryDbContext' disposed. {"EventId":{"Id":10407,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ContextDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.817 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposing connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20007,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.818 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposed connection to database 'main' on server 'ediscovery.db' (0ms). {"EventId":{"Id":20008,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.870 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: 7f90c99e | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-4932","Timestamp":"2025-10-05T12:07:56.8227224Z","CorrelationId":"7f90c99e"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.872 -04:00 INF] : Concurrent Hybrid Graph Collector Worker started successfully {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:56.875 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting starting {"EventId":{"Id":1,"Name":"Starting"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.457 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: AutoRouter configured with thresholds: 10.0 GB, 50,000 items {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.496 -04:00 WRN] EDiscovery.Shared.Services.GraphDataConnectService: Graph Data Connect Service Bus connection not configured - running in stub mode {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.520 -04:00 INF] HybridGraphCollectorWorker.Worker: Hybrid Graph Collector Worker started at: "2025-10-05T08:07:58.5201922-04:00" | CorrelationId: f59d705c {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.530 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: f59d705c | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-05T08:07:58.5247415-04:00"},"Instance":"DONNELLD-BOOK-3-4932","Timestamp":"2025-10-05T12:07:58.5249271Z","CorrelationId":"f59d705c"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.535 -04:00 DBG] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE_START: Worker.ProcessPendingJobs | CorrelationId: 3e025044 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.536 -04:00 DBG] HybridGraphCollectorWorker.Worker: Checking for pending collection jobs | CorrelationId: 3e025044 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.539 -04:00 INF] HybridGraphCollectorWorker.Worker: Processing sample collection job for custodian: test.user@development.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.541 -04:00 DBG] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE_START: AutoRouter.DetermineOptimalRoute | CorrelationId: 435a8f60 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.544 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Determining optimal route for custodian: test.user@development.com | CorrelationId: 435a8f60 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.551 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionStarted | Custodian: test.user@development.com | CorrelationId: 435a8f60 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T12:07:58.5402026Z","EndDate":"2025-10-05T12:07:58.5402273Z"}},"Instance":"DONNELLD-BOOK-3-4932","Timestamp":"2025-10-05T12:07:58.5462688Z","CorrelationId":"435a8f60"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.556 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.557 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.558 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.560 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting started {"EventId":{"Id":2,"Name":"Started"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.579 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 435a8f60 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.583 -04:00 DBG] EDiscovery.Shared.Services.AutoRouterService: Applying routing logic with thresholds: 10737418240 bytes, 50000 items | CorrelationId: 435a8f60 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.584 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: 435a8f60 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.585 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision completed: "GraphDataConnect" (Confidence: 95.0 %) | CorrelationId: 435a8f60 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.595 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionCompleted | Custodian: test.user@development.com | CorrelationId: 435a8f60 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"test.user@development.com","Data":{"RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-4932","Timestamp":"2025-10-05T12:07:58.5871414Z","CorrelationId":"435a8f60"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.597 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 55ms | Items: 0 | Size: 0 bytes | CorrelationId: 435a8f60 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.602 -04:00 INF] HybridGraphCollectorWorker.Services.EDiscoveryApiClient: [Job 0] [AutoRouter] Route decision: GraphDataConnect Reason: Current quota usage exceeds Graph API thresholds. Confidence: 95.0% {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.604 -04:00 INF] HybridGraphCollectorWorker.Worker: Graph Data Connect collection requested for job type: "Email" {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.606 -04:00 INF] EDiscovery.Shared.Services.GraphDataConnectService: Triggering Graph Data Connect collection for custodian: test.user@development.com | CorrelationId: 0f151dd1 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.608 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 0f151dd1 | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T12:07:58.5402026Z","EndDate":"2025-10-05T12:07:58.5402273Z"},"TriggerType":"AzureDataFactory"},"Instance":"DONNELLD-BOOK-3-4932","Timestamp":"2025-10-05T12:07:58.6079804Z","CorrelationId":"0f151dd1"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:07:58.635 -04:00 INF] EDiscovery.Shared.Services.GraphDataConnectService: GDC Stub Mode - Would send trigger message to ADF:
+{
+  "pipelineRunId": "480dbdb1501a46bf9ebdb22db20afbb0",
+  "collectionRequest": {
+    "custodianEmail": "test.user@development.com",
+    "jobType": 1,
+    "startDate": "2025-09-05T12:07:58.5402026Z",
+    "endDate": "2025-10-05T12:07:58.5402273Z",
+    "keywords": [
+      "contract",
+      "agreement"
+    ],
+    "includeAttachments": true,
+    "outputPath": "./output"
+  },
+  "triggeredAt": "2025-10-05T12:07:58.6120677Z",
+  "correlationId": "0f151dd1",
+  "priority": 2,
+  "estimatedDuration": "01:00:00",
+  "retryPolicy": {
+    "maxRetries": 3,
+    "retryDelayMinutes": 15,
+    "exponentialBackoff": true,
+    "retryableErrors": [
+      "ThrottlingError",
+      "TemporaryServiceUnavailable",
+      "InternalServerError"
+    ]
+  },
+  "configuration": {
+    "outputFormat": "Parquet",
+    "compressionType": "Snappy",
+    "partitionBy": [
+      "custodianEmail",
+      "date"
+    ],
+    "enableDeltaLake": true,
+    "dataRetentionDays": 2555,
+    "enableEncryption": true,
+    "notificationEndpoints": []
+  }
+} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.534 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 0f151dd1 | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"PipelineRunId":"480dbdb1501a46bf9ebdb22db20afbb0","TriggerMessage":{"pipelineRunId":"480dbdb1501a46bf9ebdb22db20afbb0","collectionRequest":{"CustodianEmail":"test.user@development.com","JobType":1,"StartDate":"2025-09-05T12:07:58.5402026Z","EndDate":"2025-10-05T12:07:58.5402273Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output"},"triggeredAt":"2025-10-05T12:07:58.6120677Z","correlationId":"0f151dd1","priority":2,"estimatedDuration":"01:00:00","retryPolicy":{"maxRetries":3,"retryDelayMinutes":15,"exponentialBackoff":true,"retryableErrors":["ThrottlingError","TemporaryServiceUnavailable","InternalServerError"]},"configuration":{"outputFormat":"Parquet","compressionType":"Snappy","partitionBy":["custodianEmail","date"],"enableDeltaLake":true,"dataRetentionDays":2555,"enableEncryption":true,"notificationEndpoints":[]}},"ServiceBusEnabled":false},"Instance":"DONNELLD-BOOK-3-4932","Timestamp":"2025-10-05T12:08:00.5278171Z","CorrelationId":"0f151dd1"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.537 -04:00 INF] HybridGraphCollectorWorker.Worker: Graph Data Connect collection triggered successfully for custodian: test.user@development.com | PipelineRunId: 480dbdb1501a46bf9ebdb22db20afbb0 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.538 -04:00 INF] HybridGraphCollectorWorker.Worker: Collection completed successfully. Items: 0, Size: 0 bytes {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.540 -04:00 DBG] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE_START: Worker.ProcessDeltaQueries | CorrelationId: ea4d51f3 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.541 -04:00 DBG] HybridGraphCollectorWorker.Worker: Processing delta queries | CorrelationId: ea4d51f3 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.558 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 9.0.9 initialized 'EDiscoveryDbContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:9.0.9' with options: None {"EventId":{"Id":10403,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ContextInitialized"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.583 -04:00 DBG] Microsoft.EntityFrameworkCore.Query: Compiling query expression: 
+'DbSet<DeltaCursor>()
+    .Where(c => c.IsActive)
+    .OrderBy(c => c.LastDeltaTime)' {"EventId":{"Id":10111,"Name":"Microsoft.EntityFrameworkCore.Query.QueryCompilationStarting"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.756 -04:00 DBG] Microsoft.EntityFrameworkCore.Query: Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<DeltaCursor>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: DeltaCursor.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: DeltaCursor.BaselineCompletedAt (DateTime?), 1], [Property: DeltaCursor.CollectionJobId (int?) FK Index, 2], [Property: DeltaCursor.CreatedDate (DateTime) Required, 3], [Property: DeltaCursor.CustodianEmail (string) Required Index MaxLength(200), 4], [Property: DeltaCursor.DeltaQueryCount (int) Required, 5], [Property: DeltaCursor.DeltaToken (string) Required MaxLength(2000), 6], [Property: DeltaCursor.DeltaType (DeltaType) Required Index, 7], [Property: DeltaCursor.ErrorMessage (string) MaxLength(1000), 8], [Property: DeltaCursor.IsActive (bool) Required Index, 9], [Property: DeltaCursor.LastDeltaItemCount (int) Required, 10], [Property: DeltaCursor.LastDeltaSizeBytes (long) Required, 11], [Property: DeltaCursor.LastDeltaTime (DateTime) Required Index, 12], [Property: DeltaCursor.Metadata (string) MaxLength(4000), 13], [Property: DeltaCursor.ScopeId (string) Required Index MaxLength(200), 14], [Property: DeltaCursor.UpdatedDate (DateTime) Required, 15] }
+        SELECT d.Id, d.BaselineCompletedAt, d.CollectionJobId, d.CreatedDate, d.CustodianEmail, d.DeltaQueryCount, d.DeltaToken, d.DeltaType, d.ErrorMessage, d.IsActive, d.LastDeltaItemCount, d.LastDeltaSizeBytes, d.LastDeltaTime, d.Metadata, d.ScopeId, d.UpdatedDate
+        FROM DeltaCursors AS d
+        WHERE d.IsActive
+        ORDER BY d.LastDeltaTime ASC) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: DeltaCursor.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: DeltaCursor.BaselineCompletedAt (DateTime?), 1], [Property: DeltaCursor.CollectionJobId (int?) FK Index, 2], [Property: DeltaCursor.CreatedDate (DateTime) Required, 3], [Property: DeltaCursor.CustodianEmail (string) Required Index MaxLength(200), 4], [Property: DeltaCursor.DeltaQueryCount (int) Required, 5], [Property: DeltaCursor.DeltaToken (string) Required MaxLength(2000), 6], [Property: DeltaCursor.DeltaType (DeltaType) Required Index, 7], [Property: DeltaCursor.ErrorMessage (string) MaxLength(1000), 8], [Property: DeltaCursor.IsActive (bool) Required Index, 9], [Property: DeltaCursor.LastDeltaItemCount (int) Required, 10], [Property: DeltaCursor.LastDeltaSizeBytes (long) Required, 11], [Property: DeltaCursor.LastDeltaTime (DateTime) Required Index, 12], [Property: DeltaCursor.Metadata (string) MaxLength(4000), 13], [Property: DeltaCursor.ScopeId (string) Required Index MaxLength(200), 14], [Property: DeltaCursor.UpdatedDate (DateTime) Required, 15] }
+        SELECT d.Id, d.BaselineCompletedAt, d.CollectionJobId, d.CreatedDate, d.CustodianEmail, d.DeltaQueryCount, d.DeltaToken, d.DeltaType, d.ErrorMessage, d.IsActive, d.LastDeltaItemCount, d.LastDeltaSizeBytes, d.LastDeltaTime, d.Metadata, d.ScopeId, d.UpdatedDate
+        FROM DeltaCursors AS d
+        WHERE d.IsActive
+        ORDER BY d.LastDeltaTime ASC, 
+        False, 
+        new HashSet<string>(
+            new string[]{ }, 
+            StringComparer.Ordinal
+        )
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        DeltaCursor entity;
+        entity = 
+        {
+            MaterializationContext materializationContext1;
+            IEntityType entityType1;
+            DeltaCursor instance1;
+            InternalEntityEntry entry1;
+            bool hasNullKey1;
+            materializationContext1 = new MaterializationContext(
+                [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                queryContext.Context
+            );
+            instance1 = default(DeltaCursor);
+            entry1 = queryContext.TryGetEntry(
+                key: [LIFTABLE Constant: Key: DeltaCursor.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("EDiscovery.Shared.Models.DeltaCursor").FindPrimaryKey()], 
+                keyValues: new object[]{ (object)dataReader.GetInt32(0) }, 
+                throwOnNullKey: True, 
+                hasNullKey: hasNullKey1);
+            !(hasNullKey1) ? entry1 != default(InternalEntityEntry) ? 
+            {
+                entityType1 = entry1.EntityType;
+                return instance1 = (DeltaCursor)entry1.Entity;
+            } : 
+            {
+                ISnapshot shadowSnapshot1;
+                shadowSnapshot1 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                entityType1 = [LIFTABLE Constant: EntityType: DeltaCursor | Resolver: namelessParameter{0} => namelessParameter{0}.Dependencies.Model.FindEntityType("EDiscovery.Shared.Models.DeltaCursor")];
+                instance1 = switch (entityType1)
+                {
+                    case [LIFTABLE Constant: EntityType: DeltaCursor | Resolver: namelessParameter{1} => namelessParameter{1}.Dependencies.Model.FindEntityType("EDiscovery.Shared.Models.DeltaCursor")]: 
+                        {
+                            return 
+                            {
+                                DeltaCursor instance;
+                                instance = new DeltaCursor();
+                                instance.<Id>k__BackingField = dataReader.GetInt32(0);
+                                instance.<BaselineCompletedAt>k__BackingField = dataReader.IsDBNull(1) ? default(DateTime?) : (DateTime?)dataReader.GetDateTime(1);
+                                instance.<CollectionJobId>k__BackingField = dataReader.IsDBNull(2) ? default(int?) : (int?)dataReader.GetInt32(2);
+                                instance.<CreatedDate>k__BackingField = dataReader.GetDateTime(3);
+                                instance.<CustodianEmail>k__BackingField = dataReader.GetString(4);
+                                instance.<DeltaQueryCount>k__BackingField = dataReader.GetInt32(5);
+                                instance.<DeltaToken>k__BackingField = dataReader.GetString(6);
+                                instance.<DeltaType>k__BackingField = Invoke(((EnumToStringConverter<DeltaType>)((IReadOnlyProperty)[LIFTABLE Constant: Property: DeltaCursor.DeltaType (DeltaType) Required Index | Resolver: namelessParameter{2} => namelessParameter{2}.Dependencies.Model.FindEntityType("EDiscovery.Shared.Models.DeltaCursor").FindProperty("DeltaType")]).GetTypeMapping().Converter).ConvertFromProviderTyped, dataReader.GetString(7));
+                                instance.<ErrorMessage>k__BackingField = dataReader.IsDBNull(8) ? default(string) : dataReader.GetString(8);
+                                instance.<IsActive>k__BackingField = dataReader.GetBoolean(9);
+                                instance.<LastDeltaItemCount>k__BackingField = dataReader.GetInt32(10);
+                                instance.<LastDeltaSizeBytes>k__BackingField = dataReader.GetInt64(11);
+                                instance.<LastDeltaTime>k__BackingField = dataReader.GetDateTime(12);
+                                instance.<Metadata>k__BackingField = dataReader.IsDBNull(13) ? default(string) : dataReader.GetString(13);
+                                instance.<ScopeId>k__BackingField = dataReader.GetString(14);
+                                instance.<UpdatedDate>k__BackingField = dataReader.GetDateTime(15);
+                                (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                    context: materializationContext1.Context, 
+                                    entity: instance, 
+                                    queryTrackingBehavior: TrackAll, 
+                                    structuralType: [LIFTABLE Constant: EntityType: DeltaCursor | Resolver: namelessParameter{3} => namelessParameter{3}.Dependencies.Model.FindEntityType("EDiscovery.Shared.Models.DeltaCursor")]) : default(void);
+                                return instance;
+                            }}
+                    default: 
+                        default(DeltaCursor)
+                }
+                ;
+                entry1 = entityType1 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                    entityType: entityType1, 
+                    entity: instance1, 
+                    snapshot: shadowSnapshot1);
+                return instance1;
+            } : default(void);
+            return instance1;
+        };
+        return entity;
+    }, 
+    contextType: EDiscovery.Shared.Services.EDiscoveryDbContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)' {"EventId":{"Id":10107,"Name":"Microsoft.EntityFrameworkCore.Query.QueryExecutionPlanned"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.777 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Creating DbConnection. {"EventId":{"Id":20005,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.778 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Created DbConnection. (1ms). {"EventId":{"Id":20006,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.781 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opening connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20000,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpening"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.783 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opened connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20001,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpened"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.785 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Creating DbCommand for 'ExecuteReader'. {"EventId":{"Id":20103,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.786 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Created DbCommand for 'ExecuteReader' (1ms). {"EventId":{"Id":20104,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.787 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Initialized DbCommand for 'ExecuteReader' (2ms). {"EventId":{"Id":20106,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandInitialized"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.788 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime" {"EventId":{"Id":20100,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuting"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.794 -04:00 ERR] Microsoft.EntityFrameworkCore.Database.Command: Failed executing DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime" {"EventId":{"Id":20102,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandError"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.799 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Closing connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20002,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionClosing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.800 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Closed connection to database 'main' on server 'ediscovery.db' (1ms). {"EventId":{"Id":20003,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionClosed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.808 -04:00 ERR] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() {"EventId":{"Id":10100,"Name":"Microsoft.EntityFrameworkCore.Query.QueryIterationFailed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 08:08:00.816 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: 'EDiscoveryDbContext' disposed. {"EventId":{"Id":10407,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ContextDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.817 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposing connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20007,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.818 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposed connection to database 'main' on server 'ediscovery.db' (1ms). {"EventId":{"Id":20008,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.819 -04:00 ERR] HybridGraphCollectorWorker.Worker: Error processing delta queries | CorrelationId: ea4d51f3 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EDiscovery.Shared.Services.DeltaQueryService.GetActiveDeltaCursorsAsync() in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\Services\DeltaQueryService.cs:line 378
+   at HybridGraphCollectorWorker.Worker.ProcessDeltaQueriesAsync(CancellationToken cancellationToken) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Worker.cs:line 119
+[2025-10-05 08:08:00.828 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 288ms | Items: 0 | Size: 0 bytes | CorrelationId: ea4d51f3 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.831 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 2296ms | Items: 0 | Size: 0 bytes | CorrelationId: 3e025044 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:00.834 -04:00 DBG] HybridGraphCollectorWorker.Worker: Waiting 15 seconds before next poll {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.846 -04:00 DBG] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE_START: Worker.ProcessPendingJobs | CorrelationId: 3f1af788 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.848 -04:00 DBG] HybridGraphCollectorWorker.Worker: Checking for pending collection jobs | CorrelationId: 3f1af788 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.849 -04:00 DBG] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE_START: Worker.ProcessDeltaQueries | CorrelationId: de10ef2e {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.849 -04:00 DBG] HybridGraphCollectorWorker.Worker: Processing delta queries | CorrelationId: de10ef2e {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.890 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 9.0.9 initialized 'EDiscoveryDbContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite:9.0.9' with options: None {"EventId":{"Id":10403,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ContextInitialized"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.896 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Creating DbConnection. {"EventId":{"Id":20005,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.897 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Created DbConnection. (0ms). {"EventId":{"Id":20006,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.898 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opening connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20000,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpening"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.899 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Opened connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20001,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionOpened"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.900 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Creating DbCommand for 'ExecuteReader'. {"EventId":{"Id":20103,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandCreating"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.901 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Created DbCommand for 'ExecuteReader' (0ms). {"EventId":{"Id":20104,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandCreated"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.902 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Initialized DbCommand for 'ExecuteReader' (1ms). {"EventId":{"Id":20106,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandInitialized"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.902 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Command: Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime" {"EventId":{"Id":20100,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuting"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.904 -04:00 ERR] Microsoft.EntityFrameworkCore.Database.Command: Failed executing DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime" {"EventId":{"Id":20102,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandError"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.906 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Closing connection to database 'main' on server 'C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\ediscovery.db'. {"EventId":{"Id":20002,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionClosing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.907 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Closed connection to database 'main' on server 'ediscovery.db' (0ms). {"EventId":{"Id":20003,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionClosed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.908 -04:00 ERR] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Services.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync() {"EventId":{"Id":10100,"Name":"Microsoft.EntityFrameworkCore.Query.QueryIterationFailed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 08:08:15.913 -04:00 DBG] Microsoft.EntityFrameworkCore.Infrastructure: 'EDiscoveryDbContext' disposed. {"EventId":{"Id":10407,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.ContextDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.914 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposing connection to database 'main' on server 'ediscovery.db'. {"EventId":{"Id":20007,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposing"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.915 -04:00 DBG] Microsoft.EntityFrameworkCore.Database.Connection: Disposed connection to database 'main' on server 'ediscovery.db' (1ms). {"EventId":{"Id":20008,"Name":"Microsoft.EntityFrameworkCore.Database.Connection.ConnectionDisposed"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.916 -04:00 ERR] HybridGraphCollectorWorker.Worker: Error processing delta queries | CorrelationId: de10ef2e {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EDiscovery.Shared.Services.DeltaQueryService.GetActiveDeltaCursorsAsync() in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscovery.Shared\Services\DeltaQueryService.cs:line 378
+   at HybridGraphCollectorWorker.Worker.ProcessDeltaQueriesAsync(CancellationToken cancellationToken) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Worker.cs:line 119
+[2025-10-05 08:08:15.920 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 71ms | Items: 0 | Size: 0 bytes | CorrelationId: de10ef2e | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.922 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 76ms | Items: 0 | Size: 0 bytes | CorrelationId: 3f1af788 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:15.924 -04:00 DBG] HybridGraphCollectorWorker.Worker: Waiting 15 seconds before next poll {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:30.683 -04:00 INF] Microsoft.Hosting.Lifetime: Application is shutting down... {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:30.684 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting stopping {"EventId":{"Id":3,"Name":"Stopping"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-05 08:08:30.687 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting stopped {"EventId":{"Id":4,"Name":"Stopped"},"Application":"HybridGraphCollectorWorker","Environment":"Development"}

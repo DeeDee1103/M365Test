@@ -51,6 +51,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Azure.Messaging.ServiceBus": {
+              "target": "Package",
+              "version": "[7.20.1, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.9, )"

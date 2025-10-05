@@ -37,6 +37,14 @@ try
     builder.Services.Configure<EDiscovery.Shared.Configuration.DeltaQueryOptions>(
         builder.Configuration.GetSection(EDiscovery.Shared.Configuration.DeltaQueryOptions.SectionName));
 
+    // Configure ChainOfCustody options
+    builder.Services.Configure<ChainOfCustodyOptions>(
+        builder.Configuration.GetSection(ChainOfCustodyOptions.SectionName));
+
+    // Configure GraphDataConnect options
+    builder.Services.Configure<GdcOptions>(
+        builder.Configuration.GetSection(GdcOptions.SectionName));
+
     // Add HTTP client for API communication
     builder.Services.AddHttpClient<IEDiscoveryApiClient, EDiscoveryApiClient>();
 
@@ -46,9 +54,22 @@ try
     // Add application services as Singleton to match IHostedService lifetime
     builder.Services.AddSingleton<IGraphCollectorService, GraphCollectorService>();
     builder.Services.AddSingleton<IAutoRouterService, AutoRouterService>();
+    builder.Services.AddSingleton<IGraphDataConnectService, GraphDataConnectService>();
     builder.Services.AddScoped<IDeltaQueryService, DeltaQueryService>(); // Scoped due to DbContext dependency
+    builder.Services.AddScoped<IChainOfCustodyService, ChainOfCustodyService>(); // Scoped due to DbContext dependency
     builder.Services.AddSingleton<IEDiscoveryApiClient, EDiscoveryApiClient>();
     builder.Services.AddSingleton<IComplianceLogger, ComplianceLogger>();
+
+    // Add temporary ObservabilityHelper for structured logging
+    builder.Services.AddSingleton<ObservabilityHelper>(provider =>
+    {
+        var logger = provider.GetRequiredService<ILogger<ObservabilityHelper>>();
+        var complianceLogger = provider.GetRequiredService<IComplianceLogger>();
+        return new ObservabilityHelper(logger, complianceLogger);
+    });
+
+    // TODO: Add Observability service after resolving compilation issues
+    // builder.Services.AddSingleton<IObservabilityService, ObservabilityService>();
 
     // Register the original worker service (concurrent service has API signature issues)
     builder.Services.AddHostedService<Worker>();

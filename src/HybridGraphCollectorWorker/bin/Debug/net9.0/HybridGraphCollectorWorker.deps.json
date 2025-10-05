@@ -37,6 +37,19 @@
           }
         }
       },
+      "Azure.Core.Amqp/1.3.1": {
+        "dependencies": {
+          "Microsoft.Azure.Amqp": "2.7.0",
+          "System.Memory": "4.5.4",
+          "System.Memory.Data": "8.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Core.Amqp.dll": {
+            "assemblyVersion": "1.3.1.0",
+            "fileVersion": "1.300.124.38003"
+          }
+        }
+      },
       "Azure.Identity/1.16.0": {
         "dependencies": {
           "Azure.Core": "1.47.3",
@@ -47,6 +60,35 @@
           "lib/net8.0/Azure.Identity.dll": {
             "assemblyVersion": "1.16.0.0",
             "fileVersion": "1.1600.25.45906"
+          }
+        }
+      },
+      "Azure.Messaging.ServiceBus/7.20.1": {
+        "dependencies": {
+          "Azure.Core": "1.47.3",
+          "Azure.Core.Amqp": "1.3.1",
+          "Microsoft.Azure.Amqp": "2.7.0"
+        },
+        "runtime": {
+          "lib/net8.0/Azure.Messaging.ServiceBus.dll": {
+            "assemblyVersion": "7.20.1.0",
+            "fileVersion": "7.2000.125.31203"
+          }
+        }
+      },
+      "CsvHelper/33.1.0": {
+        "runtime": {
+          "lib/net9.0/CsvHelper.dll": {
+            "assemblyVersion": "33.0.0.0",
+            "fileVersion": "33.1.0.26"
+          }
+        }
+      },
+      "Microsoft.Azure.Amqp/2.7.0": {
+        "runtime": {
+          "lib/net8.0/Microsoft.Azure.Amqp.dll": {
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
           }
         }
       },
@@ -872,7 +914,7 @@
       },
       "SQLitePCLRaw.core/2.1.10": {
         "dependencies": {
-          "System.Memory": "4.5.3"
+          "System.Memory": "4.5.4"
         },
         "runtime": {
           "lib/netstandard2.0/SQLitePCLRaw.core.dll": {
@@ -1120,7 +1162,7 @@
           "System.Runtime.Extensions": "4.3.0"
         }
       },
-      "System.Memory/4.5.3": {},
+      "System.Memory/4.5.4": {},
       "System.Memory.Data/8.0.1": {
         "runtime": {
           "lib/net8.0/System.Memory.Data.dll": {
@@ -1284,6 +1326,8 @@
       },
       "EDiscovery.Shared/1.0.0": {
         "dependencies": {
+          "Azure.Messaging.ServiceBus": "7.20.1",
+          "CsvHelper": "33.1.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.9",
           "Serilog.Extensions.Logging": "9.0.2"
@@ -1310,12 +1354,40 @@
       "path": "azure.core/1.47.3",
       "hashPath": "azure.core.1.47.3.nupkg.sha512"
     },
+    "Azure.Core.Amqp/1.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AY1ZM4WwLBb9L2WwQoWs7wS2XKYg83tp3yVVdgySdebGN0FuIszuEqCy3Nhv6qHpbkjx/NGuOTsUbF/oNGBgwA==",
+      "path": "azure.core.amqp/1.3.1",
+      "hashPath": "azure.core.amqp.1.3.1.nupkg.sha512"
+    },
     "Azure.Identity/1.16.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-ZTtJt9N1hW9S7JRt05aBy894mp9uK4KbfcVcg2OndKbph/6RCcDEisdBV9iNHiNDSXXQRR52SAYy8RhknQ1xEA==",
       "path": "azure.identity/1.16.0",
       "hashPath": "azure.identity.1.16.0.nupkg.sha512"
+    },
+    "Azure.Messaging.ServiceBus/7.20.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DxCkedWPQuiXrIyFcriOhsQcZmDZW+j9d55Ev4nnK3yjMUFjlVe4Hj37fuZTJlNhC3P+7EumqBTt33R6DfOxGA==",
+      "path": "azure.messaging.servicebus/7.20.1",
+      "hashPath": "azure.messaging.servicebus.7.20.1.nupkg.sha512"
+    },
+    "CsvHelper/33.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kqfTOZGrn7NarNeXgjh86JcpTHUoeQDMB8t9NVa/ZtlSYiV1rxfRnQ49WaJsob4AiGrbK0XDzpyKkBwai4F8eg==",
+      "path": "csvhelper/33.1.0",
+      "hashPath": "csvhelper.33.1.0.nupkg.sha512"
+    },
+    "Microsoft.Azure.Amqp/2.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gm/AEakujttMzrDhZ5QpRz3fICVkYDn/oDG9SmxDP+J7R8JDBXYU9WWG7hr6wQy40mY+wjUF0yUGXDPRDRNJwQ==",
+      "path": "microsoft.azure.amqp/2.7.0",
+      "hashPath": "microsoft.azure.amqp.2.7.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
@@ -1975,12 +2047,12 @@
       "path": "system.linq/4.3.0",
       "hashPath": "system.linq.4.3.0.nupkg.sha512"
     },
-    "System.Memory/4.5.3": {
+    "System.Memory/4.5.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
-      "path": "system.memory/4.5.3",
-      "hashPath": "system.memory.4.5.3.nupkg.sha512"
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
     },
     "System.Memory.Data/8.0.1": {
       "type": "package",

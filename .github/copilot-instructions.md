@@ -1,4 +1,4 @@
-# Hybrid eDiscovery Collector - v2.1 Production Ready
+# Hybrid eDiscovery Collector - v2.2 Production Ready
 
 This workspace contains a comprehensive hybrid eDiscovery collection system with the following key characteristics:
 
@@ -6,14 +6,15 @@ This workspace contains a comprehensive hybrid eDiscovery collection system with
 
 - **Architecture**: .NET 9.0 solution with Web API and Worker Service
 - **Platform**: Docker Compose for POC, Azure-ready for production
-- **Purpose**: Intelligent routing between Microsoft Graph API and Graph Data Connect with Delta query optimization
+- **Purpose**: Intelligent routing between Microsoft Graph API and Graph Data Connect with comprehensive observability and enterprise sharding
 
 ## Key Components
 
-- **EDiscoveryIntakeApi**: REST API for job management with SQLite/Azure SQL support
-- **HybridGraphCollectorWorker**: Automated collection service with intelligent routing and delta query optimization
-- **EDiscovery.Shared**: Common models, services, AutoRouter logic, and Delta query management
-- **DeltaQueryService**: Incremental data collection with cursor tracking for Mail and OneDrive
+- **EDiscoveryIntakeApi**: REST API for job management with health monitoring endpoints
+- **HybridGraphCollectorWorker**: Automated collection service with structured logging integration
+- **EDiscovery.Shared**: Common models, services, AutoRouter logic, observability infrastructure, and job sharding
+- **ObservabilityService**: Comprehensive metrics collection and health monitoring system
+- **JobShardingService**: Enterprise-scale job partitioning with checkpoint recovery
 
 ## Implementation Status
 
@@ -25,33 +26,76 @@ This workspace contains a comprehensive hybrid eDiscovery collection system with
 - ✅ AutoRouter configuration with environment-specific thresholds
 - ✅ Delta query system for incremental data collection
 - ✅ Database schema with DeltaCursor tracking
+- ✅ Graph Data Connect integration with Service Bus triggers
+- ✅ Chain of Custody hardening with tamper-evident manifests
+- ✅ Observability platform with structured logging and health monitoring
+- ✅ Job sharding system with checkpoint recovery and parallel processing
 - ✅ Documentation updated and completed
 
 ## Key Features Implemented
 
-- **Comprehensive Structured Logging**: Enterprise-grade Serilog implementation with audit trails, performance monitoring, and correlation tracking
+- **Comprehensive Observability**: Structured logging events (JobStarted, ItemCollected, BackoffTriggered, AutoRoutedToGDC, JobCompleted)
+- **Health Monitoring**: Production-ready health endpoints with real-time metrics
+- **Dashboard Integration**: Performance counters for monitoring systems (Grafana, Azure Monitor, Splunk)
 - **AutoRouter Service**: Intelligent routing between Graph API and Graph Data Connect with configurable thresholds
 - **Delta Query System**: Incremental data collection for OneDrive and Mail with cursor tracking and configurable intervals
-- **Chain of Custody**: SHA-256 hashing and audit logging for compliance
+- **Chain of Custody Hardening**: Comprehensive tamper-evident manifests, digital signatures, WORM storage, and REST API for legal compliance
+- **Graph Data Connect**: ADF pipeline integration with Azure Service Bus messaging
+- **Job Sharding**: Large job partitioning by custodian × date window with checkpoint recovery for idempotent restarts
 - **Retry Logic**: Exponential backoff for API throttling and error recovery
 - **Multi-Output Support**: NAS and Azure Blob storage options
 
-## Recent Enhancements
+## Latest Enhancements (Job Sharding Platform)
 
-The logging system has been comprehensively upgraded with:
+The job sharding system has been fully implemented with:
 
-- Structured JSON logging with correlation IDs
-- Separate audit logs with 365-day retention
-- Performance metrics and throughput monitoring
-- Error handling with full stack traces
-- ComplianceLogger service for eDiscovery-specific requirements
+- **Automatic Partitioning**: Large jobs split by custodian and date windows (default 30-day shards)
+- **Checkpoint Recovery**: Granular progress tracking enabling idempotent restarts from any interruption point
+- **Parallel Processing**: Multiple workers can process different shards simultaneously
+- **Progress Monitoring**: Real-time visibility into overall job progress and individual shard status
+- **Fault Isolation**: Failure in one shard doesn't affect others
+- **REST API Endpoints**: Complete API for shard management, progress tracking, and worker coordination
+- **Database Integration**: New JobShards and JobShardCheckpoints tables with optimized indexes
 
-The system now includes Delta query optimization featuring:
+## Observability & Monitoring
+
+The system now provides production-ready observability with:
+
+- **Structured Event Logging**: Complete job lifecycle tracking with correlation IDs
+- **Health Monitoring Endpoints**:
+  - `/api/health` - Simple health check for load balancers
+  - `/api/health/detailed` - Comprehensive system status
+  - `/api/health/counters` - Real-time performance metrics
+  - `/api/health/ready` and `/api/health/live` - Kubernetes probes
+- **Performance Metrics**: Items/min, MB/min, throttling events, retry success rates
+- **ObservabilityHelper**: Simplified structured logging integration for Worker service
+- **Dashboard-Ready Metrics**: JSON endpoints for monitoring system integration
+
+The system now includes Graph Data Connect integration featuring:
 
 - Incremental data collection for OneDrive and Mail
 - Database-backed cursor tracking with DeltaCursor storage
 - Environment-specific collection intervals (15min dev, 1hr staging, 4hr prod)
 - Automatic initial sweep detection and delta transition
 - Performance monitoring and cost optimization
+
+The system now includes Chain of Custody hardening featuring:
+
+- Tamper-evident manifests with SHA-256 integrity hashes
+- Digital signatures using X.509 certificates for authenticity
+- WORM storage compliance with immutability policies
+- REST API endpoints for manifest management and verification
+- Database-backed manifest tracking with verification audit trails
+- Integration with logging system for complete audit capabilities
+
+## Observability & Monitoring
+
+The system now provides production-ready observability with:
+
+- **Structured Logging Events**: JobStarted, ItemCollected, BackoffTriggered, AutoRoutedToGDC, JobCompleted
+- **Health Endpoints**: Comprehensive API endpoints for monitoring dashboards
+- **Performance Metrics**: Real-time throughput, error rates, and system health
+- **Correlation Tracking**: Complete audit trail with unique correlation IDs
+- **Dashboard Integration**: Ready for Grafana, Azure Monitor, Splunk integration
 
 All components are fully functional and validated in runtime environment.

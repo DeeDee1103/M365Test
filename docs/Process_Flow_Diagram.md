@@ -255,7 +255,9 @@ stateDiagram-v2
     Retrying --> Processing: Retry Successful
     Retrying --> Failed: Max Retries Exceeded
 
-    Completing --> Polling: Job Completed Successfully
+    Completing --> ManifestGen: Generate Chain of Custody Manifest
+    ManifestGen --> ManifestSeal: Seal Manifest (Digital Sign + WORM)
+    ManifestSeal --> Polling: Job Completed Successfully
 
     Failed --> Cleanup: Clean up Resources
     Cleanup --> [*]
@@ -279,6 +281,22 @@ stateDiagram-v2
         - Real-time progress updates
         - Chain of custody logging
         - Error handling & retry
+    end note
+
+    note right of ManifestGen
+        Chain of Custody:
+        - Generate JSON/CSV manifests
+        - SHA-256 integrity hashing
+        - Item sequence tracking
+        - Metadata preservation
+    end note
+
+    note right of ManifestSeal
+        Evidence Integrity:
+        - Digital signature (X.509)
+        - WORM storage (immutable)
+        - 7-year retention policy
+        - Verification audit trail
     end note
 ```
 

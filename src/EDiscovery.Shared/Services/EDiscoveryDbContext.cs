@@ -35,6 +35,10 @@ public class EDiscoveryDbContext : DbContext
     // Delta query entities for incremental collection
     public DbSet<DeltaCursor> DeltaCursors { get; set; }
 
+    // Chain of Custody entities for evidence integrity
+    public DbSet<JobManifest> JobManifests { get; set; }
+    public DbSet<ManifestVerification> ManifestVerifications { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -206,6 +210,55 @@ public class EDiscoveryDbContext : DbContext
                   .WithMany()
                   .HasForeignKey(e => e.CollectionJobId)
                   .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        // Configure JobManifest entity
+        modelBuilder.Entity<JobManifest>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.ManifestId).IsRequired().HasMaxLength(36);
+            entity.Property(e => e.ManifestHash).IsRequired().HasMaxLength(64);
+            entity.Property(e => e.DigitalSignature).HasMaxLength(4000);
+            entity.Property(e => e.FilePath).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.ImmutableStoragePath).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.ImmutablePolicyId).HasMaxLength(64);
+            entity.Property(e => e.CreatedByCorrelationId).IsRequired().HasMaxLength(36);
+            entity.Property(e => e.CreatedByWorker).IsRequired().HasMaxLength(100);
+            
+            entity.HasIndex(e => e.ManifestId).IsUnique();
+            entity.HasIndex(e => e.JobId);
+            entity.HasIndex(e => e.CreatedDate);
+            entity.HasIndex(e => e.IsSealed);
+            
+            // Relationship with CollectionJob
+            entity.HasOne(e => e.Job)
+                  .WithMany()
+                  .HasForeignKey(e => e.JobId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Configure ManifestVerification entity
+        modelBuilder.Entity<ManifestVerification>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.ComputedHash).HasMaxLength(64);
+            entity.Property(e => e.ExpectedHash).HasMaxLength(64);
+            entity.Property(e => e.ErrorDetails).HasMaxLength(1000);
+            entity.Property(e => e.VerificationId).IsRequired().HasMaxLength(36);
+            entity.Property(e => e.CorrelationId).IsRequired().HasMaxLength(36);
+            entity.Property(e => e.VerifiedBy).IsRequired().HasMaxLength(100);
+            
+            entity.HasIndex(e => e.VerificationId).IsUnique();
+            entity.HasIndex(e => e.ManifestId);
+            entity.HasIndex(e => e.VerificationDate);
+            entity.HasIndex(e => e.Type);
+            entity.HasIndex(e => e.Result);
+            
+            // Relationship with JobManifest
+            entity.HasOne(e => e.Manifest)
+                  .WithMany(m => m.Verifications)
+                  .HasForeignKey(e => e.ManifestId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         // Seed data for default users

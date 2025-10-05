@@ -1,0 +1,28 @@
+[2025-10-05 07:25:49.712 -04:00] Starting eDiscovery Intake API
+[2025-10-05 07:25:50.931 -04:00] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 07:25:51.008 -04:00] AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 92b46225 | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-43364","Timestamp":"2025-10-05T11:25:50.9454122Z","CorrelationId":"92b46225"}
+[2025-10-05 07:25:51.075 -04:00] eDiscovery Intake API started successfully
+[2025-10-05 07:25:51.138 -04:00] Now listening on: http://localhost:5230
+[2025-10-05 07:25:51.139 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 07:25:51.141 -04:00] Hosting environment: Development
+[2025-10-05 07:25:51.143 -04:00] Content root path: c:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi
+[2025-10-05 07:38:09.189 -04:00] Application is shutting down...
+[2025-10-05 07:41:53.524 -04:00] Starting eDiscovery Intake API
+[2025-10-05 07:41:54.364 -04:00] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 07:41:54.443 -04:00] AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 7a3f4c70 | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-26376","Timestamp":"2025-10-05T11:41:54.3827732Z","CorrelationId":"7a3f4c70"}
+[2025-10-05 07:41:54.507 -04:00] eDiscovery Intake API started successfully
+[2025-10-05 07:41:54.555 -04:00] Now listening on: http://localhost:5230
+[2025-10-05 07:41:54.556 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 07:41:54.557 -04:00] Hosting environment: Development
+[2025-10-05 07:41:54.560 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi
+[2025-10-05 08:07:36.852 -04:00] Starting eDiscovery Intake API
+[2025-10-05 08:07:37.754 -04:00] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 08:07:37.811 -04:00] AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 47665c77 | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-17004","Timestamp":"2025-10-05T12:07:37.7655118Z","CorrelationId":"47665c77"}
+[2025-10-05 08:07:37.884 -04:00] eDiscovery Intake API started successfully
+[2025-10-05 08:07:37.943 -04:00] Now listening on: http://localhost:5230
+[2025-10-05 08:07:37.945 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 08:07:37.946 -04:00] Hosting environment: Development
+[2025-10-05 08:07:37.947 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi

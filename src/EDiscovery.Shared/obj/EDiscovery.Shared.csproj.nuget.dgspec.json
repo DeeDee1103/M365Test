@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj": {}
+    "c:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj": {
+    "c:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj",
+        "projectUniqueName": "c:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj",
         "projectName": "EDiscovery.Shared",
-        "projectPath": "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj",
+        "projectPath": "c:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj",
         "packagesPath": "C:\\Users\\dnnll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\obj\\",
+        "outputPath": "c:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Azure.Messaging.ServiceBus": {
+              "target": "Package",
+              "version": "[7.20.1, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.9, )"

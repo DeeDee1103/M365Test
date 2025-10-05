@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EDiscoveryIntakeApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+016c46bc4aa826fe368ddcab79168a122bd50edc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e4c19fb3c8811c30a97e9522cd4d8a0c384b135")]
 [assembly: System.Reflection.AssemblyProductAttribute("EDiscoveryIntakeApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EDiscoveryIntakeApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

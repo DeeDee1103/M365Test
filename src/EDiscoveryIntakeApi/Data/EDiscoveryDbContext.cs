@@ -17,6 +17,8 @@ public class EDiscoveryDbContext : DbContext
     public DbSet<UserSession> UserSessions { get; set; }
     public DbSet<JobAssignment> JobAssignments { get; set; }
     public DbSet<WorkerInstance> WorkerInstances { get; set; }
+    public DbSet<JobShard> JobShards { get; set; }
+    public DbSet<JobShardCheckpoint> JobShardCheckpoints { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -118,6 +120,55 @@ public class EDiscoveryDbContext : DbContext
 
         modelBuilder.Entity<WorkerInstance>()
             .HasIndex(w => new { w.Status, w.LastHeartbeat });
+
+        // Job Shard configurations
+        modelBuilder.Entity<JobShard>()
+            .HasOne(s => s.ParentJob)
+            .WithMany()
+            .HasForeignKey(s => s.ParentJobId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<JobShard>()
+            .HasOne(s => s.AssignedUser)
+            .WithMany()
+            .HasForeignKey(s => s.AssignedUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<JobShard>()
+            .HasIndex(s => s.Status);
+
+        modelBuilder.Entity<JobShard>()
+            .HasIndex(s => new { s.ParentJobId, s.ShardIndex });
+
+        modelBuilder.Entity<JobShard>()
+            .HasIndex(s => new { s.Status, s.CreatedDate });
+
+        modelBuilder.Entity<JobShard>()
+            .HasIndex(s => s.LockExpiry);
+
+        modelBuilder.Entity<JobShard>()
+            .HasIndex(s => s.ShardIdentifier)
+            .IsUnique();
+
+        modelBuilder.Entity<JobShard>()
+            .HasIndex(s => new { s.CustodianEmail, s.StartDate, s.EndDate });
+
+        // Job Shard Checkpoint configurations
+        modelBuilder.Entity<JobShardCheckpoint>()
+            .HasOne(c => c.JobShard)
+            .WithMany(s => s.Checkpoints)
+            .HasForeignKey(c => c.JobShardId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<JobShardCheckpoint>()
+            .HasIndex(c => new { c.JobShardId, c.CheckpointKey })
+            .IsUnique();
+
+        modelBuilder.Entity<JobShardCheckpoint>()
+            .HasIndex(c => new { c.JobShardId, c.IsCompleted });
+
+        modelBuilder.Entity<JobShardCheckpoint>()
+            .HasIndex(c => c.CorrelationId);
 
         modelBuilder.Entity<CollectedItem>()
             .HasIndex(i => i.ItemId);
