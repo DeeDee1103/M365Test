@@ -1,11 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "NI8guJkMksI=",
+  "dgSpecHash": "+i/IoafLpKE=",
   "success": true,
   "projectFilePath": "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\EDiscovery.Shared\\EDiscovery.Shared.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.0\\microsoft.extensions.dependencyinjection.9.0.0.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.9\\microsoft.extensions.dependencyinjection.abstractions.9.0.9.nupkg.sha512",
-    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.9\\microsoft.extensions.logging.abstractions.9.0.9.nupkg.sha512"
+    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.logging\\9.0.0\\microsoft.extensions.logging.9.0.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.9\\microsoft.extensions.logging.abstractions.9.0.9.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.options\\9.0.0\\microsoft.extensions.options.9.0.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.0\\microsoft.extensions.primitives.9.0.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog\\4.2.0\\serilog.4.2.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog.extensions.logging\\9.0.2\\serilog.extensions.logging.9.0.2.nupkg.sha512"
   ],
   "logs": []
 }

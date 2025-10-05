@@ -1,0 +1,164 @@
+[2025-10-04 22:42:51.731 -04:00 INF] : Starting Hybrid Graph Collector Worker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:52.026 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceStarted | Custodian: null | CorrelationId: aae9fc83 | Data: {"Action":"WorkerServiceStarted","Custodian":null,"Data":{"Version":"1.0.0","Environment":"Development"},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:51.9853739Z","CorrelationId":"aae9fc83"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:52.033 -04:00 INF] : Hybrid Graph Collector Worker started successfully {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.771 -04:00 INF] HybridGraphCollectorWorker.Worker: Hybrid Graph Collector Worker started at: "2025-10-04T22:42:55.7705578-04:00" | CorrelationId: c337d6c8 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.781 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: c337d6c8 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T22:42:55.776125-04:00"},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:55.7762731Z","CorrelationId":"c337d6c8"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.796 -04:00 INF] HybridGraphCollectorWorker.Worker: Processing sample collection job for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.802 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Determining optimal route for custodian: user@company.com | CorrelationId: 5d76cba2 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.815 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionStarted | Custodian: user@company.com | CorrelationId: 5d76cba2 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"user@company.com","Data":{"CustodianEmail":"user@company.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T02:42:55.7990191Z","EndDate":"2025-10-05T02:42:55.7990466Z"}},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:55.8084719Z","CorrelationId":"5d76cba2"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.826 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.828 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.831 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.855 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 5d76cba2 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.870 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision: Graph API selected - fits within limits | CorrelationId: 5d76cba2 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.873 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision completed: "GraphApi" (Confidence: 90.0 %) | CorrelationId: 5d76cba2 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.886 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionCompleted | Custodian: user@company.com | CorrelationId: 5d76cba2 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"user@company.com","Data":{"RecommendedRoute":"GraphApi","Reason":"Collection fits within Graph API limits","ConfidenceScore":0.9,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:55.8786209Z","CorrelationId":"5d76cba2"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.891 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 88ms | Items: 0 | Size: 0 bytes | CorrelationId: 5d76cba2 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.898 -04:00 INF] HybridGraphCollectorWorker.Services.EDiscoveryApiClient: [Job 0] [AutoRouter] Route decision: GraphApi Reason: Collection fits within Graph API limits. Confidence: 90.0% {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.903 -04:00 INF] HybridGraphCollectorWorker.Worker: Executing Graph API collection for job type: "Email" {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:55.915 -04:00 INF] HybridGraphCollectorWorker.Services.GraphCollectorService: Starting email collection for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:56.516 -04:00 ERR] HybridGraphCollectorWorker.Services.GraphCollectorService: Error collecting email for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Azure.Identity.AuthenticationFailedException: ClientSecretCredential authentication failed: 
+ ---> MSAL.NetCore.4.76.0.0.MsalServiceException:
+	ErrorCode: invalid_request
+Microsoft.Identity.Client.MsalServiceException: AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 05061db0-9b61-4900-960b-3887546fb400 Correlation ID: 5045bdd1-361f-4033-9ffd-82f616b25cca Timestamp: 2025-10-05 02:42:56Z
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ThrowServerException(HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.CreateResponse[T](HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ExecuteRequestAsync[T](Uri endPoint, HttpMethod method, RequestContext requestContext, Boolean expectErrorsOn200OK, Boolean addCommonHeaders, IList`1 onBeforePostRequestHandlers)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, String scopeOverride, String tokenEndpointOverride, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.GetAccessTokenAsync(CancellationToken cancellationToken, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.ExecuteAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.<>c__DisplayClass11_1.<<RunAsync>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.Identity.Client.Utils.StopwatchService.MeasureCodeBlockAsync(Func`1 codeBlock)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.RunAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.ApiConfig.Executors.ConfidentialClientExecutor.ExecuteAsync(AcquireTokenCommonParameters commonParameters, AcquireTokenForClientParameters clientParameters, CancellationToken cancellationToken)
+   at Azure.Identity.AbstractAcquireTokenParameterBuilderExtensions.ExecuteAsync[T](AbstractAcquireTokenParameterBuilder`1 builder, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientCoreAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+	StatusCode: 400 
+	ResponseBody: {"error":"invalid_request","error_description":"AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 05061db0-9b61-4900-960b-3887546fb400 Correlation ID: 5045bdd1-361f-4033-9ffd-82f616b25cca Timestamp: 2025-10-05 02:42:56Z","error_codes":[900023],"timestamp":"2025-10-05 02:42:56Z","trace_id":"05061db0-9b61-4900-960b-3887546fb400","correlation_id":"5045bdd1-361f-4033-9ffd-82f616b25cca","error_uri":"https://login.microsoftonline.com/error?code=900023"} 
+	Headers: Cache-Control: no-store, no-cache
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+P3P: CP="DSP CUR OTPi IND OTRi ONL FIN"
+client-request-id: 5045bdd1-361f-4033-9ffd-82f616b25cca
+x-ms-request-id: 05061db0-9b61-4900-960b-3887546fb400
+x-ms-ests-server: 2.1.22024.3 - WUS3 ProdSlices
+x-ms-clitelem: 1,900023,0,,
+x-ms-srs: 1.P
+Content-Security-Policy-Report-Only: object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-3S-6CHh_zRz68gzk1G0CgA' 'unsafe-inline' 'unsafe-eval' https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net https://*.msauthimages.net https://*.msidentity.com https://*.microsoftonline-p.com https://*.microsoftazuread-sso.com https://*.azureedge.net https://*.outlook.com https://*.office.com https://*.office365.com https://*.microsoft.com https://*.bing.com 'report-sample'; report-uri https://csp.microsoft.com/report/ESTS-UX-All
+Cross-Origin-Opener-Policy-Report-Only: same-origin; report-to="coop-endpoint"
+Reporting-Endpoints: coop-endpoint="https://idux.azurewebsites.net/api/coopReport"
+X-XSS-Protection: 0
+Set-Cookie: fpc=Aju_yhKIPlBGjXl6E369hWk; expires=Tue, 04-Nov-2025 02:42:56 GMT; path=/; secure; HttpOnly; SameSite=None, x-ms-gateway-slice=estsfd; path=/; secure; samesite=none; httponly, stsservicecookie=estsfd; path=/; secure; samesite=none; httponly
+Date: Sun, 05 Oct 2025 02:42:56 GMT
+
+   --- End of inner exception stack trace ---
+   at Azure.Identity.CredentialDiagnosticScope.FailWrapAndThrow(Exception ex, String additionalMessage, Boolean isCredentialUnavailable)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Authentication.Azure.AzureIdentityAccessTokenProvider.GetAuthorizationTokenAsync(Uri uri, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Abstractions.Authentication.BaseBearerTokenAuthenticationProvider.AuthenticateRequestAsync(RequestInformation request, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.GetHttpResponseMessageAsync(RequestInformation requestInfo, CancellationToken cancellationToken, Activity activityForAttributes, String claims, Boolean isStreamResponse)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.SendAsync[ModelType](RequestInformation requestInfo, ParsableFactory`1 factory, Dictionary`2 errorMapping, CancellationToken cancellationToken)
+   at Microsoft.Graph.Users.Item.UserItemRequestBuilder.GetAsync(Action`1 requestConfiguration, CancellationToken cancellationToken)
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.<>c__DisplayClass4_0.<<CollectEmailAsync>b__0>d.MoveNext() in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 42
+--- End of stack trace from previous location ---
+   at HybridGraphCollectorWorker.Services.RetryPolicy.ExecuteAsync[T](Func`1 operation) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\RetryPolicy.cs:line 31
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.CollectEmailAsync(CollectionRequest request, CancellationToken cancellationToken) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 41
+[2025-10-04 22:42:56.544 -04:00 ERR] HybridGraphCollectorWorker.Worker: Collection failed: ClientSecretCredential authentication failed:  {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:42:56.547 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 762ms | Items: 0 | Size: 0 bytes | CorrelationId: df1c55cb | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:43:26.551 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 740dd09c | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:43:56.571 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: e69a2b31 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:44:26.589 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 424f6970 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:44:56.594 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 4dea435c | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:45:26.610 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 5facb126 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:45:56.620 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 0904aa9d | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:46:26.632 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: cf2a9d0c | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:46:56.640 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: eb236337 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:47:26.648 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 2eec8f8d | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:47:56.662 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: aaa163e3 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:48:26.676 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 6eb7d024 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:48:56.694 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 8f8fa2fe | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:49:02.895 -04:00 INF] Microsoft.Hosting.Lifetime: Application is shutting down... {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:27.363 -04:00 INF] : Starting Hybrid Graph Collector Worker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:27.730 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceStarted | Custodian: null | CorrelationId: faa29251 | Data: {"Action":"WorkerServiceStarted","Custodian":null,"Data":{"Version":"1.0.0","Environment":"Development"},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:27.7013621Z","CorrelationId":"faa29251"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:27.734 -04:00 INF] : Hybrid Graph Collector Worker started successfully {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.371 -04:00 INF] HybridGraphCollectorWorker.Worker: Hybrid Graph Collector Worker started at: "2025-10-04T22:52:29.3706082-04:00" | CorrelationId: bb7534cb {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.379 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: bb7534cb | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T22:52:29.3746056-04:00"},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:29.3746726Z","CorrelationId":"bb7534cb"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.391 -04:00 INF] HybridGraphCollectorWorker.Worker: Processing sample collection job for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.395 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Determining optimal route for custodian: user@company.com | CorrelationId: a8e53c94 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.401 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionStarted | Custodian: user@company.com | CorrelationId: a8e53c94 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"user@company.com","Data":{"CustodianEmail":"user@company.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T02:52:29.3935473Z","EndDate":"2025-10-05T02:52:29.3935661Z"}},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:29.3967543Z","CorrelationId":"a8e53c94"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.410 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.412 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.414 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.436 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: a8e53c94 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.445 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision: Graph API selected - fits within limits | CorrelationId: a8e53c94 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.447 -04:00 INF] EDiscovery.Shared.Services.AutoRouterService: Route decision completed: "GraphApi" (Confidence: 90.0 %) | CorrelationId: a8e53c94 {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.457 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: AutoRouterDecisionCompleted | Custodian: user@company.com | CorrelationId: a8e53c94 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"user@company.com","Data":{"RecommendedRoute":"GraphApi","Reason":"Collection fits within Graph API limits","ConfidenceScore":0.9,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:29.4497755Z","CorrelationId":"a8e53c94"} {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.460 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 64ms | Items: 0 | Size: 0 bytes | CorrelationId: a8e53c94 | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.466 -04:00 INF] HybridGraphCollectorWorker.Services.EDiscoveryApiClient: [Job 0] [AutoRouter] Route decision: GraphApi Reason: Collection fits within Graph API limits. Confidence: 90.0% {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.468 -04:00 INF] HybridGraphCollectorWorker.Worker: Executing Graph API collection for job type: "Email" {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.477 -04:00 INF] HybridGraphCollectorWorker.Services.GraphCollectorService: Starting email collection for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.947 -04:00 ERR] HybridGraphCollectorWorker.Services.GraphCollectorService: Error collecting email for custodian: user@company.com {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+Azure.Identity.AuthenticationFailedException: ClientSecretCredential authentication failed: 
+ ---> MSAL.NetCore.4.76.0.0.MsalServiceException:
+	ErrorCode: invalid_request
+Microsoft.Identity.Client.MsalServiceException: AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 4b3d1624-e903-4ee0-949c-9bcd74b44c00 Correlation ID: 165b9354-5b8c-45c2-81f2-6e35982d38d4 Timestamp: 2025-10-05 02:52:29Z
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ThrowServerException(HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.CreateResponse[T](HttpResponse response, RequestContext requestContext)
+   at Microsoft.Identity.Client.OAuth2.OAuth2Client.ExecuteRequestAsync[T](Uri endPoint, HttpMethod method, RequestContext requestContext, Boolean expectErrorsOn200OK, Boolean addCommonHeaders, IList`1 onBeforePostRequestHandlers)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendHttpAndClearTelemetryAsync(String tokenEndpoint, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.OAuth2.TokenClient.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, String scopeOverride, String tokenEndpointOverride, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.SendTokenRequestAsync(IDictionary`2 additionalBodyParameters, CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.GetAccessTokenAsync(CancellationToken cancellationToken, ILoggerAdapter logger)
+   at Microsoft.Identity.Client.Internal.Requests.ClientCredentialRequest.ExecuteAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.<>c__DisplayClass11_1.<<RunAsync>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.Identity.Client.Utils.StopwatchService.MeasureCodeBlockAsync(Func`1 codeBlock)
+   at Microsoft.Identity.Client.Internal.Requests.RequestBase.RunAsync(CancellationToken cancellationToken)
+   at Microsoft.Identity.Client.ApiConfig.Executors.ConfidentialClientExecutor.ExecuteAsync(AcquireTokenCommonParameters commonParameters, AcquireTokenForClientParameters clientParameters, CancellationToken cancellationToken)
+   at Azure.Identity.AbstractAcquireTokenParameterBuilderExtensions.ExecuteAsync[T](AbstractAcquireTokenParameterBuilder`1 builder, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientCoreAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.MsalConfidentialClient.AcquireTokenForClientAsync(String[] scopes, String tenantId, String claims, Boolean enableCae, Boolean async, CancellationToken cancellationToken)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+	StatusCode: 400 
+	ResponseBody: {"error":"invalid_request","error_description":"AADSTS900023: Specified tenant identifier 'your-tenant-id' is neither a valid DNS name, nor a valid external domain. Trace ID: 4b3d1624-e903-4ee0-949c-9bcd74b44c00 Correlation ID: 165b9354-5b8c-45c2-81f2-6e35982d38d4 Timestamp: 2025-10-05 02:52:29Z","error_codes":[900023],"timestamp":"2025-10-05 02:52:29Z","trace_id":"4b3d1624-e903-4ee0-949c-9bcd74b44c00","correlation_id":"165b9354-5b8c-45c2-81f2-6e35982d38d4","error_uri":"https://login.microsoftonline.com/error?code=900023"} 
+	Headers: Cache-Control: no-store, no-cache
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+P3P: CP="DSP CUR OTPi IND OTRi ONL FIN"
+client-request-id: 165b9354-5b8c-45c2-81f2-6e35982d38d4
+x-ms-request-id: 4b3d1624-e903-4ee0-949c-9bcd74b44c00
+x-ms-ests-server: 2.1.22024.3 - NCUS ProdSlices
+x-ms-clitelem: 1,900023,0,,
+x-ms-srs: 1.P
+Content-Security-Policy-Report-Only: object-src 'none'; base-uri 'self'; script-src 'self' 'nonce-HrYLLzEFujJzyfLjqhlAmQ' 'unsafe-inline' 'unsafe-eval' https://*.msauth.net https://*.msftauth.net https://*.msftauthimages.net https://*.msauthimages.net https://*.msidentity.com https://*.microsoftonline-p.com https://*.microsoftazuread-sso.com https://*.azureedge.net https://*.outlook.com https://*.office.com https://*.office365.com https://*.microsoft.com https://*.bing.com 'report-sample'; report-uri https://csp.microsoft.com/report/ESTS-UX-All
+Cross-Origin-Opener-Policy-Report-Only: same-origin; report-to="coop-endpoint"
+Reporting-Endpoints: coop-endpoint="https://idux.azurewebsites.net/api/coopReport"
+X-XSS-Protection: 0
+Set-Cookie: fpc=AlDI58LkEbxAitwWWcsr6Xw; expires=Tue, 04-Nov-2025 02:52:29 GMT; path=/; secure; HttpOnly; SameSite=None, x-ms-gateway-slice=estsfd; path=/; secure; samesite=none; httponly, stsservicecookie=estsfd; path=/; secure; samesite=none; httponly
+Date: Sun, 05 Oct 2025 02:52:29 GMT
+
+   --- End of inner exception stack trace ---
+   at Azure.Identity.CredentialDiagnosticScope.FailWrapAndThrow(Exception ex, String additionalMessage, Boolean isCredentialUnavailable)
+   at Azure.Identity.ClientSecretCredential.GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Authentication.Azure.AzureIdentityAccessTokenProvider.GetAuthorizationTokenAsync(Uri uri, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Abstractions.Authentication.BaseBearerTokenAuthenticationProvider.AuthenticateRequestAsync(RequestInformation request, Dictionary`2 additionalAuthenticationContext, CancellationToken cancellationToken)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.GetHttpResponseMessageAsync(RequestInformation requestInfo, CancellationToken cancellationToken, Activity activityForAttributes, String claims, Boolean isStreamResponse)
+   at Microsoft.Kiota.Http.HttpClientLibrary.HttpClientRequestAdapter.SendAsync[ModelType](RequestInformation requestInfo, ParsableFactory`1 factory, Dictionary`2 errorMapping, CancellationToken cancellationToken)
+   at Microsoft.Graph.Users.Item.UserItemRequestBuilder.GetAsync(Action`1 requestConfiguration, CancellationToken cancellationToken)
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.<>c__DisplayClass4_0.<<CollectEmailAsync>b__0>d.MoveNext() in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 42
+--- End of stack trace from previous location ---
+   at HybridGraphCollectorWorker.Services.RetryPolicy.ExecuteAsync[T](Func`1 operation) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\RetryPolicy.cs:line 31
+   at HybridGraphCollectorWorker.Services.GraphCollectorService.CollectEmailAsync(CollectionRequest request, CancellationToken cancellationToken) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\Services\GraphCollectorService.cs:line 41
+[2025-10-04 22:52:29.965 -04:00 ERR] HybridGraphCollectorWorker.Worker: Collection failed: ClientSecretCredential authentication failed:  {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:29.967 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: PERFORMANCE: Worker.ProcessPendingJobs | Duration: 583ms | Items: 0 | Size: 0 bytes | CorrelationId: 5855857f | Throughput: 0.00 items/sec, 0.00 MB/sec {"Application":"HybridGraphCollectorWorker","Environment":"Development"}
+[2025-10-04 22:52:49.994 -04:00 INF] Microsoft.Hosting.Lifetime: Application is shutting down... {"Application":"HybridGraphCollectorWorker","Environment":"Development"}

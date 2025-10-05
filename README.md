@@ -144,7 +144,12 @@ The AutoRouter determines the optimal collection route based on:
 ## 🔒 Security Features
 
 - **Chain of Custody**: SHA-256 hashing of all collected items
-- **Audit Logging**: Comprehensive job and event logging
+- **Comprehensive Logging**: Enterprise-grade structured logging with Serilog
+  - Audit trails with 365-day retention for compliance
+  - Performance monitoring with execution metrics
+  - Correlation ID tracking across distributed operations
+  - Separate audit logs for legal requirements
+  - JSON structured format for machine analysis
 - **Retry Logic**: Exponential backoff for API throttling
 - **Error Handling**: Graceful degradation and recovery
 
@@ -231,4 +236,5 @@ This project is licensed under the MIT License.
 ---
 
 **Note**: This is a POC implementation. For production use, implement proper security controls, error handling, and compliance measures as outlined in the Phase 2/3 roadmaps.
+
 # M365Test

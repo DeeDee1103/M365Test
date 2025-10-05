@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lnprKHtfkV8=",
+  "dgSpecHash": "5zI6z9PG0DU=",
   "success": true,
   "projectFilePath": "C:\\Users\\dnnll\\source\\repos\\_VisualStudio_Code\\M365Test\\src\\HybridGraphCollectorWorker\\HybridGraphCollectorWorker.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.configuration.usersecrets\\9.0.6\\microsoft.extensions.configuration.usersecrets.9.0.6.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.9\\microsoft.extensions.dependencyinjection.9.0.9.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.9\\microsoft.extensions.dependencyinjection.abstractions.9.0.9.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.dependencymodel\\9.0.0\\microsoft.extensions.dependencymodel.9.0.0.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.diagnostics\\9.0.9\\microsoft.extensions.diagnostics.9.0.9.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\9.0.9\\microsoft.extensions.diagnostics.abstractions.9.0.9.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\9.0.6\\microsoft.extensions.fileproviders.abstractions.9.0.6.nupkg.sha512",
@@ -68,6 +69,12 @@
     "C:\\Users\\dnnll\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog\\4.2.0\\serilog.4.2.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog.extensions.hosting\\9.0.0\\serilog.extensions.hosting.9.0.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog.extensions.logging\\9.0.2\\serilog.extensions.logging.9.0.2.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog.settings.configuration\\9.0.0\\serilog.settings.configuration.9.0.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog.sinks.console\\6.0.0\\serilog.sinks.console.6.0.0.nupkg.sha512",
+    "C:\\Users\\dnnll\\.nuget\\packages\\serilog.sinks.file\\7.0.0\\serilog.sinks.file.7.0.0.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\std.uritemplate\\2.0.1\\std.uritemplate.2.0.1.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\system.clientmodel\\1.6.1\\system.clientmodel.1.6.1.nupkg.sha512",
     "C:\\Users\\dnnll\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

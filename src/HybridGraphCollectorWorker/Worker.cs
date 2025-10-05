@@ -7,6 +7,7 @@ namespace HybridGraphCollectorWorker;
 public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;
+    private readonly IComplianceLogger _complianceLogger;
     private readonly IGraphCollectorService _graphCollector;
     private readonly IAutoRouterService _autoRouter;
     private readonly IEDiscoveryApiClient _apiClient;
@@ -14,12 +15,14 @@ public class Worker : BackgroundService
 
     public Worker(
         ILogger<Worker> logger,
+        IComplianceLogger complianceLogger,
         IGraphCollectorService graphCollector,
         IAutoRouterService autoRouter,
         IEDiscoveryApiClient apiClient,
         IConfiguration configuration)
     {
         _logger = logger;
+        _complianceLogger = complianceLogger;
         _graphCollector = graphCollector;
         _autoRouter = autoRouter;
         _apiClient = apiClient;
@@ -28,7 +31,12 @@ public class Worker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("Hybrid Graph Collector Worker started at: {Time}", DateTimeOffset.Now);
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        
+        _logger.LogInformation("Hybrid Graph Collector Worker started at: {Time} | CorrelationId: {CorrelationId}", 
+            DateTimeOffset.Now, correlationId);
+        
+        _complianceLogger.LogAudit("WorkerServiceExecutionStarted", new { StartTime = DateTimeOffset.Now }, null, correlationId);
 
         // For POC, we'll simulate processing jobs
         // In production, this would poll for pending jobs from the API or use a message queue
@@ -39,21 +47,35 @@ public class Worker : BackgroundService
             {
                 await ProcessPendingJobsAsync(stoppingToken);
             }
+            catch (OperationCanceledException)
+            {
+                _logger.LogInformation("Worker execution cancelled");
+                break;
+            }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in worker execution loop");
+                _complianceLogger.LogError(ex, "Worker.ExecuteAsync", null, correlationId);
             }
 
             // Wait before checking for more jobs
             var pollInterval = _configuration.GetValue<int>("Worker:PollIntervalSeconds", 30);
+            _logger.LogDebug("Waiting {PollInterval} seconds before next poll", pollInterval);
             await Task.Delay(TimeSpan.FromSeconds(pollInterval), stoppingToken);
         }
 
-        _logger.LogInformation("Hybrid Graph Collector Worker stopped at: {Time}", DateTimeOffset.Now);
+        _logger.LogInformation("Hybrid Graph Collector Worker stopped at: {Time} | CorrelationId: {CorrelationId}", 
+            DateTimeOffset.Now, correlationId);
+        
+        _complianceLogger.LogAudit("WorkerServiceExecutionStopped", new { StopTime = DateTimeOffset.Now }, null, correlationId);
     }
 
     private async Task ProcessPendingJobsAsync(CancellationToken cancellationToken)
     {
+        var correlationId = _complianceLogger.CreateCorrelationId();
+        
+        using var performanceTimer = _complianceLogger.StartPerformanceTimer("Worker.ProcessPendingJobs", correlationId);
+        
+        _logger.LogDebug("Checking for pending collection jobs | CorrelationId: {CorrelationId}", correlationId);
         // For POC, simulate a sample collection job
         // In production, this would query the API for pending jobs
         

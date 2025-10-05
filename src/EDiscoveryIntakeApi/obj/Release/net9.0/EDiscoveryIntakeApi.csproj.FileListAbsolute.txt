@@ -75,3 +75,13 @@ C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\obj\Release\net9.0\EDiscoveryIntakeApi.pdb
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\obj\Release\net9.0\EDiscoveryIntakeApi.genruntimeconfig.cache
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\obj\Release\net9.0\ref\EDiscoveryIntakeApi.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.AspNetCore.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Extensions.Hosting.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Extensions.Logging.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Formatting.Compact.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Settings.Configuration.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Sinks.Console.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Sinks.Debug.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\bin\Release\net9.0\Serilog.Sinks.File.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\obj\Release\net9.0\EDiscoveryIntakeApi.sourcelink.json

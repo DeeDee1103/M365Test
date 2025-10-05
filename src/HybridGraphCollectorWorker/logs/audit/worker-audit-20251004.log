@@ -1,0 +1,58 @@
+[2025-10-04 22:42:51.731 -04:00] Starting Hybrid Graph Collector Worker
+[2025-10-04 22:42:52.026 -04:00] AUDIT: WorkerServiceStarted | Custodian: null | CorrelationId: aae9fc83 | Data: {"Action":"WorkerServiceStarted","Custodian":null,"Data":{"Version":"1.0.0","Environment":"Development"},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:51.9853739Z","CorrelationId":"aae9fc83"}
+[2025-10-04 22:42:52.033 -04:00] Hybrid Graph Collector Worker started successfully
+[2025-10-04 22:42:55.771 -04:00] Hybrid Graph Collector Worker started at: "2025-10-04T22:42:55.7705578-04:00" | CorrelationId: c337d6c8
+[2025-10-04 22:42:55.781 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: c337d6c8 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T22:42:55.776125-04:00"},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:55.7762731Z","CorrelationId":"c337d6c8"}
+[2025-10-04 22:42:55.796 -04:00] Processing sample collection job for custodian: user@company.com
+[2025-10-04 22:42:55.802 -04:00] Determining optimal route for custodian: user@company.com | CorrelationId: 5d76cba2
+[2025-10-04 22:42:55.815 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: user@company.com | CorrelationId: 5d76cba2 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"user@company.com","Data":{"CustodianEmail":"user@company.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T02:42:55.7990191Z","EndDate":"2025-10-05T02:42:55.7990466Z"}},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:55.8084719Z","CorrelationId":"5d76cba2"}
+[2025-10-04 22:42:55.826 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-04 22:42:55.828 -04:00] Hosting environment: Development
+[2025-10-04 22:42:55.831 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-04 22:42:55.855 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 5d76cba2
+[2025-10-04 22:42:55.870 -04:00] Route decision: Graph API selected - fits within limits | CorrelationId: 5d76cba2
+[2025-10-04 22:42:55.873 -04:00] Route decision completed: "GraphApi" (Confidence: 90.0 %) | CorrelationId: 5d76cba2
+[2025-10-04 22:42:55.886 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: user@company.com | CorrelationId: 5d76cba2 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"user@company.com","Data":{"RecommendedRoute":"GraphApi","Reason":"Collection fits within Graph API limits","ConfidenceScore":0.9,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-32364","Timestamp":"2025-10-05T02:42:55.8786209Z","CorrelationId":"5d76cba2"}
+[2025-10-04 22:42:55.891 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 88ms | Items: 0 | Size: 0 bytes | CorrelationId: 5d76cba2 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:42:55.898 -04:00] [Job 0] [AutoRouter] Route decision: GraphApi Reason: Collection fits within Graph API limits. Confidence: 90.0%
+[2025-10-04 22:42:55.903 -04:00] Executing Graph API collection for job type: "Email"
+[2025-10-04 22:42:55.915 -04:00] Starting email collection for custodian: user@company.com
+[2025-10-04 22:42:56.516 -04:00] Error collecting email for custodian: user@company.com
+[2025-10-04 22:42:56.544 -04:00] Collection failed: ClientSecretCredential authentication failed: 
+[2025-10-04 22:42:56.547 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 762ms | Items: 0 | Size: 0 bytes | CorrelationId: df1c55cb | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:43:26.551 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 740dd09c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:43:56.571 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: e69a2b31 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:44:26.589 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 424f6970 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:44:56.594 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 4dea435c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:45:26.610 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 5facb126 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:45:56.620 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 0904aa9d | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:46:26.632 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: cf2a9d0c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:46:56.640 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: eb236337 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:47:26.648 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 2eec8f8d | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:47:56.662 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: aaa163e3 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:48:26.676 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 6eb7d024 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:48:56.694 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 0ms | Items: 0 | Size: 0 bytes | CorrelationId: 8f8fa2fe | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:49:02.895 -04:00] Application is shutting down...
+[2025-10-04 22:52:27.363 -04:00] Starting Hybrid Graph Collector Worker
+[2025-10-04 22:52:27.730 -04:00] AUDIT: WorkerServiceStarted | Custodian: null | CorrelationId: faa29251 | Data: {"Action":"WorkerServiceStarted","Custodian":null,"Data":{"Version":"1.0.0","Environment":"Development"},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:27.7013621Z","CorrelationId":"faa29251"}
+[2025-10-04 22:52:27.734 -04:00] Hybrid Graph Collector Worker started successfully
+[2025-10-04 22:52:29.371 -04:00] Hybrid Graph Collector Worker started at: "2025-10-04T22:52:29.3706082-04:00" | CorrelationId: bb7534cb
+[2025-10-04 22:52:29.379 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: bb7534cb | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-04T22:52:29.3746056-04:00"},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:29.3746726Z","CorrelationId":"bb7534cb"}
+[2025-10-04 22:52:29.391 -04:00] Processing sample collection job for custodian: user@company.com
+[2025-10-04 22:52:29.395 -04:00] Determining optimal route for custodian: user@company.com | CorrelationId: a8e53c94
+[2025-10-04 22:52:29.401 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: user@company.com | CorrelationId: a8e53c94 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"user@company.com","Data":{"CustodianEmail":"user@company.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T02:52:29.3935473Z","EndDate":"2025-10-05T02:52:29.3935661Z"}},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:29.3967543Z","CorrelationId":"a8e53c94"}
+[2025-10-04 22:52:29.410 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-04 22:52:29.412 -04:00] Hosting environment: Development
+[2025-10-04 22:52:29.414 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-04 22:52:29.436 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: a8e53c94
+[2025-10-04 22:52:29.445 -04:00] Route decision: Graph API selected - fits within limits | CorrelationId: a8e53c94
+[2025-10-04 22:52:29.447 -04:00] Route decision completed: "GraphApi" (Confidence: 90.0 %) | CorrelationId: a8e53c94
+[2025-10-04 22:52:29.457 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: user@company.com | CorrelationId: a8e53c94 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"user@company.com","Data":{"RecommendedRoute":"GraphApi","Reason":"Collection fits within Graph API limits","ConfidenceScore":0.9,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-29148","Timestamp":"2025-10-05T02:52:29.4497755Z","CorrelationId":"a8e53c94"}
+[2025-10-04 22:52:29.460 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 64ms | Items: 0 | Size: 0 bytes | CorrelationId: a8e53c94 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:52:29.466 -04:00] [Job 0] [AutoRouter] Route decision: GraphApi Reason: Collection fits within Graph API limits. Confidence: 90.0%
+[2025-10-04 22:52:29.468 -04:00] Executing Graph API collection for job type: "Email"
+[2025-10-04 22:52:29.477 -04:00] Starting email collection for custodian: user@company.com
+[2025-10-04 22:52:29.947 -04:00] Error collecting email for custodian: user@company.com
+[2025-10-04 22:52:29.965 -04:00] Collection failed: ClientSecretCredential authentication failed: 
+[2025-10-04 22:52:29.967 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 583ms | Items: 0 | Size: 0 bytes | CorrelationId: 5855857f | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-04 22:52:49.994 -04:00] Application is shutting down...

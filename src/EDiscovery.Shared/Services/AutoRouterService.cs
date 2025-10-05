@@ -12,67 +12,114 @@ public interface IAutoRouterService
 public class AutoRouterService : IAutoRouterService
 {
     private readonly ILogger<AutoRouterService> _logger;
+    private readonly IComplianceLogger _complianceLogger;
     
     // Thresholds for routing decisions
     private const long GRAPH_API_SIZE_LIMIT = 100L * 1024 * 1024 * 1024; // 100GB
     private const int GRAPH_API_ITEM_LIMIT = 500_000; // 500k items
     
-    public AutoRouterService(ILogger<AutoRouterService> logger)
+    public AutoRouterService(ILogger<AutoRouterService> logger, IComplianceLogger complianceLogger)
     {
         _logger = logger;
+        _complianceLogger = complianceLogger;
     }
     
     public async Task<AutoRouterDecision> DetermineOptimalRouteAsync(CollectionRequest request)
     {
-        _logger.LogInformation("Determining optimal route for custodian: {CustodianEmail}", request.CustodianEmail);
+        var correlationId = _complianceLogger.CreateCorrelationId();
         
-        // Get current quota usage
-        var quota = await GetCurrentQuotaAsync();
+        using var performanceTimer = _complianceLogger.StartPerformanceTimer("AutoRouter.DetermineOptimalRoute", correlationId);
         
-        // Estimate collection size and item count
-        var (estimatedSize, estimatedItems) = await EstimateCollectionSizeAsync(request);
+        _logger.LogInformation("Determining optimal route for custodian: {CustodianEmail} | CorrelationId: {CorrelationId}", 
+            request.CustodianEmail, correlationId);
         
-        var decision = new AutoRouterDecision
+        _complianceLogger.LogAudit("AutoRouterDecisionStarted", new 
+        { 
+            CustodianEmail = request.CustodianEmail,
+            JobType = request.JobType.ToString(),
+            DateRange = new { request.StartDate, request.EndDate }
+        }, request.CustodianEmail, correlationId);
+
+        try
         {
-            EstimatedDataSizeBytes = estimatedSize,
-            EstimatedItemCount = estimatedItems,
-            Metrics = new Dictionary<string, object>
+            // Get current quota usage
+            var quota = await GetCurrentQuotaAsync();
+            
+            // Estimate collection size and item count
+            var (estimatedSize, estimatedItems) = await EstimateCollectionSizeAsync(request);
+            
+            _logger.LogInformation("Collection estimates - Size: {EstimatedSize} bytes ({EstimatedSizeMB:F2} MB), Items: {EstimatedItems} | CorrelationId: {CorrelationId}",
+                estimatedSize, estimatedSize / 1024.0 / 1024.0, estimatedItems, correlationId);
+
+            var decision = new AutoRouterDecision
             {
-                ["quota_used_bytes"] = quota.UsedBytes,
-                ["quota_limit_bytes"] = quota.LimitBytes,
-                ["quota_used_items"] = quota.UsedItems,
-                ["quota_limit_items"] = quota.LimitItems
-            }
-        };
-        
-        // Apply routing logic
-        if (quota.UsedBytes < GRAPH_API_SIZE_LIMIT && quota.UsedItems < GRAPH_API_ITEM_LIMIT)
-        {
-            if (estimatedSize + quota.UsedBytes < GRAPH_API_SIZE_LIMIT && 
-                estimatedItems + quota.UsedItems < GRAPH_API_ITEM_LIMIT)
+                EstimatedDataSizeBytes = estimatedSize,
+                EstimatedItemCount = estimatedItems,
+                Metrics = new Dictionary<string, object>
+                {
+                    ["quota_used_bytes"] = quota.UsedBytes,
+                    ["quota_limit_bytes"] = quota.LimitBytes,
+                    ["quota_used_items"] = quota.UsedItems,
+                    ["quota_limit_items"] = quota.LimitItems,
+                    ["correlation_id"] = correlationId
+                }
+            };
+            
+            // Apply routing logic with detailed logging
+            if (quota.UsedBytes < GRAPH_API_SIZE_LIMIT && quota.UsedItems < GRAPH_API_ITEM_LIMIT)
             {
-                decision.RecommendedRoute = CollectionRoute.GraphApi;
-                decision.Reason = "Collection fits within Graph API limits";
-                decision.ConfidenceScore = 0.9;
+                if (estimatedSize + quota.UsedBytes < GRAPH_API_SIZE_LIMIT && 
+                    estimatedItems + quota.UsedItems < GRAPH_API_ITEM_LIMIT)
+                {
+                    decision.RecommendedRoute = CollectionRoute.GraphApi;
+                    decision.Reason = "Collection fits within Graph API limits";
+                    decision.ConfidenceScore = 0.9;
+                    
+                    _logger.LogInformation("Route decision: Graph API selected - fits within limits | CorrelationId: {CorrelationId}", correlationId);
+                }
+                else
+                {
+                    decision.RecommendedRoute = CollectionRoute.GraphDataConnect;
+                    decision.Reason = "Collection would exceed Graph API limits";
+                    decision.ConfidenceScore = 0.8;
+                    
+                    _logger.LogInformation("Route decision: Graph Data Connect selected - would exceed Graph API limits | CorrelationId: {CorrelationId}", correlationId);
+                }
             }
             else
             {
                 decision.RecommendedRoute = CollectionRoute.GraphDataConnect;
-                decision.Reason = "Collection would exceed Graph API limits";
-                decision.ConfidenceScore = 0.8;
+                decision.Reason = "Current quota usage exceeds Graph API thresholds";
+                decision.ConfidenceScore = 0.95;
+                
+                _logger.LogInformation("Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: {CorrelationId}", correlationId);
             }
+
+            _logger.LogInformation("Route decision completed: {Route} (Confidence: {Confidence:P1}) | CorrelationId: {CorrelationId}", 
+                decision.RecommendedRoute, decision.ConfidenceScore, correlationId);
+            
+            // Log compliance audit
+            _complianceLogger.LogAudit("AutoRouterDecisionCompleted", new
+            {
+                RecommendedRoute = decision.RecommendedRoute.ToString(),
+                Reason = decision.Reason,
+                ConfidenceScore = decision.ConfidenceScore,
+                EstimatedSize = estimatedSize,
+                EstimatedItems = estimatedItems,
+                QuotaUsage = new { quota.UsedBytes, quota.UsedItems }
+            }, request.CustodianEmail, correlationId);
+            
+            return decision;
         }
-        else
+        catch (Exception ex)
         {
-            decision.RecommendedRoute = CollectionRoute.GraphDataConnect;
-            decision.Reason = "Current quota usage exceeds Graph API thresholds";
-            decision.ConfidenceScore = 0.95;
+            _complianceLogger.LogError(ex, "AutoRouter.DetermineOptimalRoute", new 
+            { 
+                CustodianEmail = request.CustodianEmail,
+                JobType = request.JobType.ToString()
+            }, correlationId);
+            throw;
         }
-        
-        _logger.LogInformation("Route decision: {Route} (Confidence: {Confidence:P1})", 
-            decision.RecommendedRoute, decision.ConfidenceScore);
-        
-        return decision;
     }
     
     public async Task<CollectionQuota> GetCurrentQuotaAsync()

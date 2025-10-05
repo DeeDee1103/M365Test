@@ -1,0 +1,8 @@
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\bin\Release\net9.0\.msCoverageSourceRootsMapping_HybridGraphCollectorWorker.Tests
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\bin\Release\net9.0\CoverletSourceRootsMapping_HybridGraphCollectorWorker.Tests
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\obj\Release\net9.0\HybridGraphCollectorWorker.Tests.csproj.AssemblyReference.cache
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\obj\Release\net9.0\HybridGraphCollectorWorker.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\obj\Release\net9.0\HybridGraphCollectorWorker.Tests.AssemblyInfoInputs.cache
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\obj\Release\net9.0\HybridGraphCollectorWorker.Tests.AssemblyInfo.cs
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\obj\Release\net9.0\HybridGraphCollectorWorker.Tests.csproj.CoreCompileInputs.cache
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\HybridGraphCollectorWorker.Tests\obj\Release\net9.0\HybridGraphCollectorWorker.Tests.sourcelink.json

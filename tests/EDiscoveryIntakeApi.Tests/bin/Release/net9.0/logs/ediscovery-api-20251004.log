@@ -1,0 +1,102 @@
+[2025-10-04 22:51:06.626 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 22:51:07.345 -04:00 FTL] : eDiscovery Intake API terminated unexpectedly {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+System.InvalidOperationException: Services for database providers 'Microsoft.EntityFrameworkCore.Sqlite', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService(IInfrastructure`1 accessor, Type serviceType)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.AccessorExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.get_Dependencies()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at EDiscoveryIntakeApi.Tests.Integration.ApiIntegrationTests.<>c.<.ctor>b__2_1(IServiceCollection services) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\Integration\ApiIntegrationTests.cs:line 46
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.HostBuilderAdapter.ApplyChanges()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\Program.cs:line 51
+[2025-10-04 22:51:07.380 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 22:51:07.398 -04:00 FTL] : eDiscovery Intake API terminated unexpectedly {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+System.InvalidOperationException: Services for database providers 'Microsoft.EntityFrameworkCore.Sqlite', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService(IInfrastructure`1 accessor, Type serviceType)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.AccessorExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.get_Dependencies()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at EDiscoveryIntakeApi.Tests.Integration.ApiIntegrationTests.<>c.<.ctor>b__2_1(IServiceCollection services) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\Integration\ApiIntegrationTests.cs:line 46
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.HostBuilderAdapter.ApplyChanges()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\Program.cs:line 51
+[2025-10-04 22:51:07.420 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 22:51:07.439 -04:00 FTL] : eDiscovery Intake API terminated unexpectedly {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+System.InvalidOperationException: Services for database providers 'Microsoft.EntityFrameworkCore.Sqlite', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService(IInfrastructure`1 accessor, Type serviceType)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.AccessorExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.get_Dependencies()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at EDiscoveryIntakeApi.Tests.Integration.ApiIntegrationTests.<>c.<.ctor>b__2_1(IServiceCollection services) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\Integration\ApiIntegrationTests.cs:line 46
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.HostBuilderAdapter.ApplyChanges()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\Program.cs:line 51
+[2025-10-04 22:51:07.456 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 22:51:07.472 -04:00 FTL] : eDiscovery Intake API terminated unexpectedly {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+System.InvalidOperationException: Services for database providers 'Microsoft.EntityFrameworkCore.Sqlite', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService(IInfrastructure`1 accessor, Type serviceType)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.AccessorExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.get_Dependencies()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at EDiscoveryIntakeApi.Tests.Integration.ApiIntegrationTests.<>c.<.ctor>b__2_1(IServiceCollection services) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\Integration\ApiIntegrationTests.cs:line 46
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.HostBuilderAdapter.ApplyChanges()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\Program.cs:line 51
+[2025-10-04 22:51:07.490 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 22:51:07.506 -04:00 FTL] : eDiscovery Intake API terminated unexpectedly {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+System.InvalidOperationException: Services for database providers 'Microsoft.EntityFrameworkCore.Sqlite', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService(IInfrastructure`1 accessor, Type serviceType)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.AccessorExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.get_Dependencies()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at EDiscoveryIntakeApi.Tests.Integration.ApiIntegrationTests.<>c.<.ctor>b__2_1(IServiceCollection services) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\Integration\ApiIntegrationTests.cs:line 46
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.HostBuilderAdapter.ApplyChanges()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\Program.cs:line 51
+[2025-10-04 22:51:07.538 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-04 22:51:07.554 -04:00 FTL] : eDiscovery Intake API terminated unexpectedly {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+System.InvalidOperationException: Services for database providers 'Microsoft.EntityFrameworkCore.Sqlite', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService(IInfrastructure`1 accessor, Type serviceType)
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.InfrastructureExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.AccessorExtensions.GetService[TService](IInfrastructure`1 accessor)
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.get_Dependencies()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at EDiscoveryIntakeApi.Tests.Integration.ApiIntegrationTests.<>c.<.ctor>b__2_1(IServiceCollection services) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\tests\EDiscoveryIntakeApi.Tests\Integration\ApiIntegrationTests.cs:line 46
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.HostBuilderAdapter.ApplyChanges()
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi\Program.cs:line 51
