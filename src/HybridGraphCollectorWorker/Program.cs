@@ -9,6 +9,7 @@ using HybridGraphCollectorWorker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Azure.Identity;
 
 // Configure Serilog from configuration
 Log.Logger = new LoggerConfiguration()
@@ -31,6 +32,25 @@ try
     }
 
     var builder = Host.CreateApplicationBuilder(args);
+
+    // Add Azure Key Vault configuration (if enabled)
+    var keyVaultUrl = builder.Configuration["AzureKeyVault:VaultUrl"];
+    var useKeyVault = builder.Configuration.GetValue<bool>("AzureKeyVault:UseKeyVault");
+    
+    if (useKeyVault && !string.IsNullOrEmpty(keyVaultUrl))
+    {
+        var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
+        {
+            ExcludeInteractiveBrowserCredential = true,
+            ExcludeVisualStudioCodeCredential = false,
+            ExcludeAzureCliCredential = false,
+            ExcludeManagedIdentityCredential = false,
+            ExcludeEnvironmentCredential = false
+        });
+        
+        builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), credential);
+        Log.Information("Azure Key Vault configuration added: {VaultUrl}", keyVaultUrl);
+    }
 
     // Add Serilog
     builder.Services.AddSerilog();
@@ -70,6 +90,10 @@ try
     // Register concurrent job management services
     builder.Services.AddScoped<IConcurrentJobManager, ConcurrentJobManager>();
     
+    // Add security services
+    builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
+    builder.Services.AddScoped<ISecureConfigurationService, SecureConfigurationService>();
+    
     // Add application services as Singleton to match IHostedService lifetime
     builder.Services.AddSingleton<IGraphCollectorService, GraphCollectorService>();
     builder.Services.AddSingleton<IAutoRouterService, AutoRouterService>();
@@ -78,6 +102,12 @@ try
     builder.Services.AddScoped<IChainOfCustodyService, ChainOfCustodyService>(); // Scoped due to DbContext dependency
     builder.Services.AddSingleton<IEDiscoveryApiClient, EDiscoveryApiClient>();
     builder.Services.AddSingleton<IComplianceLogger, ComplianceLogger>();
+
+    // Add Delta Services
+    builder.Services.AddSingleton<IFileDeltaCursorStorage, FileDeltaCursorStorage>();
+    // TODO: Re-enable when DeltaEnumerators.cs is properly implemented
+    // builder.Services.AddScoped<IOneDriveDeltaEnumerator, OneDriveDeltaEnumerator>();
+    // builder.Services.AddScoped<IMailDeltaEnumerator, MailDeltaEnumerator>();
 
     // Add GDC Binary Fetch services
     builder.Services.AddScoped<HybridGraphCollectorWorker.Services.GdcBinaryFetcher>();
