@@ -116,6 +116,11 @@ public class DeltaQueryOptions
     public const string SectionName = "DeltaQuery";
 
     /// <summary>
+    /// Global toggle for delta query functionality
+    /// </summary>
+    public bool UseDelta { get; set; } = true;
+
+    /// <summary>
     /// Enable delta queries for Mail collections
     /// </summary>
     public bool EnableMailDelta { get; set; } = true;

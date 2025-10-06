@@ -79,6 +79,11 @@ try
     builder.Services.AddSingleton<IEDiscoveryApiClient, EDiscoveryApiClient>();
     builder.Services.AddSingleton<IComplianceLogger, ComplianceLogger>();
 
+    // Add Delta Services
+    builder.Services.AddSingleton<IFileDeltaCursorStorage, FileDeltaCursorStorage>();
+    builder.Services.AddScoped<IOneDriveDeltaEnumerator, OneDriveDeltaEnumerator>();
+    builder.Services.AddScoped<IMailDeltaEnumerator, MailDeltaEnumerator>();
+
     // Add GDC Binary Fetch services
     builder.Services.AddScoped<HybridGraphCollectorWorker.Services.GdcBinaryFetcher>();
 
