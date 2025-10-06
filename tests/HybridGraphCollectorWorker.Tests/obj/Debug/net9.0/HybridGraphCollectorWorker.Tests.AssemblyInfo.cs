@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HybridGraphCollectorWorker.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e09e4654cf2bf4909562b18e2fe88831372c05da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+450b7798809040616b239fc4eb05052726787dec")]
 [assembly: System.Reflection.AssemblyProductAttribute("HybridGraphCollectorWorker.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HybridGraphCollectorWorker.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

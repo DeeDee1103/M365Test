@@ -5,6 +5,7 @@ using EDiscovery.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Azure.Identity;
 
 // Configure Serilog from configuration
 Log.Logger = new LoggerConfiguration()
@@ -20,6 +21,25 @@ try
     Log.Information("Starting eDiscovery Intake API");
 
     var builder = WebApplication.CreateBuilder(args);
+
+    // Add Azure Key Vault configuration (if enabled)
+    var keyVaultUrl = builder.Configuration["AzureKeyVault:VaultUrl"];
+    var useKeyVault = builder.Configuration.GetValue<bool>("AzureKeyVault:UseKeyVault");
+    
+    if (useKeyVault && !string.IsNullOrEmpty(keyVaultUrl))
+    {
+        var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
+        {
+            ExcludeInteractiveBrowserCredential = true,
+            ExcludeVisualStudioCodeCredential = false,
+            ExcludeAzureCliCredential = false,
+            ExcludeManagedIdentityCredential = false,
+            ExcludeEnvironmentCredential = false
+        });
+        
+        builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), credential);
+        Log.Information("Azure Key Vault configuration added: {VaultUrl}", keyVaultUrl);
+    }
 
     // Add Serilog
     builder.Host.UseSerilog();
@@ -59,6 +79,10 @@ try
 
     // Add Delta Query service
     builder.Services.AddScoped<IDeltaQueryService, DeltaQueryService>();
+
+    // Add security services
+    builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
+    builder.Services.AddScoped<ISecureConfigurationService, SecureConfigurationService>();
 
     // Add Chain of Custody service
     builder.Services.AddScoped<IChainOfCustodyService, ChainOfCustodyService>();
