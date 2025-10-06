@@ -306,7 +306,7 @@ public class ObservabilityService : IObservabilityService
             ThroughputMetrics = await GetThroughputMetricsAsync(),
             ErrorMetrics = await GetErrorMetricsAsync(),
             ResourceMetrics = GetResourceMetrics(),
-            Dependencies = await GetDependenciesHealthAsync()
+            Dependencies = GetDependenciesHealthAsync()
         };
 
         // Log health metrics snapshot
@@ -489,7 +489,7 @@ public class ObservabilityService : IObservabilityService
         };
     }
 
-    private async Task<Dictionary<string, DependencyHealth>> GetDependenciesHealthAsync()
+    private Dictionary<string, DependencyHealth> GetDependenciesHealthAsync()
     {
         var dependencies = new Dictionary<string, DependencyHealth>();
 

@@ -210,7 +210,7 @@ public class GraphDataConnectService : IGraphDataConnectService
         // Determine priority based on job characteristics
         return request.JobType switch
         {
-            CollectionJobType.Email when request.EndDate.Value.Subtract(request.StartDate.Value).Days <= 7 => GdcPriority.High,
+            CollectionJobType.Email when request.EndDate?.Subtract(request.StartDate ?? DateTime.UtcNow).Days <= 7 => GdcPriority.High,
             CollectionJobType.Teams => GdcPriority.High, // Teams data often time-sensitive
             CollectionJobType.Mixed => GdcPriority.Medium,
             _ => GdcPriority.Normal
@@ -220,7 +220,9 @@ public class GraphDataConnectService : IGraphDataConnectService
     private TimeSpan EstimateDuration(CollectionRequest request)
     {
         // Estimate based on job type and date range
-        var dateRangeDays = request.EndDate.Value.Subtract(request.StartDate.Value).Days;
+        var startDate = request.StartDate ?? DateTime.UtcNow.AddDays(-30);
+        var endDate = request.EndDate ?? DateTime.UtcNow;
+        var dateRangeDays = endDate.Subtract(startDate).Days;
         
         return request.JobType switch
         {

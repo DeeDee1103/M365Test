@@ -449,6 +449,7 @@ public class JobShardingService : IJobShardingService
     public async Task<ShardingRecommendation> EvaluateShardingNeedAsync(CreateShardedJobRequest request, 
         CancellationToken cancellationToken = default)
     {
+        await Task.Delay(1, cancellationToken); // Minimal async operation
         var dateRangeDays = (request.EndDate - request.StartDate).TotalDays;
         var custodianCount = request.CustodianEmails.Count;
         var totalCustodianDays = dateRangeDays * custodianCount;

@@ -11,6 +11,8 @@ public interface IEDiscoveryApiClient
     Task<bool> CompleteJobAsync(int jobId, bool isSuccessful, long actualDataSizeBytes, int actualItemCount, string? manifestHash = null, string? errorMessage = null);
     Task<bool> RecordCollectedItemsAsync(int jobId, List<CollectedItem> items);
     Task<bool> LogJobEventAsync(int jobId, EDiscovery.Shared.Models.LogLevel level, string category, string message, string? details = null);
+    Task<int> CreateJobAsync(object jobRequest);
+    Task<bool> UpdateJobAsync(int jobId, object updateRequest);
 }
 
 public class EDiscoveryApiClient : IEDiscoveryApiClient
@@ -145,7 +147,7 @@ public class EDiscoveryApiClient : IEDiscoveryApiClient
         }
     }
 
-    public async Task<bool> LogJobEventAsync(int jobId, EDiscovery.Shared.Models.LogLevel level, string category, string message, string? details = null)
+    public Task<bool> LogJobEventAsync(int jobId, EDiscovery.Shared.Models.LogLevel level, string category, string message, string? details = null)
     {
         try
         {
@@ -170,11 +172,64 @@ public class EDiscoveryApiClient : IEDiscoveryApiClient
                     break;
             }
 
-            return true;
+            return Task.FromResult(true);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error logging event for job {JobId}", jobId);
+            return Task.FromResult(false);
+        }
+    }
+
+    public async Task<int> CreateJobAsync(object jobRequest)
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(jobRequest, _jsonOptions);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _httpClient.PostAsync("api/jobs", content);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogWarning("Failed to create job. Status: {StatusCode}", response.StatusCode);
+                return 0;
+            }
+
+            var responseJson = await response.Content.ReadAsStringAsync();
+            var createdJob = JsonSerializer.Deserialize<CollectionJob>(responseJson, _jsonOptions);
+            
+            _logger.LogInformation("Successfully created job {JobId}", createdJob?.Id ?? 0);
+            return createdJob?.Id ?? 0;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating job");
+            return 0;
+        }
+    }
+
+    public async Task<bool> UpdateJobAsync(int jobId, object updateRequest)
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(updateRequest, _jsonOptions);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _httpClient.PutAsync($"api/jobs/{jobId}", content);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogWarning("Failed to update job {JobId}. Status: {StatusCode}", jobId, response.StatusCode);
+                return false;
+            }
+
+            _logger.LogInformation("Successfully updated job {JobId}", jobId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating job {JobId}", jobId);
             return false;
         }
     }

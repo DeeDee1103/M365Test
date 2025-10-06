@@ -410,3 +410,469 @@ Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such tab
 [2025-10-05 08:08:15.920 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 71ms | Items: 0 | Size: 0 bytes | CorrelationId: de10ef2e | Throughput: 0.00 items/sec, 0.00 MB/sec
 [2025-10-05 08:08:15.922 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 76ms | Items: 0 | Size: 0 bytes | CorrelationId: 3f1af788 | Throughput: 0.00 items/sec, 0.00 MB/sec
 [2025-10-05 08:08:30.683 -04:00] Application is shutting down...
+[2025-10-05 14:54:36.615 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-05 14:54:37.972 -04:00] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 14:54:38.055 -04:00] AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: e18dc373 | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:37.9972018Z","CorrelationId":"e18dc373"}
+[2025-10-05 14:54:38.058 -04:00] Concurrent Hybrid Graph Collector Worker started successfully
+[2025-10-05 14:54:40.199 -04:00] AutoRouter configured with thresholds: 10.0 GB, 50,000 items
+[2025-10-05 14:54:40.219 -04:00] Graph Data Connect Service Bus connection not configured - running in stub mode
+[2025-10-05 14:54:40.236 -04:00] Hybrid Graph Collector Worker started at: "2025-10-05T14:54:40.2366369-04:00" | CorrelationId: f1da3f87
+[2025-10-05 14:54:40.244 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: f1da3f87 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-05T14:54:40.239133-04:00"},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:40.2392207Z","CorrelationId":"f1da3f87"}
+[2025-10-05 14:54:40.256 -04:00] Processing sample collection job for custodian: test.user@development.com | CorrelationId: 28a0da7c
+[2025-10-05 14:54:40.268 -04:00] JobStarted | {"EventType":"JobStarted","CustodianEmail":"test.user@development.com","JobType":"Email","StartDate":"2025-09-05T18:54:40.2576897Z","EndDate":"2025-10-05T18:54:40.2577126Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output","Timestamp":"2025-10-05T18:54:40.2581565Z","CorrelationId":"28a0da7c"}
+[2025-10-05 14:54:40.270 -04:00] AUDIT: JobStarted | Custodian: null | CorrelationId: 28a0da7c | Data: {"Action":"JobStarted","Custodian":null,"Data":{"EventType":"JobStarted","CustodianEmail":"test.user@development.com","JobType":"Email","StartDate":"2025-09-05T18:54:40.2576897Z","EndDate":"2025-10-05T18:54:40.2577126Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output","Timestamp":"2025-10-05T18:54:40.2581565Z","CorrelationId":"28a0da7c"},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:40.2701556Z","CorrelationId":"28a0da7c"}
+[2025-10-05 14:54:40.276 -04:00] Determining optimal route for custodian: test.user@development.com | CorrelationId: 161a23af
+[2025-10-05 14:54:40.281 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: test.user@development.com | CorrelationId: 161a23af | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T18:54:40.2576897Z","EndDate":"2025-10-05T18:54:40.2577126Z"}},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:40.2796198Z","CorrelationId":"161a23af"}
+[2025-10-05 14:54:40.286 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 14:54:40.287 -04:00] Hosting environment: Development
+[2025-10-05 14:54:40.288 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-05 14:54:40.313 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 161a23af
+[2025-10-05 14:54:40.318 -04:00] Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: 161a23af
+[2025-10-05 14:54:40.320 -04:00] Route decision completed: "GraphDataConnect" (Confidence: 95.0 %) | CorrelationId: 161a23af
+[2025-10-05 14:54:40.331 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: test.user@development.com | CorrelationId: 161a23af | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"test.user@development.com","Data":{"RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:40.3223721Z","CorrelationId":"161a23af"}
+[2025-10-05 14:54:40.333 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 58ms | Items: 0 | Size: 0 bytes | CorrelationId: 161a23af | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:54:40.338 -04:00] [Job 0] [AutoRouter] Route decision: GraphDataConnect Reason: Current quota usage exceeds Graph API thresholds. Confidence: 95.0%
+[2025-10-05 14:54:40.342 -04:00] AutoRoutedToGDC | {"EventType":"AutoRoutedToGDC","CustodianEmail":"test.user@development.com","JobType":"Email","RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedDataSizeBytes":5368709120,"EstimatedItemCount":10000,"Timestamp":"2025-10-05T18:54:40.340568Z","CorrelationId":"28a0da7c"}
+[2025-10-05 14:54:40.344 -04:00] AUDIT: AutoRoutedToGDC | Custodian: null | CorrelationId: 28a0da7c | Data: {"Action":"AutoRoutedToGDC","Custodian":null,"Data":{"EventType":"AutoRoutedToGDC","CustodianEmail":"test.user@development.com","JobType":"Email","RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedDataSizeBytes":5368709120,"EstimatedItemCount":10000,"Timestamp":"2025-10-05T18:54:40.340568Z","CorrelationId":"28a0da7c"},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:40.3444544Z","CorrelationId":"28a0da7c"}
+[2025-10-05 14:54:40.347 -04:00] Graph Data Connect collection requested for job type: "Email"
+[2025-10-05 14:54:40.349 -04:00] Triggering Graph Data Connect collection for custodian: test.user@development.com | CorrelationId: 2378090f
+[2025-10-05 14:54:40.352 -04:00] AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 2378090f | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T18:54:40.2576897Z","EndDate":"2025-10-05T18:54:40.2577126Z"},"TriggerType":"AzureDataFactory"},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:40.35133Z","CorrelationId":"2378090f"}
+[2025-10-05 14:54:40.376 -04:00] GDC Stub Mode - Would send trigger message to ADF:
+{
+  "pipelineRunId": "0d66974716aa40508f8e3380b327f7ca",
+  "collectionRequest": {
+    "custodianEmail": "test.user@development.com",
+    "jobType": 1,
+    "startDate": "2025-09-05T18:54:40.2576897Z",
+    "endDate": "2025-10-05T18:54:40.2577126Z",
+    "keywords": [
+      "contract",
+      "agreement"
+    ],
+    "includeAttachments": true,
+    "outputPath": "./output"
+  },
+  "triggeredAt": "2025-10-05T18:54:40.3547602Z",
+  "correlationId": "2378090f",
+  "priority": 2,
+  "estimatedDuration": "01:00:00",
+  "retryPolicy": {
+    "maxRetries": 3,
+    "retryDelayMinutes": 15,
+    "exponentialBackoff": true,
+    "retryableErrors": [
+      "ThrottlingError",
+      "TemporaryServiceUnavailable",
+      "InternalServerError"
+    ]
+  },
+  "configuration": {
+    "outputFormat": "Parquet",
+    "compressionType": "Snappy",
+    "partitionBy": [
+      "custodianEmail",
+      "date"
+    ],
+    "enableDeltaLake": true,
+    "dataRetentionDays": 2555,
+    "enableEncryption": true,
+    "notificationEndpoints": []
+  }
+}
+[2025-10-05 14:54:42.127 -04:00] AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 2378090f | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"PipelineRunId":"0d66974716aa40508f8e3380b327f7ca","TriggerMessage":{"pipelineRunId":"0d66974716aa40508f8e3380b327f7ca","collectionRequest":{"CustodianEmail":"test.user@development.com","JobType":1,"StartDate":"2025-09-05T18:54:40.2576897Z","EndDate":"2025-10-05T18:54:40.2577126Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output"},"triggeredAt":"2025-10-05T18:54:40.3547602Z","correlationId":"2378090f","priority":2,"estimatedDuration":"01:00:00","retryPolicy":{"maxRetries":3,"retryDelayMinutes":15,"exponentialBackoff":true,"retryableErrors":["ThrottlingError","TemporaryServiceUnavailable","InternalServerError"]},"configuration":{"outputFormat":"Parquet","compressionType":"Snappy","partitionBy":["custodianEmail","date"],"enableDeltaLake":true,"dataRetentionDays":2555,"enableEncryption":true,"notificationEndpoints":[]}},"ServiceBusEnabled":false},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:42.1227381Z","CorrelationId":"2378090f"}
+[2025-10-05 14:54:42.133 -04:00] Graph Data Connect collection triggered successfully for custodian: test.user@development.com | PipelineRunId: 0d66974716aa40508f8e3380b327f7ca
+[2025-10-05 14:54:42.136 -04:00] Collection completed successfully. Items: 0, Size: 0 bytes | CorrelationId: 28a0da7c
+[2025-10-05 14:54:42.142 -04:00] JobCompleted | {"EventType":"JobCompleted","CustodianEmail":"test.user@development.com","JobType":"Email","IsSuccessful":true,"ItemCount":0,"SizeBytes":0,"DurationMs":1863,"ErrorMessage":null,"StartTime":null,"EndTime":null,"Timestamp":"2025-10-05T18:54:42.140143Z","CorrelationId":"28a0da7c"}
+[2025-10-05 14:54:42.145 -04:00] AUDIT: JobCompleted | Custodian: null | CorrelationId: 28a0da7c | Data: {"Action":"JobCompleted","Custodian":null,"Data":{"EventType":"JobCompleted","CustodianEmail":"test.user@development.com","JobType":"Email","IsSuccessful":true,"ItemCount":0,"SizeBytes":0,"DurationMs":1863,"ErrorMessage":null,"StartTime":null,"EndTime":null,"Timestamp":"2025-10-05T18:54:42.140143Z","CorrelationId":"28a0da7c"},"Instance":"DONNELLD-BOOK-3-15932","Timestamp":"2025-10-05T18:54:42.1450171Z","CorrelationId":"28a0da7c"}
+[2025-10-05 14:54:42.396 -04:00] Failed executing DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:54:42.410 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:54:42.419 -04:00] Error processing delta queries | CorrelationId: f583fd75
+[2025-10-05 14:54:42.427 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 279ms | Items: 0 | Size: 0 bytes | CorrelationId: f583fd75 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:54:42.430 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 2182ms | Items: 0 | Size: 0 bytes | CorrelationId: 83f711ad | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:54:57.511 -04:00] Failed executing DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:54:57.516 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:54:57.524 -04:00] Error processing delta queries | CorrelationId: 393c1b38
+[2025-10-05 14:54:57.531 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 74ms | Items: 0 | Size: 0 bytes | CorrelationId: 393c1b38 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:54:57.533 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 93ms | Items: 0 | Size: 0 bytes | CorrelationId: 2208bdc1 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:55:05.947 -04:00] Application is shutting down...
+[2025-10-05 14:57:17.944 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-05 14:57:18.674 -04:00] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 14:57:18.737 -04:00] AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: 473a88a8 | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.6909471Z","CorrelationId":"473a88a8"}
+[2025-10-05 14:57:18.739 -04:00] Concurrent Hybrid Graph Collector Worker started successfully
+[2025-10-05 14:57:18.819 -04:00] AutoRouter configured with thresholds: 10.0 GB, 50,000 items
+[2025-10-05 14:57:18.825 -04:00] Graph Data Connect Service Bus connection not configured - running in stub mode
+[2025-10-05 14:57:18.841 -04:00] Hybrid Graph Collector Worker started at: "2025-10-05T14:57:18.8416565-04:00" | CorrelationId: cfcbf187
+[2025-10-05 14:57:18.847 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: cfcbf187 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-05T14:57:18.8437248-04:00"},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.8438372Z","CorrelationId":"cfcbf187"}
+[2025-10-05 14:57:18.857 -04:00] Processing sample collection job for custodian: test.user@development.com | CorrelationId: 6fc46381
+[2025-10-05 14:57:18.868 -04:00] JobStarted | {"EventType":"JobStarted","CustodianEmail":"test.user@development.com","JobType":"Email","StartDate":"2025-09-05T18:57:18.8593519Z","EndDate":"2025-10-05T18:57:18.8593868Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output","Timestamp":"2025-10-05T18:57:18.8599693Z","CorrelationId":"6fc46381"}
+[2025-10-05 14:57:18.869 -04:00] AUDIT: JobStarted | Custodian: null | CorrelationId: 6fc46381 | Data: {"Action":"JobStarted","Custodian":null,"Data":{"EventType":"JobStarted","CustodianEmail":"test.user@development.com","JobType":"Email","StartDate":"2025-09-05T18:57:18.8593519Z","EndDate":"2025-10-05T18:57:18.8593868Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output","Timestamp":"2025-10-05T18:57:18.8599693Z","CorrelationId":"6fc46381"},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.8697032Z","CorrelationId":"6fc46381"}
+[2025-10-05 14:57:18.873 -04:00] Determining optimal route for custodian: test.user@development.com | CorrelationId: 618408e8
+[2025-10-05 14:57:18.877 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: test.user@development.com | CorrelationId: 618408e8 | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T18:57:18.8593519Z","EndDate":"2025-10-05T18:57:18.8593868Z"}},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.8750499Z","CorrelationId":"618408e8"}
+[2025-10-05 14:57:18.881 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 14:57:18.881 -04:00] Hosting environment: Development
+[2025-10-05 14:57:18.882 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-05 14:57:18.916 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 618408e8
+[2025-10-05 14:57:18.923 -04:00] Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: 618408e8
+[2025-10-05 14:57:18.924 -04:00] Route decision completed: "GraphDataConnect" (Confidence: 95.0 %) | CorrelationId: 618408e8
+[2025-10-05 14:57:18.935 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: test.user@development.com | CorrelationId: 618408e8 | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"test.user@development.com","Data":{"RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.9263051Z","CorrelationId":"618408e8"}
+[2025-10-05 14:57:18.937 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 64ms | Items: 0 | Size: 0 bytes | CorrelationId: 618408e8 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:57:18.941 -04:00] [Job 0] [AutoRouter] Route decision: GraphDataConnect Reason: Current quota usage exceeds Graph API thresholds. Confidence: 95.0%
+[2025-10-05 14:57:18.943 -04:00] AutoRoutedToGDC | {"EventType":"AutoRoutedToGDC","CustodianEmail":"test.user@development.com","JobType":"Email","RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedDataSizeBytes":5368709120,"EstimatedItemCount":10000,"Timestamp":"2025-10-05T18:57:18.9427381Z","CorrelationId":"6fc46381"}
+[2025-10-05 14:57:18.944 -04:00] AUDIT: AutoRoutedToGDC | Custodian: null | CorrelationId: 6fc46381 | Data: {"Action":"AutoRoutedToGDC","Custodian":null,"Data":{"EventType":"AutoRoutedToGDC","CustodianEmail":"test.user@development.com","JobType":"Email","RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedDataSizeBytes":5368709120,"EstimatedItemCount":10000,"Timestamp":"2025-10-05T18:57:18.9427381Z","CorrelationId":"6fc46381"},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.9446457Z","CorrelationId":"6fc46381"}
+[2025-10-05 14:57:18.946 -04:00] Graph Data Connect collection requested for job type: "Email"
+[2025-10-05 14:57:18.948 -04:00] Triggering Graph Data Connect collection for custodian: test.user@development.com | CorrelationId: 38a978f4
+[2025-10-05 14:57:18.951 -04:00] AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 38a978f4 | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T18:57:18.8593519Z","EndDate":"2025-10-05T18:57:18.8593868Z"},"TriggerType":"AzureDataFactory"},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:18.9497439Z","CorrelationId":"38a978f4"}
+[2025-10-05 14:57:18.974 -04:00] GDC Stub Mode - Would send trigger message to ADF:
+{
+  "pipelineRunId": "da1a074b6ba44968a25fc9c25ad44112",
+  "collectionRequest": {
+    "custodianEmail": "test.user@development.com",
+    "jobType": 1,
+    "startDate": "2025-09-05T18:57:18.8593519Z",
+    "endDate": "2025-10-05T18:57:18.8593868Z",
+    "keywords": [
+      "contract",
+      "agreement"
+    ],
+    "includeAttachments": true,
+    "outputPath": "./output"
+  },
+  "triggeredAt": "2025-10-05T18:57:18.9540733Z",
+  "correlationId": "38a978f4",
+  "priority": 2,
+  "estimatedDuration": "01:00:00",
+  "retryPolicy": {
+    "maxRetries": 3,
+    "retryDelayMinutes": 15,
+    "exponentialBackoff": true,
+    "retryableErrors": [
+      "ThrottlingError",
+      "TemporaryServiceUnavailable",
+      "InternalServerError"
+    ]
+  },
+  "configuration": {
+    "outputFormat": "Parquet",
+    "compressionType": "Snappy",
+    "partitionBy": [
+      "custodianEmail",
+      "date"
+    ],
+    "enableDeltaLake": true,
+    "dataRetentionDays": 2555,
+    "enableEncryption": true,
+    "notificationEndpoints": []
+  }
+}
+[2025-10-05 14:57:20.145 -04:00] AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 38a978f4 | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"PipelineRunId":"da1a074b6ba44968a25fc9c25ad44112","TriggerMessage":{"pipelineRunId":"da1a074b6ba44968a25fc9c25ad44112","collectionRequest":{"CustodianEmail":"test.user@development.com","JobType":1,"StartDate":"2025-09-05T18:57:18.8593519Z","EndDate":"2025-10-05T18:57:18.8593868Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output"},"triggeredAt":"2025-10-05T18:57:18.9540733Z","correlationId":"38a978f4","priority":2,"estimatedDuration":"01:00:00","retryPolicy":{"maxRetries":3,"retryDelayMinutes":15,"exponentialBackoff":true,"retryableErrors":["ThrottlingError","TemporaryServiceUnavailable","InternalServerError"]},"configuration":{"outputFormat":"Parquet","compressionType":"Snappy","partitionBy":["custodianEmail","date"],"enableDeltaLake":true,"dataRetentionDays":2555,"enableEncryption":true,"notificationEndpoints":[]}},"ServiceBusEnabled":false},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:20.1377964Z","CorrelationId":"38a978f4"}
+[2025-10-05 14:57:20.149 -04:00] Graph Data Connect collection triggered successfully for custodian: test.user@development.com | PipelineRunId: da1a074b6ba44968a25fc9c25ad44112
+[2025-10-05 14:57:20.152 -04:00] Collection completed successfully. Items: 0, Size: 0 bytes | CorrelationId: 6fc46381
+[2025-10-05 14:57:20.156 -04:00] JobCompleted | {"EventType":"JobCompleted","CustodianEmail":"test.user@development.com","JobType":"Email","IsSuccessful":true,"ItemCount":0,"SizeBytes":0,"DurationMs":1281,"ErrorMessage":null,"StartTime":null,"EndTime":null,"Timestamp":"2025-10-05T18:57:20.1549151Z","CorrelationId":"6fc46381"}
+[2025-10-05 14:57:20.157 -04:00] AUDIT: JobCompleted | Custodian: null | CorrelationId: 6fc46381 | Data: {"Action":"JobCompleted","Custodian":null,"Data":{"EventType":"JobCompleted","CustodianEmail":"test.user@development.com","JobType":"Email","IsSuccessful":true,"ItemCount":0,"SizeBytes":0,"DurationMs":1281,"ErrorMessage":null,"StartTime":null,"EndTime":null,"Timestamp":"2025-10-05T18:57:20.1549151Z","CorrelationId":"6fc46381"},"Instance":"DONNELLD-BOOK-3-50496","Timestamp":"2025-10-05T18:57:20.1576811Z","CorrelationId":"6fc46381"}
+[2025-10-05 14:57:20.379 -04:00] Failed executing DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:57:20.393 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:57:20.402 -04:00] Error processing delta queries | CorrelationId: 844051e6
+[2025-10-05 14:57:20.410 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 250ms | Items: 0 | Size: 0 bytes | CorrelationId: 844051e6 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:57:20.412 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 1563ms | Items: 0 | Size: 0 bytes | CorrelationId: f5534ff3 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:57:35.488 -04:00] Failed executing DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:57:35.492 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:57:35.498 -04:00] Error processing delta queries | CorrelationId: 14d2ac6c
+[2025-10-05 14:57:35.505 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 74ms | Items: 0 | Size: 0 bytes | CorrelationId: 14d2ac6c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:57:35.507 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 80ms | Items: 0 | Size: 0 bytes | CorrelationId: fd73fd5a | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:57:50.539 -04:00] Failed executing DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:57:50.544 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:57:50.551 -04:00] Error processing delta queries | CorrelationId: 9d1e46ac
+[2025-10-05 14:57:50.555 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 31ms | Items: 0 | Size: 0 bytes | CorrelationId: 9d1e46ac | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:57:50.557 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 41ms | Items: 0 | Size: 0 bytes | CorrelationId: 0f0a4581 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:58:05.577 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:58:05.581 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:58:05.587 -04:00] Error processing delta queries | CorrelationId: 671990dc
+[2025-10-05 14:58:05.591 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 24ms | Items: 0 | Size: 0 bytes | CorrelationId: 671990dc | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:58:05.593 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 29ms | Items: 0 | Size: 0 bytes | CorrelationId: bb7a005d | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:58:20.630 -04:00] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 14:58:20.634 -04:00] An exception occurred while iterating over the results of a query for context type 'EDiscovery.Shared.Data.EDiscoveryDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: DeltaCursors'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-10-05 14:58:20.640 -04:00] Error processing delta queries | CorrelationId: f18d0922
+[2025-10-05 14:58:20.645 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 25ms | Items: 0 | Size: 0 bytes | CorrelationId: f18d0922 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:58:20.646 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 35ms | Items: 0 | Size: 0 bytes | CorrelationId: 86cc244a | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 14:58:23.944 -04:00] Application is shutting down...
+[2025-10-05 15:01:31.026 -04:00] Starting Concurrent Hybrid Graph Collector Worker
+[2025-10-05 15:01:31.745 -04:00] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+[2025-10-05 15:01:31.807 -04:00] AUDIT: ConcurrentWorkerServiceStarted | Custodian: null | CorrelationId: 2a0a3d97 | Data: {"Action":"ConcurrentWorkerServiceStarted","Custodian":null,"Data":{"Version":"2.0.0","Environment":"Development","ConcurrentEnabled":true},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:31.760198Z","CorrelationId":"2a0a3d97"}
+[2025-10-05 15:01:31.809 -04:00] Concurrent Hybrid Graph Collector Worker started successfully
+[2025-10-05 15:01:31.895 -04:00] AutoRouter configured with thresholds: 10.0 GB, 50,000 items
+[2025-10-05 15:01:31.901 -04:00] Graph Data Connect Service Bus connection not configured - running in stub mode
+[2025-10-05 15:01:31.912 -04:00] Hybrid Graph Collector Worker started at: "2025-10-05T15:01:31.9124603-04:00" | CorrelationId: f45f4640
+[2025-10-05 15:01:31.917 -04:00] AUDIT: WorkerServiceExecutionStarted | Custodian: null | CorrelationId: f45f4640 | Data: {"Action":"WorkerServiceExecutionStarted","Custodian":null,"Data":{"StartTime":"2025-10-05T15:01:31.9149354-04:00"},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:31.915013Z","CorrelationId":"f45f4640"}
+[2025-10-05 15:01:31.926 -04:00] Processing sample collection job for custodian: test.user@development.com | CorrelationId: a7a525ee
+[2025-10-05 15:01:31.936 -04:00] JobStarted | {"EventType":"JobStarted","CustodianEmail":"test.user@development.com","JobType":"Email","StartDate":"2025-09-05T19:01:31.9276029Z","EndDate":"2025-10-05T19:01:31.9276216Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output","Timestamp":"2025-10-05T19:01:31.9279797Z","CorrelationId":"a7a525ee"}
+[2025-10-05 15:01:31.937 -04:00] AUDIT: JobStarted | Custodian: null | CorrelationId: a7a525ee | Data: {"Action":"JobStarted","Custodian":null,"Data":{"EventType":"JobStarted","CustodianEmail":"test.user@development.com","JobType":"Email","StartDate":"2025-09-05T19:01:31.9276029Z","EndDate":"2025-10-05T19:01:31.9276216Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output","Timestamp":"2025-10-05T19:01:31.9279797Z","CorrelationId":"a7a525ee"},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:31.9377912Z","CorrelationId":"a7a525ee"}
+[2025-10-05 15:01:31.941 -04:00] Determining optimal route for custodian: test.user@development.com | CorrelationId: 499a9e7c
+[2025-10-05 15:01:31.944 -04:00] AUDIT: AutoRouterDecisionStarted | Custodian: test.user@development.com | CorrelationId: 499a9e7c | Data: {"Action":"AutoRouterDecisionStarted","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T19:01:31.9276029Z","EndDate":"2025-10-05T19:01:31.9276216Z"}},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:31.9425937Z","CorrelationId":"499a9e7c"}
+[2025-10-05 15:01:31.949 -04:00] Application started. Press Ctrl+C to shut down.
+[2025-10-05 15:01:31.950 -04:00] Hosting environment: Development
+[2025-10-05 15:01:31.951 -04:00] Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker
+[2025-10-05 15:01:31.984 -04:00] Collection estimates - Size: 5368709120 bytes (5120.00 MB), Items: 10000 | CorrelationId: 499a9e7c
+[2025-10-05 15:01:31.989 -04:00] Route decision: Graph Data Connect selected - current quota already exceeded | CorrelationId: 499a9e7c
+[2025-10-05 15:01:31.990 -04:00] Route decision completed: "GraphDataConnect" (Confidence: 95.0 %) | CorrelationId: 499a9e7c
+[2025-10-05 15:01:32.001 -04:00] AUDIT: AutoRouterDecisionCompleted | Custodian: test.user@development.com | CorrelationId: 499a9e7c | Data: {"Action":"AutoRouterDecisionCompleted","Custodian":"test.user@development.com","Data":{"RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedSize":5368709120,"EstimatedItems":10000,"QuotaUsage":{"UsedBytes":53687091200,"UsedItems":250000}},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:31.9918209Z","CorrelationId":"499a9e7c"}
+[2025-10-05 15:01:32.003 -04:00] PERFORMANCE: AutoRouter.DetermineOptimalRoute | Duration: 62ms | Items: 0 | Size: 0 bytes | CorrelationId: 499a9e7c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:01:32.006 -04:00] [Job 0] [AutoRouter] Route decision: GraphDataConnect Reason: Current quota usage exceeds Graph API thresholds. Confidence: 95.0%
+[2025-10-05 15:01:32.009 -04:00] AutoRoutedToGDC | {"EventType":"AutoRoutedToGDC","CustodianEmail":"test.user@development.com","JobType":"Email","RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedDataSizeBytes":5368709120,"EstimatedItemCount":10000,"Timestamp":"2025-10-05T19:01:32.0083025Z","CorrelationId":"a7a525ee"}
+[2025-10-05 15:01:32.010 -04:00] AUDIT: AutoRoutedToGDC | Custodian: null | CorrelationId: a7a525ee | Data: {"Action":"AutoRoutedToGDC","Custodian":null,"Data":{"EventType":"AutoRoutedToGDC","CustodianEmail":"test.user@development.com","JobType":"Email","RecommendedRoute":"GraphDataConnect","Reason":"Current quota usage exceeds Graph API thresholds","ConfidenceScore":0.95,"EstimatedDataSizeBytes":5368709120,"EstimatedItemCount":10000,"Timestamp":"2025-10-05T19:01:32.0083025Z","CorrelationId":"a7a525ee"},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:32.0103195Z","CorrelationId":"a7a525ee"}
+[2025-10-05 15:01:32.012 -04:00] Graph Data Connect collection requested for job type: "Email"
+[2025-10-05 15:01:32.014 -04:00] Triggering Graph Data Connect collection for custodian: test.user@development.com | CorrelationId: 74e14bfc
+[2025-10-05 15:01:32.016 -04:00] AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 74e14bfc | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"CustodianEmail":"test.user@development.com","JobType":"Email","DateRange":{"StartDate":"2025-09-05T19:01:31.9276029Z","EndDate":"2025-10-05T19:01:31.9276216Z"},"TriggerType":"AzureDataFactory"},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:32.0157606Z","CorrelationId":"74e14bfc"}
+[2025-10-05 15:01:32.037 -04:00] GDC Stub Mode - Would send trigger message to ADF:
+{
+  "pipelineRunId": "008d49fe5d734373a764e132a146f38c",
+  "collectionRequest": {
+    "custodianEmail": "test.user@development.com",
+    "jobType": 1,
+    "startDate": "2025-09-05T19:01:31.9276029Z",
+    "endDate": "2025-10-05T19:01:31.9276216Z",
+    "keywords": [
+      "contract",
+      "agreement"
+    ],
+    "includeAttachments": true,
+    "outputPath": "./output"
+  },
+  "triggeredAt": "2025-10-05T19:01:32.0181994Z",
+  "correlationId": "74e14bfc",
+  "priority": 2,
+  "estimatedDuration": "01:00:00",
+  "retryPolicy": {
+    "maxRetries": 3,
+    "retryDelayMinutes": 15,
+    "exponentialBackoff": true,
+    "retryableErrors": [
+      "ThrottlingError",
+      "TemporaryServiceUnavailable",
+      "InternalServerError"
+    ]
+  },
+  "configuration": {
+    "outputFormat": "Parquet",
+    "compressionType": "Snappy",
+    "partitionBy": [
+      "custodianEmail",
+      "date"
+    ],
+    "enableDeltaLake": true,
+    "dataRetentionDays": 2555,
+    "enableEncryption": true,
+    "notificationEndpoints": []
+  }
+}
+[2025-10-05 15:01:33.428 -04:00] AUDIT: GdcCollectionTriggered | Custodian: test.user@development.com | CorrelationId: 74e14bfc | Data: {"Action":"GdcCollectionTriggered","Custodian":"test.user@development.com","Data":{"PipelineRunId":"008d49fe5d734373a764e132a146f38c","TriggerMessage":{"pipelineRunId":"008d49fe5d734373a764e132a146f38c","collectionRequest":{"CustodianEmail":"test.user@development.com","JobType":1,"StartDate":"2025-09-05T19:01:31.9276029Z","EndDate":"2025-10-05T19:01:31.9276216Z","Keywords":["contract","agreement"],"IncludeAttachments":true,"OutputPath":"./output"},"triggeredAt":"2025-10-05T19:01:32.0181994Z","correlationId":"74e14bfc","priority":2,"estimatedDuration":"01:00:00","retryPolicy":{"maxRetries":3,"retryDelayMinutes":15,"exponentialBackoff":true,"retryableErrors":["ThrottlingError","TemporaryServiceUnavailable","InternalServerError"]},"configuration":{"outputFormat":"Parquet","compressionType":"Snappy","partitionBy":["custodianEmail","date"],"enableDeltaLake":true,"dataRetentionDays":2555,"enableEncryption":true,"notificationEndpoints":[]}},"ServiceBusEnabled":false},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:33.4226711Z","CorrelationId":"74e14bfc"}
+[2025-10-05 15:01:33.430 -04:00] Graph Data Connect collection triggered successfully for custodian: test.user@development.com | PipelineRunId: 008d49fe5d734373a764e132a146f38c
+[2025-10-05 15:01:33.431 -04:00] Collection completed successfully. Items: 0, Size: 0 bytes | CorrelationId: a7a525ee
+[2025-10-05 15:01:33.434 -04:00] JobCompleted | {"EventType":"JobCompleted","CustodianEmail":"test.user@development.com","JobType":"Email","IsSuccessful":true,"ItemCount":0,"SizeBytes":0,"DurationMs":1492,"ErrorMessage":null,"StartTime":null,"EndTime":null,"Timestamp":"2025-10-05T19:01:33.4331724Z","CorrelationId":"a7a525ee"}
+[2025-10-05 15:01:33.435 -04:00] AUDIT: JobCompleted | Custodian: null | CorrelationId: a7a525ee | Data: {"Action":"JobCompleted","Custodian":null,"Data":{"EventType":"JobCompleted","CustodianEmail":"test.user@development.com","JobType":"Email","IsSuccessful":true,"ItemCount":0,"SizeBytes":0,"DurationMs":1492,"ErrorMessage":null,"StartTime":null,"EndTime":null,"Timestamp":"2025-10-05T19:01:33.4331724Z","CorrelationId":"a7a525ee"},"Instance":"DONNELLD-BOOK-3-32632","Timestamp":"2025-10-05T19:01:33.435849Z","CorrelationId":"a7a525ee"}
+[2025-10-05 15:01:33.682 -04:00] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:01:33.729 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 290ms | Items: 0 | Size: 0 bytes | CorrelationId: 33748ea4 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:01:33.732 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 1812ms | Items: 0 | Size: 0 bytes | CorrelationId: 12d31ab8 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:01:48.809 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:01:48.821 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 67ms | Items: 0 | Size: 0 bytes | CorrelationId: 9b5c3462 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:01:48.823 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 77ms | Items: 0 | Size: 0 bytes | CorrelationId: eddfd3d7 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:03.862 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:02:03.879 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 33ms | Items: 0 | Size: 0 bytes | CorrelationId: 08647f3a | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:03.882 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 41ms | Items: 0 | Size: 0 bytes | CorrelationId: 86c6695e | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:18.909 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:02:18.921 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 28ms | Items: 0 | Size: 0 bytes | CorrelationId: cd5a603d | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:18.924 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 36ms | Items: 0 | Size: 0 bytes | CorrelationId: 72f12d7c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:33.958 -04:00] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:02:33.967 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 31ms | Items: 0 | Size: 0 bytes | CorrelationId: eb44ed28 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:33.969 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 41ms | Items: 0 | Size: 0 bytes | CorrelationId: 3e4b4c07 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:49.025 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:02:49.034 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 38ms | Items: 0 | Size: 0 bytes | CorrelationId: 0779f070 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:02:49.036 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 56ms | Items: 0 | Size: 0 bytes | CorrelationId: a709e7af | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:04.062 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:03:04.071 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 22ms | Items: 0 | Size: 0 bytes | CorrelationId: 061fbf26 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:04.073 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 29ms | Items: 0 | Size: 0 bytes | CorrelationId: 65248f01 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:19.119 -04:00] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:03:19.145 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 58ms | Items: 0 | Size: 0 bytes | CorrelationId: cdc2094c | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:19.149 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 70ms | Items: 0 | Size: 0 bytes | CorrelationId: 7256ff67 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:34.185 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:03:34.197 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 28ms | Items: 0 | Size: 0 bytes | CorrelationId: 363bbd14 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:34.198 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 39ms | Items: 0 | Size: 0 bytes | CorrelationId: 882ddc4f | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:49.227 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:03:49.239 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 24ms | Items: 0 | Size: 0 bytes | CorrelationId: 9845c041 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:03:49.241 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 30ms | Items: 0 | Size: 0 bytes | CorrelationId: 3207e457 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:04.270 -04:00] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:04:04.281 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 21ms | Items: 0 | Size: 0 bytes | CorrelationId: 8c0825ed | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:04.282 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 27ms | Items: 0 | Size: 0 bytes | CorrelationId: ffffc3f6 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:19.301 -04:00] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:04:19.312 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 20ms | Items: 0 | Size: 0 bytes | CorrelationId: 54eb8b71 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:19.313 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 26ms | Items: 0 | Size: 0 bytes | CorrelationId: f0a4f5f0 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:34.343 -04:00] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."Id", "d"."BaselineCompletedAt", "d"."CollectionJobId", "d"."CreatedDate", "d"."CustodianEmail", "d"."DeltaQueryCount", "d"."DeltaToken", "d"."DeltaType", "d"."ErrorMessage", "d"."IsActive", "d"."LastDeltaItemCount", "d"."LastDeltaSizeBytes", "d"."LastDeltaTime", "d"."Metadata", "d"."ScopeId", "d"."UpdatedDate"
+FROM "DeltaCursors" AS "d"
+WHERE "d"."IsActive"
+ORDER BY "d"."LastDeltaTime"
+[2025-10-05 15:04:34.353 -04:00] PERFORMANCE: Worker.ProcessDeltaQueries | Duration: 25ms | Items: 0 | Size: 0 bytes | CorrelationId: 45059401 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:34.355 -04:00] PERFORMANCE: Worker.ProcessPendingJobs | Duration: 30ms | Items: 0 | Size: 0 bytes | CorrelationId: c44ec213 | Throughput: 0.00 items/sec, 0.00 MB/sec
+[2025-10-05 15:04:35.561 -04:00] Application is shutting down...

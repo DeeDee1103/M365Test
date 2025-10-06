@@ -4,6 +4,7 @@ using EDiscovery.Shared.Configuration;
 using EDiscovery.Shared.Data;
 using HybridGraphCollectorWorker;
 using HybridGraphCollectorWorker.Services;
+using HybridGraphCollectorWorker.Workers;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -46,6 +47,10 @@ try
     builder.Services.Configure<GdcOptions>(
         builder.Configuration.GetSection(GdcOptions.SectionName));
 
+    // Configure GDC Binary Fetch options
+    builder.Services.Configure<HybridGraphCollectorWorker.Models.GdcBinaryFetchOptions>(
+        builder.Configuration.GetSection(HybridGraphCollectorWorker.Models.GdcBinaryFetchOptions.SectionName));
+
     // Add HTTP client for API communication
     builder.Services.AddHttpClient<IEDiscoveryApiClient, EDiscoveryApiClient>();
 
@@ -61,6 +66,9 @@ try
     builder.Services.AddSingleton<IEDiscoveryApiClient, EDiscoveryApiClient>();
     builder.Services.AddSingleton<IComplianceLogger, ComplianceLogger>();
 
+    // Add GDC Binary Fetch services
+    builder.Services.AddScoped<HybridGraphCollectorWorker.Services.GdcBinaryFetcher>();
+
     // Add temporary ObservabilityHelper for structured logging
     builder.Services.AddSingleton<ObservabilityHelper>(provider =>
     {
@@ -74,6 +82,9 @@ try
 
     // Register the original worker service (concurrent service has API signature issues)
     builder.Services.AddHostedService<Worker>();
+    
+    // Register GDC Fetch Worker for post-GDC binary collection
+    builder.Services.AddHostedService<HybridGraphCollectorWorker.Workers.GdcFetchWorker>();
     
     // TODO: Enable concurrent worker after fixing API signatures
     // builder.Services.AddHostedService<ConcurrentWorkerService>();

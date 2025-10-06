@@ -34,3 +34,417 @@ SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NO
 [2025-10-05 08:07:37.946 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
 [2025-10-05 08:07:37.947 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
 [2025-10-05 08:07:37.948 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting started {"EventId":{"Id":2,"Name":"Started"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:13.951 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.504 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.568 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 3ae7076e | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-36960","Timestamp":"2025-10-05T18:54:15.5165676Z","CorrelationId":"3ae7076e"} {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.662 -04:00 INF] : eDiscovery Intake API started successfully {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.664 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting starting {"EventId":{"Id":1,"Name":"Starting"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.750 -04:00 INF] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5230 {"EventId":{"Id":14,"Name":"ListeningOnAddress"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.753 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.754 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.755 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:54:15.756 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting started {"EventId":{"Id":2,"Name":"Started"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.261 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/api/health/detailed - null null {"EventId":{"Id":1},"RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.298 -04:00 WRN] Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.301 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)' {"EventId":{"Name":"ExecutingEndpoint"},"RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.316 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Route matched with {action = "GetDetailedHealth", controller = "Health"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetDetailedHealth() on controller EDiscoveryIntakeApi.Controllers.HealthController (EDiscoveryIntakeApi). {"EventId":{"Id":102,"Name":"ControllerActionExecuting"},"ActionId":"c667a007-4cde-40e7-b46a-f46547fd8617","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)","RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.343 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing OkObjectResult, writing value of type '<>f__AnonymousType15`6[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType16`1[[<>f__AnonymousType17`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType18`3[[System.TimeSpan, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. {"EventId":{"Id":1,"Name":"ObjectResultExecuting"},"ActionId":"c667a007-4cde-40e7-b46a-f46547fd8617","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)","RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.379 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Executed action EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi) in 57.2114ms {"EventId":{"Id":105,"Name":"ActionExecuted"},"RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.386 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)' {"EventId":{"Id":1,"Name":"ExecutedEndpoint"},"RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.390 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET /api/health/detailed responded 200 in 92.5294 ms {"RequestId":"0HNG484KHNU15:00000001","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:24.394 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/api/health/detailed - 200 null application/json; charset=utf-8 134.3944ms {"EventId":{"Id":2},"RequestId":"0HNG484KHNU15:00000001","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.074 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/api/health/detailed - null null {"EventId":{"Id":1},"RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.079 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)' {"EventId":{"Name":"ExecutingEndpoint"},"RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.081 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Route matched with {action = "GetDetailedHealth", controller = "Health"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetDetailedHealth() on controller EDiscoveryIntakeApi.Controllers.HealthController (EDiscoveryIntakeApi). {"EventId":{"Id":102,"Name":"ControllerActionExecuting"},"ActionId":"c667a007-4cde-40e7-b46a-f46547fd8617","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)","RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.146 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing OkObjectResult, writing value of type '<>f__AnonymousType15`6[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType16`1[[<>f__AnonymousType17`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType18`3[[System.TimeSpan, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. {"EventId":{"Id":1,"Name":"ObjectResultExecuting"},"ActionId":"c667a007-4cde-40e7-b46a-f46547fd8617","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)","RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.151 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Executed action EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi) in 68.6287ms {"EventId":{"Id":105,"Name":"ActionExecuted"},"RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.156 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)' {"EventId":{"Id":1,"Name":"ExecutedEndpoint"},"RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.159 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET /api/health/detailed responded 200 in 79.8490 ms {"RequestId":"0HNG484KHNU15:00000002","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 14:58:44.163 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/api/health/detailed - 200 null application/json; charset=utf-8 89.1234ms {"EventId":{"Id":2},"RequestId":"0HNG484KHNU15:00000002","RequestPath":"/api/health/detailed","ConnectionId":"0HNG484KHNU15","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:11.665 -04:00 INF] : Starting eDiscovery Intake API {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.439 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+PRAGMA journal_mode = 'wal'; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.575 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Users" PRIMARY KEY AUTOINCREMENT,
+    "Username" TEXT NOT NULL,
+    "Email" TEXT NOT NULL,
+    "FirstName" TEXT NOT NULL,
+    "LastName" TEXT NOT NULL,
+    "Role" INTEGER NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "LastLoginDate" TEXT NULL,
+    "Department" TEXT NULL,
+    "Location" TEXT NULL,
+    "MaxConcurrentJobs" INTEGER NOT NULL,
+    "MaxDataSizePerJobGB" INTEGER NOT NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.579 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WorkerInstances" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_WorkerInstances" PRIMARY KEY AUTOINCREMENT,
+    "WorkerId" TEXT NOT NULL,
+    "MachineName" TEXT NOT NULL,
+    "IpAddress" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL,
+    "LastHeartbeat" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "MaxConcurrentJobs" INTEGER NOT NULL,
+    "CurrentJobCount" INTEGER NOT NULL,
+    "AvailableMemoryMB" INTEGER NOT NULL,
+    "CpuUsagePercent" REAL NOT NULL,
+    "Version" TEXT NOT NULL,
+    "LastError" TEXT NULL,
+    "ShutdownTime" TEXT NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.582 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Matters" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Matters" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Description" TEXT NULL,
+    "CaseNumber" TEXT NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "CreatedBy" TEXT NOT NULL,
+    "CreatedByUserId" INTEGER NULL,
+    "IsActive" INTEGER NOT NULL,
+    CONSTRAINT "FK_Matters_Users_CreatedByUserId" FOREIGN KEY ("CreatedByUserId") REFERENCES "Users" ("Id") ON DELETE SET NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.584 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "UserSessions" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_UserSessions" PRIMARY KEY AUTOINCREMENT,
+    "UserId" INTEGER NOT NULL,
+    "SessionId" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL,
+    "EndTime" TEXT NULL,
+    "IpAddress" TEXT NULL,
+    "UserAgent" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "LastActivityTime" TEXT NOT NULL,
+    CONSTRAINT "FK_UserSessions_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.586 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CollectionJobs" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_CollectionJobs" PRIMARY KEY AUTOINCREMENT,
+    "MatterId" INTEGER NOT NULL,
+    "CustodianEmail" TEXT NOT NULL,
+    "JobType" INTEGER NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "Route" INTEGER NOT NULL,
+    "AssignedUserId" INTEGER NULL,
+    "AssignedWorkerId" TEXT NULL,
+    "AssignedAt" TEXT NULL,
+    "Priority" INTEGER NOT NULL,
+    "LockToken" TEXT NULL,
+    "LockExpiry" TEXT NULL,
+    "StartTime" TEXT NULL,
+    "EndTime" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "EstimatedDataSizeBytes" INTEGER NOT NULL,
+    "EstimatedItemCount" INTEGER NOT NULL,
+    "ActualDataSizeBytes" INTEGER NOT NULL,
+    "ActualItemCount" INTEGER NOT NULL,
+    "OutputPath" TEXT NULL,
+    "ManifestHash" TEXT NULL,
+    CONSTRAINT "FK_CollectionJobs_Matters_MatterId" FOREIGN KEY ("MatterId") REFERENCES "Matters" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_CollectionJobs_Users_AssignedUserId" FOREIGN KEY ("AssignedUserId") REFERENCES "Users" ("Id") ON DELETE SET NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.589 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "DeltaCursors" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_DeltaCursors" PRIMARY KEY AUTOINCREMENT,
+    "ScopeId" TEXT NOT NULL,
+    "DeltaType" INTEGER NOT NULL,
+    "CustodianEmail" TEXT NOT NULL,
+    "DeltaToken" TEXT NOT NULL,
+    "LastDeltaTime" TEXT NOT NULL,
+    "BaselineCompletedAt" TEXT NULL,
+    "LastDeltaItemCount" INTEGER NOT NULL,
+    "LastDeltaSizeBytes" INTEGER NOT NULL,
+    "DeltaQueryCount" INTEGER NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "UpdatedDate" TEXT NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "CollectionJobId" INTEGER NULL,
+    "Metadata" TEXT NULL,
+    CONSTRAINT "FK_DeltaCursors_CollectionJobs_CollectionJobId" FOREIGN KEY ("CollectionJobId") REFERENCES "CollectionJobs" ("Id")
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.591 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobAssignments" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobAssignments" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "UserId" INTEGER NOT NULL,
+    "WorkerId" TEXT NOT NULL,
+    "AssignedAt" TEXT NOT NULL,
+    "CompletedAt" TEXT NULL,
+    "Status" INTEGER NOT NULL,
+    "HeartbeatTime" TEXT NOT NULL,
+    "RetryCount" INTEGER NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "LockExpiry" TEXT NOT NULL,
+    "LockToken" TEXT NOT NULL,
+    "WorkerInstanceId" INTEGER NULL,
+    CONSTRAINT "FK_JobAssignments_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobAssignments_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobAssignments_WorkerInstances_WorkerInstanceId" FOREIGN KEY ("WorkerInstanceId") REFERENCES "WorkerInstances" ("Id")
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.593 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobManifests" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobManifests" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "ManifestId" TEXT NOT NULL,
+    "Format" INTEGER NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "FinalizedDate" TEXT NOT NULL,
+    "ManifestHash" TEXT NOT NULL,
+    "DigitalSignature" TEXT NULL,
+    "FilePath" TEXT NOT NULL,
+    "ImmutableStoragePath" TEXT NOT NULL,
+    "TotalItems" INTEGER NOT NULL,
+    "TotalSizeBytes" INTEGER NOT NULL,
+    "SuccessfulItems" INTEGER NOT NULL,
+    "FailedItems" INTEGER NOT NULL,
+    "ImmutablePolicyId" TEXT NULL,
+    "IsSealed" INTEGER NOT NULL,
+    "CreatedByCorrelationId" TEXT NOT NULL,
+    "CreatedByWorker" TEXT NOT NULL,
+    CONSTRAINT "FK_JobManifests_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.595 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobShards" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobShards" PRIMARY KEY AUTOINCREMENT,
+    "ParentJobId" INTEGER NOT NULL,
+    "CustodianEmail" TEXT NOT NULL,
+    "StartDate" TEXT NOT NULL,
+    "EndDate" TEXT NOT NULL,
+    "JobType" INTEGER NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "Route" INTEGER NOT NULL,
+    "ShardIndex" INTEGER NOT NULL,
+    "TotalShards" INTEGER NOT NULL,
+    "ShardIdentifier" TEXT NOT NULL,
+    "AssignedUserId" INTEGER NULL,
+    "AssignedWorkerId" TEXT NULL,
+    "AssignedAt" TEXT NULL,
+    "LockToken" TEXT NULL,
+    "LockExpiry" TEXT NULL,
+    "StartTime" TEXT NULL,
+    "EndTime" TEXT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "ErrorMessage" TEXT NULL,
+    "EstimatedDataSizeBytes" INTEGER NOT NULL,
+    "EstimatedItemCount" INTEGER NOT NULL,
+    "ActualDataSizeBytes" INTEGER NOT NULL,
+    "ActualItemCount" INTEGER NOT NULL,
+    "ProcessedItemCount" INTEGER NOT NULL,
+    "ProcessedDataSizeBytes" INTEGER NOT NULL,
+    "ProgressPercentage" REAL NOT NULL,
+    "OutputPath" TEXT NULL,
+    "ManifestHash" TEXT NULL,
+    "RetryCount" INTEGER NOT NULL,
+    "MaxRetries" INTEGER NOT NULL,
+    "LastRetryTime" TEXT NULL,
+    CONSTRAINT "FK_JobShards_CollectionJobs_ParentJobId" FOREIGN KEY ("ParentJobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobShards_Users_AssignedUserId" FOREIGN KEY ("AssignedUserId") REFERENCES "Users" ("Id") ON DELETE SET NULL
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.598 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "ManifestVerifications" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ManifestVerifications" PRIMARY KEY AUTOINCREMENT,
+    "ManifestId" INTEGER NOT NULL,
+    "VerificationDate" TEXT NOT NULL,
+    "Type" INTEGER NOT NULL,
+    "Result" INTEGER NOT NULL,
+    "ComputedHash" TEXT NULL,
+    "ExpectedHash" TEXT NULL,
+    "SignatureValid" INTEGER NOT NULL,
+    "ErrorDetails" TEXT NULL,
+    "VerificationId" TEXT NOT NULL,
+    "CorrelationId" TEXT NOT NULL,
+    "VerifiedBy" TEXT NOT NULL,
+    CONSTRAINT "FK_ManifestVerifications_JobManifests_ManifestId" FOREIGN KEY ("ManifestId") REFERENCES "JobManifests" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.602 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CollectedItems" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_CollectedItems" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "ItemId" TEXT NOT NULL,
+    "ItemType" TEXT NOT NULL,
+    "Subject" TEXT NULL,
+    "From" TEXT NULL,
+    "To" TEXT NULL,
+    "ItemDate" TEXT NULL,
+    "CollectedDate" TEXT NOT NULL,
+    "SizeBytes" INTEGER NOT NULL,
+    "Sha256Hash" TEXT NOT NULL,
+    "FilePath" TEXT NULL,
+    "ErrorMessage" TEXT NULL,
+    "IsSuccessful" INTEGER NOT NULL,
+    "JobShardId" INTEGER NULL,
+    CONSTRAINT "FK_CollectedItems_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_CollectedItems_JobShards_JobShardId" FOREIGN KEY ("JobShardId") REFERENCES "JobShards" ("Id")
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.604 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobLogs" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobLogs" PRIMARY KEY AUTOINCREMENT,
+    "JobId" INTEGER NOT NULL,
+    "Timestamp" TEXT NOT NULL,
+    "Level" INTEGER NOT NULL,
+    "Category" TEXT NOT NULL,
+    "Message" TEXT NOT NULL,
+    "Details" TEXT NULL,
+    "CorrelationId" TEXT NULL,
+    "JobShardId" INTEGER NULL,
+    CONSTRAINT "FK_JobLogs_CollectionJobs_JobId" FOREIGN KEY ("JobId") REFERENCES "CollectionJobs" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_JobLogs_JobShards_JobShardId" FOREIGN KEY ("JobShardId") REFERENCES "JobShards" ("Id")
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.606 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "JobShardCheckpoints" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_JobShardCheckpoints" PRIMARY KEY AUTOINCREMENT,
+    "JobShardId" INTEGER NOT NULL,
+    "CheckpointType" TEXT NOT NULL,
+    "CheckpointKey" TEXT NOT NULL,
+    "CheckpointData" TEXT NOT NULL,
+    "CreatedDate" TEXT NOT NULL,
+    "CompletedDate" TEXT NULL,
+    "IsCompleted" INTEGER NOT NULL,
+    "ItemsProcessed" INTEGER NOT NULL,
+    "BytesProcessed" INTEGER NOT NULL,
+    "CorrelationId" TEXT NULL,
+    CONSTRAINT "FK_JobShardCheckpoints_JobShards_JobShardId" FOREIGN KEY ("JobShardId") REFERENCES "JobShards" ("Id") ON DELETE CASCADE
+); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.608 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedDate", "Department", "Email", "FirstName", "IsActive", "LastLoginDate", "LastName", "Location", "MaxConcurrentJobs", "MaxDataSizePerJobGB", "Role", "Username")
+VALUES (1, '2025-10-05 19:01:12.1898305', 'IT', 'admin@company.com', 'System', 1, NULL, 'Administrator', 'HQ', 10, 500, 5, 'admin');
+SELECT changes();
+
+INSERT INTO "Users" ("Id", "CreatedDate", "Department", "Email", "FirstName", "IsActive", "LastLoginDate", "LastName", "Location", "MaxConcurrentJobs", "MaxDataSizePerJobGB", "Role", "Username")
+VALUES (2, '2025-10-05 19:01:12.1898802', 'Legal', 'analyst1@company.com', 'Jane', 1, NULL, 'Smith', 'HQ', 5, 100, 1, 'analyst1');
+SELECT changes(); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.610 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Matters" ("Id", "CaseNumber", "CreatedBy", "CreatedByUserId", "CreatedDate", "Description", "IsActive", "Name")
+VALUES (1, 'CASE-2024-001', 'admin@company.com', 1, '2025-10-05 19:01:12.1903893', 'POC investigation for testing hybrid collection', 1, 'Sample Investigation');
+SELECT changes(); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.612 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_ItemId" ON "CollectedItems" ("ItemId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.615 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_JobId" ON "CollectedItems" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.617 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_JobShardId" ON "CollectedItems" ("JobShardId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.619 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectedItems_Sha256Hash" ON "CollectedItems" ("Sha256Hash"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.621 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_AssignedUserId_Status" ON "CollectionJobs" ("AssignedUserId", "Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.623 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_CustodianEmail" ON "CollectionJobs" ("CustodianEmail"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.625 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_LockExpiry" ON "CollectionJobs" ("LockExpiry"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.626 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_MatterId" ON "CollectionJobs" ("MatterId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.629 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_Status" ON "CollectionJobs" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.632 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CollectionJobs_Status_Priority_CreatedDate" ON "CollectionJobs" ("Status", "Priority", "CreatedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.634 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_DeltaCursors_CollectionJobId" ON "DeltaCursors" ("CollectionJobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.637 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_DeltaCursors_CustodianEmail_DeltaType" ON "DeltaCursors" ("CustodianEmail", "DeltaType"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.639 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_DeltaCursors_LastDeltaTime" ON "DeltaCursors" ("LastDeltaTime"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.641 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_DeltaCursors_ScopeId" ON "DeltaCursors" ("ScopeId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.643 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_JobId_WorkerId" ON "JobAssignments" ("JobId", "WorkerId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.645 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_LockExpiry" ON "JobAssignments" ("LockExpiry"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.648 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_UserId_Status" ON "JobAssignments" ("UserId", "Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.650 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobAssignments_WorkerInstanceId" ON "JobAssignments" ("WorkerInstanceId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.653 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_JobId" ON "JobLogs" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.655 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_JobShardId" ON "JobLogs" ("JobShardId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.657 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobLogs_Timestamp" ON "JobLogs" ("Timestamp"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.660 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobManifests_CreatedDate" ON "JobManifests" ("CreatedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.662 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobManifests_JobId" ON "JobManifests" ("JobId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.665 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShardCheckpoints_CorrelationId" ON "JobShardCheckpoints" ("CorrelationId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.667 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_JobShardCheckpoints_JobShardId_CheckpointKey" ON "JobShardCheckpoints" ("JobShardId", "CheckpointKey"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.669 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShardCheckpoints_JobShardId_IsCompleted" ON "JobShardCheckpoints" ("JobShardId", "IsCompleted"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.671 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShards_AssignedUserId" ON "JobShards" ("AssignedUserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.672 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShards_CustodianEmail_StartDate_EndDate" ON "JobShards" ("CustodianEmail", "StartDate", "EndDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.674 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShards_LockExpiry" ON "JobShards" ("LockExpiry"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.676 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShards_ParentJobId_ShardIndex" ON "JobShards" ("ParentJobId", "ShardIndex"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.678 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_JobShards_ShardIdentifier" ON "JobShards" ("ShardIdentifier"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.681 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShards_Status" ON "JobShards" ("Status"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.683 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_JobShards_Status_CreatedDate" ON "JobShards" ("Status", "CreatedDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.686 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_ManifestVerifications_ManifestId_VerificationDate" ON "ManifestVerifications" ("ManifestId", "VerificationDate"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.688 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Matters_CreatedByUserId" ON "Matters" ("CreatedByUserId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.689 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.691 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.693 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_UserSessions_SessionId" ON "UserSessions" ("SessionId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.694 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_UserSessions_UserId_IsActive" ON "UserSessions" ("UserId", "IsActive"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.697 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_WorkerInstances_Status_LastHeartbeat" ON "WorkerInstances" ("Status", "LastHeartbeat"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.699 -04:00 INF] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_WorkerInstances_WorkerId" ON "WorkerInstances" ("WorkerId"); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.767 -04:00 INF] EDiscovery.Shared.Services.ComplianceLogger: AUDIT: DatabaseInitialized | Custodian: null | CorrelationId: 8d198c5d | Data: {"Action":"DatabaseInitialized","Custodian":null,"Data":{"DatabaseProvider":"SQLite","ConcurrentProcessingEnabled":true},"Instance":"DONNELLD-BOOK-3-48152","Timestamp":"2025-10-05T19:01:12.7095515Z","CorrelationId":"8d198c5d"} {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.852 -04:00 INF] : eDiscovery Intake API started successfully {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.858 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting starting {"EventId":{"Id":1,"Name":"Starting"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.954 -04:00 INF] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5230 {"EventId":{"Id":14,"Name":"ListeningOnAddress"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.956 -04:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down. {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.957 -04:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Development {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.959 -04:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\EDiscoveryIntakeApi {"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:01:12.961 -04:00 DBG] Microsoft.Extensions.Hosting.Internal.Host: Hosting started {"EventId":{"Id":2,"Name":"Started"},"Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:19.357 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/ - null null {"EventId":{"Id":1},"RequestId":"0HNG487CFT0KF:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KF","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:19.435 -04:00 WRN] Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"RequestId":"0HNG487CFT0KF:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KF","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:19.445 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET / responded 404 in 10.9924 ms {"RequestId":"0HNG487CFT0KF:00000001","ConnectionId":"0HNG487CFT0KF","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:19.462 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/ - 404 0 null 106.7148ms {"EventId":{"Id":2},"RequestId":"0HNG487CFT0KF:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KF","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:19.479 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5230/, Response status code: 404 {"EventId":{"Id":16},"RequestId":"0HNG487CFT0KF:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KF","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:52.960 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/ - null null {"EventId":{"Id":1},"RequestId":"0HNG487CFT0KH:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KH","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:52.969 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET / responded 404 in 0.1832 ms {"RequestId":"0HNG487CFT0KH:00000001","ConnectionId":"0HNG487CFT0KH","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:52.980 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/ - 404 0 null 20.1154ms {"EventId":{"Id":2},"RequestId":"0HNG487CFT0KH:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KH","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:03:52.992 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5230/, Response status code: 404 {"EventId":{"Id":16},"RequestId":"0HNG487CFT0KH:00000001","RequestPath":"/","ConnectionId":"0HNG487CFT0KH","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.735 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/api/health - null null {"EventId":{"Id":1},"RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.746 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)' {"EventId":{"Name":"ExecutingEndpoint"},"RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.771 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Route matched with {action = "GetHealthStatus", controller = "Health"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetHealthStatus() on controller EDiscoveryIntakeApi.Controllers.HealthController (EDiscoveryIntakeApi). {"EventId":{"Id":102,"Name":"ControllerActionExecuting"},"ActionId":"eddc6300-d9dc-4d4a-a557-873a67464016","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)","RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.807 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type '<>f__AnonymousType13`4[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. {"EventId":{"Id":1,"Name":"ObjectResultExecuting"},"ActionId":"eddc6300-d9dc-4d4a-a557-873a67464016","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)","RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.819 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Executed action EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi) in 41.5629ms {"EventId":{"Id":105,"Name":"ActionExecuted"},"RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.821 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)' {"EventId":{"Id":1,"Name":"ExecutedEndpoint"},"RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.822 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET /api/health responded 200 in 77.0440 ms {"RequestId":"0HNG487CFT0KJ:00000001","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:04:35.826 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/api/health - 200 null application/json; charset=utf-8 90.6436ms {"EventId":{"Id":2},"RequestId":"0HNG487CFT0KJ:00000001","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.506 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/api/health - null null {"EventId":{"Id":1},"RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.512 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)' {"EventId":{"Name":"ExecutingEndpoint"},"RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.514 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Route matched with {action = "GetHealthStatus", controller = "Health"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetHealthStatus() on controller EDiscoveryIntakeApi.Controllers.HealthController (EDiscoveryIntakeApi). {"EventId":{"Id":102,"Name":"ControllerActionExecuting"},"ActionId":"eddc6300-d9dc-4d4a-a557-873a67464016","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)","RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.555 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type '<>f__AnonymousType13`4[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. {"EventId":{"Id":1,"Name":"ObjectResultExecuting"},"ActionId":"eddc6300-d9dc-4d4a-a557-873a67464016","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)","RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.558 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Executed action EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi) in 42.7176ms {"EventId":{"Id":105,"Name":"ActionExecuted"},"RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.561 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetHealthStatus (EDiscoveryIntakeApi)' {"EventId":{"Id":1,"Name":"ExecutedEndpoint"},"RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.562 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET /api/health responded 200 in 50.9340 ms {"RequestId":"0HNG487CFT0KJ:00000002","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:05:03.563 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/api/health - 200 null application/json; charset=utf-8 57.2511ms {"EventId":{"Id":2},"RequestId":"0HNG487CFT0KJ:00000002","RequestPath":"/api/health","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:17.953 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request starting HTTP/1.1 GET http://localhost:5230/api/health/detailed - null null {"EventId":{"Id":1},"RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:17.955 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)' {"EventId":{"Name":"ExecutingEndpoint"},"RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:17.974 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Route matched with {action = "GetDetailedHealth", controller = "Health"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetDetailedHealth() on controller EDiscoveryIntakeApi.Controllers.HealthController (EDiscoveryIntakeApi). {"EventId":{"Id":102,"Name":"ControllerActionExecuting"},"ActionId":"d35b895d-74a8-477a-9339-1f269a67e406","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)","RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:17.988 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing OkObjectResult, writing value of type '<>f__AnonymousType15`6[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType16`1[[<>f__AnonymousType17`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType18`3[[System.TimeSpan, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int64, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], EDiscoveryIntakeApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. {"EventId":{"Id":1,"Name":"ObjectResultExecuting"},"ActionId":"d35b895d-74a8-477a-9339-1f269a67e406","ActionName":"EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)","RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:18.002 -04:00 INF] Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Executed action EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi) in 26.0114ms {"EventId":{"Id":105,"Name":"ActionExecuted"},"RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:18.003 -04:00 INF] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint 'EDiscoveryIntakeApi.Controllers.HealthController.GetDetailedHealth (EDiscoveryIntakeApi)' {"EventId":{"Id":1,"Name":"ExecutedEndpoint"},"RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:18.004 -04:00 INF] Serilog.AspNetCore.RequestLoggingMiddleware: HTTP GET /api/health/detailed responded 200 in 48.9732 ms {"RequestId":"0HNG487CFT0KJ:00000003","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}
+[2025-10-05 15:06:18.006 -04:00 INF] Microsoft.AspNetCore.Hosting.Diagnostics: Request finished HTTP/1.1 GET http://localhost:5230/api/health/detailed - 200 null application/json; charset=utf-8 52.8228ms {"EventId":{"Id":2},"RequestId":"0HNG487CFT0KJ:00000003","RequestPath":"/api/health/detailed","ConnectionId":"0HNG487CFT0KJ","Application":"EDiscoveryIntakeApi","Environment":"Development"}

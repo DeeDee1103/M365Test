@@ -1,0 +1,3 @@
+{"driveId":"b!test-drive-12345","id":"test-item-456","name":"sample-document.txt","size":128,"lastModifiedDateTime":"2024-10-06T19:00:00Z","file":{"mimeType":"text/plain"},"path":"/Documents/sample-document.txt"}
+{"driveId":"b!test-drive-12345","id":"test-item-789","name":"sample-spreadsheet.xlsx","size":256,"lastModifiedDateTime":"2024-10-06T19:00:00Z","file":{"mimeType":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},"path":"/Documents/sample-spreadsheet.xlsx"}
+{"driveId":"b!test-drive-67890","id":"test-item-321","name":"sample-presentation.pptx","size":512,"lastModifiedDateTime":"2024-10-06T19:00:00Z","file":{"mimeType":"application/vnd.openxmlformats-officedocument.presentationml.presentation"},"path":"/Presentations/sample-presentation.pptx"}

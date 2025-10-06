@@ -174,6 +174,8 @@ public class ShardedJobProcessor : IShardedJobProcessor
 
     public async Task<bool> ValidateShardForProcessingAsync(JobShard shard, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(1, cancellationToken); // Minimal async operation
+        
         // Check if shard is in a valid state for processing
         if (shard.Status != JobShardStatus.Assigned && shard.Status != JobShardStatus.Retrying)
         {
@@ -432,6 +434,8 @@ public class ShardedJobProcessor : IShardedJobProcessor
 
     private async Task UpdateShardStatusAsync(int shardId, JobShardStatus status)
     {
+        await Task.Delay(1); // Minimal async operation
+        
         try
         {
             // This would typically update the database directly

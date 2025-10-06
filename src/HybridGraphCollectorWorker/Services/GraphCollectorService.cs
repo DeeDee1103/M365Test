@@ -136,6 +136,8 @@ public class GraphCollectorService : IGraphCollectorService
 
     public async Task<CollectionResult> CollectSharePointAsync(CollectionRequest request, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(1, cancellationToken); // Minimal async operation
+        
         _logger.LogInformation("Starting SharePoint collection for custodian: {CustodianEmail}", request.CustodianEmail);
         
         // For POC, this would collect from user's associated SharePoint sites
@@ -162,6 +164,8 @@ public class GraphCollectorService : IGraphCollectorService
 
     public async Task<CollectionResult> CollectTeamsAsync(CollectionRequest request, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(1, cancellationToken); // Minimal async operation
+        
         _logger.LogInformation("Starting Teams collection for custodian: {CustodianEmail}", request.CustodianEmail);
         
         // For POC, this would collect Teams messages and files

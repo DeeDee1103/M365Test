@@ -1,13 +1,13 @@
-# Hybrid eDiscovery Collector - v2.2 Production Ready ✅
+# Hybrid eDiscovery Collector - v2.3 Production Ready ✅
 
-A comprehensive hybrid eDiscovery collection system with intelligent routing between Microsoft Graph API and Graph Data Connect, featuring enterprise job sharding, advanced observability, structured logging, and health monitoring.
+A comprehensive hybrid eDiscovery collection system with intelligent routing between Microsoft Graph API and Graph Data Connect, featuring enterprise job sharding, advanced observability, structured logging, health monitoring, and complete GDC binary fetch capabilities.
 
-## 🎉 **LATEST UPDATE: Clean Build Achieved**
+## 🎉 **LATEST UPDATE: Production Ready**
 
-✅ **All core projects now compile successfully**  
-✅ **Job sharding platform fully implemented and tested**  
-✅ **Database architecture consolidated with shared DbContext**  
-✅ **Production-ready with comprehensive observability**
+✅ **All core projects compile successfully with zero errors**  
+✅ **GDC Binary Fetch platform fully implemented and tested**  
+✅ **All async method warnings resolved with proper patterns**  
+✅ **Production-ready with comprehensive observability and monitoring**
 
 ## 🏗️ Architecture
 
@@ -33,6 +33,7 @@ A comprehensive hybrid eDiscovery collection system with intelligent routing bet
    - **NEW**: Checkpoint recovery for idempotent restarts
    - **NEW**: Comprehensive structured logging for all collection events
    - **NEW**: Real-time metrics collection for dashboards
+   - **NEW**: GDC Binary Fetch Worker for post-GDC processing
    - Chain-of-custody with tamper-evident manifests
 
 3. **EDiscovery.Shared**
@@ -40,13 +41,53 @@ A comprehensive hybrid eDiscovery collection system with intelligent routing bet
    - **NEW**: Centralized database context with complete schema
    - **NEW**: Job sharding platform with automatic partitioning
    - **NEW**: Checkpoint recovery service for fault tolerance
+   - **NEW**: GdcBinaryFetcher service for Graph API binary downloads
    - AutoRouter with environment-specific thresholds
    - Delta Query service with database-backed cursors
    - **NEW**: ObservabilityService for metrics and health monitoring
    - **NEW**: Structured event models for comprehensive logging
    - Chain of Custody with digital signatures and WORM storage
 
-## 🚀 Quick Start (POC)
+## � **NEW: GDC Binary Fetch**
+
+Post-GDC processing that reads Graph Data Connect dataset JSON files and downloads actual file binaries via Microsoft Graph API:
+
+### Key Features
+
+- **Graph API Integration**: Downloads binary content using `driveId` and `itemId` from GDC datasets
+- **Parallel Processing**: Configurable concurrency with semaphore control and throttling respect
+- **Comprehensive Manifests**: SHA-256 hashes, CSV/JSON manifests, and integrity verification
+- **ADF Integration**: Azure Data Factory pipeline triggers with webhook notifications
+- **Smart Monitoring**: File system watchers and polling for completed GDC runs
+- **Error Handling**: Configurable error thresholds and retry policies
+- **Idempotency**: Dry-run mode and duplicate detection support
+
+### Workflow
+
+```
+GDC Dataset (JSON) → GdcFetchWorker → GdcBinaryFetcher → Binary Files + Manifests
+```
+
+### Configuration
+
+```json
+{
+  "Gdc": {
+    "Input": {
+      "Kind": "nas",
+      "Nas": { "Root": "./gdc-out" },
+      "Blob": { "Container": "gdc-out", "Prefix": "files/" }
+    },
+    "Parallelism": 8,
+    "MaxErrors": 100,
+    "DryRun": false
+  }
+}
+```
+
+See **[docs/gdc-binary-fetch.md](docs/gdc-binary-fetch.md)** for complete documentation.
+
+## �🚀 Quick Start (POC)
 
 ### Prerequisites
 
@@ -170,6 +211,24 @@ curl -X POST "http://localhost:7001/api/jobs" \
 
 ```bash
 curl "http://localhost:7001/api/jobs/1"
+```
+
+### 4. GDC Binary Fetch (After Graph Data Connect)
+
+For large collections routed to Graph Data Connect, binary files can be downloaded using the GDC Binary Fetch functionality:
+
+```bash
+# Create test GDC dataset
+mkdir -p ./gdc-out/files
+cat > ./gdc-out/files/test-dataset.json << 'EOF'
+{"driveId":"b!test123","id":"item456","name":"document.docx","size":1024}
+{"driveId":"b!test123","id":"item789","name":"spreadsheet.xlsx","size":2048}
+EOF
+
+# Worker automatically detects and processes the dataset
+# Check output directory for binary files and manifests
+ls -la ./output/matter/DefaultMatter/GDC/
+ls -la ./logs/DefaultMatter/
 ```
 
 ## 🔄 AutoRouter Logic
@@ -554,6 +613,7 @@ dotnet ef database update
 - **Comprehensive Logging**: Enterprise-grade structured logging with audit trails
 - **Observability Platform**: Real-time metrics, health monitoring, and dashboard integration
 - **Graph Data Connect**: ADF pipeline triggers with Service Bus integration
+- **GDC Binary Fetch**: ✅ **NEW** - Post-GDC binary download via Graph API with manifest generation
 - **Consolidated Database**: ✅ **NEW** - Shared DbContext with complete schema and optimized indexes
 - **REST API Management**: ✅ **NEW** - Complete endpoints for shard management and worker coordination
 

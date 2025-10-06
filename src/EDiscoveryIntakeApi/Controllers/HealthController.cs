@@ -95,7 +95,7 @@ public class HealthController : ControllerBase
     /// Current throughput metrics for performance monitoring
     /// </summary>
     [HttpGet("metrics/throughput")]
-    public async Task<ActionResult> GetThroughputMetrics()
+    public ActionResult GetThroughputMetrics()
     {
         try
         {
@@ -124,7 +124,7 @@ public class HealthController : ControllerBase
     /// Error and reliability metrics for alerting
     /// </summary>
     [HttpGet("metrics/errors")]
-    public async Task<ActionResult> GetErrorMetrics()
+    public ActionResult GetErrorMetrics()
     {
         try
         {
@@ -153,7 +153,7 @@ public class HealthController : ControllerBase
     /// System performance counters for dashboard display
     /// </summary>
     [HttpGet("counters")]
-    public async Task<IActionResult> GetPerformanceCounters()
+    public IActionResult GetPerformanceCounters()
     {
         try
         {

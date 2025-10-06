@@ -1,0 +1,288 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "description": "Azure Data Factory pipeline for copying GDC dataset to landing zone and triggering binary fetch",
+    "author": "Hybrid eDiscovery Collector",
+    "version": "1.0"
+  },
+  "parameters": {
+    "custodianList": {
+      "type": "array",
+      "metadata": {
+        "description": "List of custodian email addresses to process"
+      },
+      "defaultValue": ["user1@company.com", "user2@company.com"]
+    },
+    "datasetSelection": {
+      "type": "object",
+      "metadata": {
+        "description": "Dataset selection criteria including date ranges and content types"
+      },
+      "defaultValue": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31",
+        "contentTypes": ["Files", "OneDrive"],
+        "includeSharePoint": true,
+        "includeTeams": false
+      }
+    },
+    "outputPath": {
+      "type": "string",
+      "metadata": {
+        "description": "Output path for GDC dataset files (container/prefix for blob, directory for NAS)"
+      },
+      "defaultValue": "gdc-out/files/"
+    },
+    "matterName": {
+      "type": "string",
+      "metadata": {
+        "description": "Matter name for organizing output"
+      },
+      "defaultValue": "DefaultMatter"
+    },
+    "enableBinaryFetch": {
+      "type": "bool",
+      "metadata": {
+        "description": "Whether to trigger binary fetch after GDC completion"
+      },
+      "defaultValue": true
+    },
+    "eDiscoveryApiEndpoint": {
+      "type": "string",
+      "metadata": {
+        "description": "eDiscovery Intake API endpoint for job notifications"
+      },
+      "defaultValue": "https://your-api-endpoint.azurewebsites.net"
+    }
+  },
+  "variables": {
+    "pipelineName": "GdcToLandingPipeline",
+    "gdcDatasetName": "[concat('gdc-dataset-', parameters('matterName'), '-', utcNow('yyyyMMdd-HHmmss'))]",
+    "outputContainer": "gdc-collections",
+    "webhookUrl": "[concat(parameters('eDiscoveryApiEndpoint'), '/api/jobs/gdc-completed')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.DataFactory/factories/pipelines",
+      "apiVersion": "2018-06-01",
+      "name": "[variables('pipelineName')]",
+      "properties": {
+        "description": "Pipeline to copy GDC dataset to landing zone and trigger binary fetch",
+        "parameters": {
+          "custodians": {
+            "type": "array",
+            "defaultValue": "[parameters('custodianList')]"
+          },
+          "datasetCriteria": {
+            "type": "object",
+            "defaultValue": "[parameters('datasetSelection')]"
+          },
+          "outputLocation": {
+            "type": "string",
+            "defaultValue": "[parameters('outputPath')]"
+          },
+          "matter": {
+            "type": "string",
+            "defaultValue": "[parameters('matterName')]"
+          }
+        },
+        "activities": [
+          {
+            "name": "ValidateParameters",
+            "type": "Validation",
+            "typeProperties": {
+              "dataset": {
+                "referenceName": "ParameterValidationDataset",
+                "type": "DatasetReference"
+              },
+              "timeout": "0.00:05:00"
+            }
+          },
+          {
+            "name": "InitializeGdcCollection",
+            "type": "SetVariable",
+            "dependsOn": [
+              {
+                "activity": "ValidateParameters",
+                "dependencyConditions": ["Succeeded"]
+              }
+            ],
+            "typeProperties": {
+              "variableName": "gdcRunId",
+              "value": "[variables('gdcDatasetName')]"
+            }
+          },
+          {
+            "name": "ExecuteGraphDataConnect",
+            "type": "ExecutePipeline",
+            "dependsOn": [
+              {
+                "activity": "InitializeGdcCollection",
+                "dependencyConditions": ["Succeeded"]
+              }
+            ],
+            "typeProperties": {
+              "pipeline": {
+                "referenceName": "GraphDataConnectExtractionPipeline",
+                "type": "PipelineReference"
+              },
+              "parameters": {
+                "custodians": "@pipeline().parameters.custodians",
+                "datasetCriteria": "@pipeline().parameters.datasetCriteria",
+                "outputDataset": "@variables('gdcRunId')"
+              },
+              "waitOnCompletion": true
+            }
+          },
+          {
+            "name": "ConvertParquetToJson",
+            "type": "ExecuteDataFlow",
+            "dependsOn": [
+              {
+                "activity": "ExecuteGraphDataConnect",
+                "dependencyConditions": ["Succeeded"]
+              }
+            ],
+            "typeProperties": {
+              "dataflow": {
+                "referenceName": "ParquetToJsonDataFlow",
+                "type": "DataFlowReference"
+              },
+              "compute": {
+                "coreCount": 8,
+                "computeType": "General"
+              }
+            }
+          },
+          {
+            "name": "CopyToLandingZone",
+            "type": "Copy",
+            "dependsOn": [
+              {
+                "activity": "ConvertParquetToJson",
+                "dependencyConditions": ["Succeeded"]
+              }
+            ],
+            "typeProperties": {
+              "source": {
+                "type": "JsonSource",
+                "storeSettings": {
+                  "type": "AzureBlobFSReadSettings",
+                  "recursive": true,
+                  "wildcardFileName": "*.json"
+                }
+              },
+              "sink": {
+                "type": "JsonSink",
+                "storeSettings": {
+                  "type": "AzureBlobStorageWriteSettings"
+                }
+              },
+              "enableStaging": false
+            },
+            "inputs": [
+              {
+                "referenceName": "GdcJsonDataset",
+                "type": "DatasetReference"
+              }
+            ],
+            "outputs": [
+              {
+                "referenceName": "LandingZoneDataset",
+                "type": "DatasetReference",
+                "parameters": {
+                  "outputPath": "@pipeline().parameters.outputLocation"
+                }
+              }
+            ]
+          },
+          {
+            "name": "CreateSuccessMarker",
+            "type": "Copy",
+            "dependsOn": [
+              {
+                "activity": "CopyToLandingZone",
+                "dependencyConditions": ["Succeeded"]
+              }
+            ],
+            "typeProperties": {
+              "source": {
+                "type": "DelimitedTextSource",
+                "storeSettings": {
+                  "type": "AzureBlobStorageReadSettings"
+                }
+              },
+              "sink": {
+                "type": "DelimitedTextSink",
+                "storeSettings": {
+                  "type": "AzureBlobStorageWriteSettings"
+                }
+              }
+            },
+            "inputs": [
+              {
+                "referenceName": "EmptyFileDataset",
+                "type": "DatasetReference"
+              }
+            ],
+            "outputs": [
+              {
+                "referenceName": "SuccessMarkerDataset",
+                "type": "DatasetReference",
+                "parameters": {
+                  "outputPath": "@concat(pipeline().parameters.outputLocation, '_SUCCESS')"
+                }
+              }
+            ]
+          },
+          {
+            "name": "NotifyEDiscoveryApi",
+            "type": "WebActivity",
+            "dependsOn": [
+              {
+                "activity": "CreateSuccessMarker",
+                "dependencyConditions": ["Succeeded"]
+              }
+            ],
+            "typeProperties": {
+              "url": "[variables('webhookUrl')]",
+              "method": "POST",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": {
+                "pipelineRunId": "@pipeline().RunId",
+                "gdcRunId": "@variables('gdcRunId')",
+                "matterName": "@pipeline().parameters.matter",
+                "custodians": "@pipeline().parameters.custodians",
+                "outputPath": "@pipeline().parameters.outputLocation",
+                "status": "Completed",
+                "completedAt": "@utcnow()",
+                "enableBinaryFetch": "[parameters('enableBinaryFetch')]"
+              }
+            }
+          }
+        ],
+        "variables": {
+          "gdcRunId": {
+            "type": "String"
+          }
+        },
+        "folder": {
+          "name": "eDiscovery/GDC"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "pipelineName": {
+      "type": "string",
+      "value": "[variables('pipelineName')]"
+    },
+    "webhookUrl": {
+      "type": "string",
+      "value": "[variables('webhookUrl')]"
+    }
+  }
+}
