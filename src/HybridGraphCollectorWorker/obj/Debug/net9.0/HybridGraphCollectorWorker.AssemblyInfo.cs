@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HybridGraphCollectorWorker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbf93d1aff5fc01070279b4b48bc864e19494b43")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e09e4654cf2bf4909562b18e2fe88831372c05da")]
 [assembly: System.Reflection.AssemblyProductAttribute("HybridGraphCollectorWorker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HybridGraphCollectorWorker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

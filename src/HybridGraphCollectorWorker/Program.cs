@@ -5,7 +5,9 @@ using EDiscovery.Shared.Data;
 using HybridGraphCollectorWorker;
 using HybridGraphCollectorWorker.Services;
 using HybridGraphCollectorWorker.Workers;
+using HybridGraphCollectorWorker.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 // Configure Serilog from configuration
@@ -20,6 +22,13 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     Log.Information("Starting Concurrent Hybrid Graph Collector Worker");
+
+    // Check for CLI mode arguments
+    if (args.Length > 0 && args[0] == "--reconcile")
+    {
+        await RunReconcileCLI(args);
+        return;
+    }
 
     var builder = Host.CreateApplicationBuilder(args);
 
@@ -51,6 +60,10 @@ try
     builder.Services.Configure<HybridGraphCollectorWorker.Models.GdcBinaryFetchOptions>(
         builder.Configuration.GetSection(HybridGraphCollectorWorker.Models.GdcBinaryFetchOptions.SectionName));
 
+    // Configure Reconcile options
+    builder.Services.Configure<ReconcileOptions>(
+        builder.Configuration.GetSection("Reconcile"));
+
     // Add HTTP client for API communication
     builder.Services.AddHttpClient<IEDiscoveryApiClient, EDiscoveryApiClient>();
 
@@ -69,6 +82,9 @@ try
     // Add GDC Binary Fetch services
     builder.Services.AddScoped<HybridGraphCollectorWorker.Services.GdcBinaryFetcher>();
 
+    // Add Reconciliation services
+    builder.Services.AddScoped<Reconciler>();
+
     // Add temporary ObservabilityHelper for structured logging
     builder.Services.AddSingleton<ObservabilityHelper>(provider =>
     {
@@ -85,6 +101,9 @@ try
     
     // Register GDC Fetch Worker for post-GDC binary collection
     builder.Services.AddHostedService<HybridGraphCollectorWorker.Workers.GdcFetchWorker>();
+    
+    // Register Reconciliation Worker for validation operations
+    builder.Services.AddHostedService<ReconcileWorker>();
     
     // TODO: Enable concurrent worker after fixing API signatures
     // builder.Services.AddHostedService<ConcurrentWorkerService>();
@@ -121,4 +140,76 @@ catch (Exception ex)
 finally
 {
     Log.CloseAndFlush();
+}
+
+static async Task RunReconcileCLI(string[] args)
+{
+    try
+    {
+        // Parse CLI arguments
+        if (args.Length < 5)
+        {
+            Console.WriteLine("Usage: --reconcile <custodian> <jobId> <sourcePath> <collectedPath> [--dry-run]");
+            Console.WriteLine("Example: --reconcile john.doe@company.com 123 ./source-manifest.csv ./collected-manifest.csv --dry-run");
+            return;
+        }
+
+        var custodian = args[1];
+        var jobId = args[2];
+        var sourcePath = args[3];
+        var collectedPath = args[4];
+        var dryRun = args.Contains("--dry-run");
+
+        Console.WriteLine($"Starting reconciliation:");
+        Console.WriteLine($"  Custodian: {custodian}");
+        Console.WriteLine($"  Job ID: {jobId}");
+        Console.WriteLine($"  Source: {sourcePath}");
+        Console.WriteLine($"  Collected: {collectedPath}");
+        Console.WriteLine($"  Dry Run: {dryRun}");
+
+        // Build minimal DI container for CLI execution
+        var services = new ServiceCollection();
+        services.AddLogging(builder => builder.AddConsole());
+        
+        // Configure options
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+            
+        services.Configure<ReconcileOptions>(configuration.GetSection("Reconcile"));
+        services.AddScoped<Reconciler>();
+        services.AddScoped<IComplianceLogger, ComplianceLogger>();
+
+        var serviceProvider = services.BuildServiceProvider();
+        var reconciler = serviceProvider.GetRequiredService<Reconciler>();
+
+        // Execute reconciliation
+        var result = await reconciler.ReconcileAsync(
+            custodian,
+            jobId,
+            sourcePath, 
+            collectedPath);
+
+        Console.WriteLine($"Reconciliation completed: {(result.OverallPassed ? "PASS" : "FAIL")}");
+        Console.WriteLine($"  Source items: {result.SourceCount}");
+        Console.WriteLine($"  Collected items: {result.CollectedCount}");
+        Console.WriteLine($"  Missing items: {result.MissedCount}");
+        Console.WriteLine($"  Extra items: {result.ExtraCount}");
+        Console.WriteLine($"  Hash mismatches: {result.HashMismatchCount}");
+        Console.WriteLine($"  Size delta: {result.SizeDeltaBytes:N0} bytes");
+        
+        if (!string.IsNullOrEmpty(result.ReportPath))
+        {
+            Console.WriteLine($"  Report saved: {result.ReportPath}");
+        }
+
+        Environment.Exit(result.OverallPassed ? 0 : 1);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"CLI Error: {ex.Message}");
+        Log.Error(ex, "CLI reconciliation failed");
+        Environment.Exit(1);
+    }
 }

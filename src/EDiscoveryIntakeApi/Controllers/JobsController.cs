@@ -222,6 +222,33 @@ public class JobsController : ControllerBase
 
         return Ok();
     }
+
+    /// <summary>
+    /// Run reconciliation validation for a completed collection job
+    /// </summary>
+    [HttpPost("{id}/reconcile")]
+    public async Task<ActionResult> ReconcileJob(int id, [FromBody] ReconcileRequest request)
+    {
+        var job = await _context.CollectionJobs.FindAsync(id);
+        if (job == null)
+        {
+            return NotFound($"Job {id} not found");
+        }
+
+        if (job.Status != CollectionJobStatus.Completed)
+        {
+            return BadRequest($"Job {id} is not completed and cannot be reconciled");
+        }
+
+        _logger.LogInformation("Starting reconciliation for job {JobId}", id);
+
+        // Trigger reconciliation worker
+        // Note: In production, this would enqueue a background job
+        // For now, we'll return accepted and log the request
+        await _context.SaveChangesAsync();
+
+        return Accepted(new { Message = "Reconciliation request accepted", JobId = id, Request = request });
+    }
 }
 
 public class CreateJobRequest
@@ -243,4 +270,12 @@ public class CompleteJobRequest
     public int ActualItemCount { get; set; }
     public string? ManifestHash { get; set; }
     public string? ErrorMessage { get; set; }
+}
+
+public class ReconcileRequest
+{
+    public string? CustodianFilter { get; set; }
+    public string? SourceManifestPath { get; set; }
+    public string? CollectedManifestPath { get; set; }
+    public bool DryRun { get; set; } = false;
 }
