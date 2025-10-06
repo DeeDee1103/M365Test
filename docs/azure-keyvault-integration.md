@@ -52,13 +52,13 @@ export AzureKeyVault__UseKeyVault="true"
 
 The system maps common configuration keys to standardized Key Vault secret names:
 
-| Configuration Key | Key Vault Secret Name | Description |
-|-------------------|----------------------|-------------|
-| `GraphClientSecret` | `ediscovery-graph-client-secret` | Microsoft Graph API client secret |
-| `ServiceBusConnectionString` | `ediscovery-servicebus-connection` | Azure Service Bus connection string |
-| `AzureStorageConnectionString` | `ediscovery-storage-connection` | Azure Storage account connection string |
-| `DatabaseConnectionString` | `ediscovery-database-connection` | SQL database connection string |
-| `SqlServerConnectionString` | `ediscovery-sqlserver-connection` | SQL Server connection string |
+| Configuration Key              | Key Vault Secret Name              | Description                             |
+| ------------------------------ | ---------------------------------- | --------------------------------------- |
+| `GraphClientSecret`            | `ediscovery-graph-client-secret`   | Microsoft Graph API client secret       |
+| `ServiceBusConnectionString`   | `ediscovery-servicebus-connection` | Azure Service Bus connection string     |
+| `AzureStorageConnectionString` | `ediscovery-storage-connection`    | Azure Storage account connection string |
+| `DatabaseConnectionString`     | `ediscovery-database-connection`   | SQL database connection string          |
+| `SqlServerConnectionString`    | `ediscovery-sqlserver-connection`  | SQL Server connection string            |
 
 ## Usage Examples
 
@@ -89,7 +89,7 @@ public async Task ConfigureServices()
 {
     // Secure connection string retrieval
     var connectionString = _secureConfig.GetConnectionString("DefaultConnection");
-    
+
     // Or specific service connection strings
     var serviceBusConnection = _secureConfig.GetServiceBusConnectionString();
     var storageConnection = _secureConfig.GetAzureStorageConnectionString();
@@ -175,17 +175,17 @@ spec:
   template:
     spec:
       containers:
-      - name: ediscovery-api
-        env:
-        - name: AzureKeyVault__VaultUrl
-          value: "https://your-keyvault.vault.azure.net/"
-        - name: AzureKeyVault__UseKeyVault
-          value: "true"
-        - name: AZURE_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: azure-credentials
-              key: client-id
+        - name: ediscovery-api
+          env:
+            - name: AzureKeyVault__VaultUrl
+              value: "https://your-keyvault.vault.azure.net/"
+            - name: AzureKeyVault__UseKeyVault
+              value: "true"
+            - name: AZURE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: client-id
 ```
 
 ## Security Best Practices
@@ -236,31 +236,37 @@ az monitor diagnostic-settings create --name kv-diagnostics \
 ### Common Issues
 
 **Authentication Failed**
+
 ```
 Azure.Identity.CredentialUnavailableException: DefaultAzureCredential failed to retrieve a token
 ```
 
 **Solutions:**
+
 1. Verify `az login` status: `az account show`
 2. Check environment variables: `echo $AZURE_CLIENT_ID`
 3. Validate Key Vault permissions: `az keyvault secret show --vault-name your-kv --name test-secret`
 
 **Secret Not Found**
+
 ```
 Azure.RequestFailedException: The key vault does not exist or the user does not have permissions to access it.
 ```
 
 **Solutions:**
+
 1. Verify Key Vault URL is correct
 2. Check secret name matches the mapping
 3. Validate access policies
 
 **Network Connectivity**
+
 ```
 Azure.RequestFailedException: Name resolution failure
 ```
 
 **Solutions:**
+
 1. Check DNS resolution to `*.vault.azure.net`
 2. Verify firewall rules allow outbound HTTPS
 3. Test connectivity: `telnet your-keyvault.vault.azure.net 443`
@@ -303,7 +309,7 @@ Enable detailed logging for authentication debugging:
 ### From Configuration Files to Key Vault
 
 1. **Inventory Current Secrets**: List all sensitive configuration values
-2. **Create Key Vault Secrets**: 
+2. **Create Key Vault Secrets**:
 
 ```bash
 # Create secrets in Key Vault

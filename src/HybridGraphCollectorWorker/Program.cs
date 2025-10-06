@@ -105,8 +105,9 @@ try
 
     // Add Delta Services
     builder.Services.AddSingleton<IFileDeltaCursorStorage, FileDeltaCursorStorage>();
-    builder.Services.AddScoped<IOneDriveDeltaEnumerator, OneDriveDeltaEnumerator>();
-    builder.Services.AddScoped<IMailDeltaEnumerator, MailDeltaEnumerator>();
+    // TODO: Re-enable when DeltaEnumerators.cs is properly implemented
+    // builder.Services.AddScoped<IOneDriveDeltaEnumerator, OneDriveDeltaEnumerator>();
+    // builder.Services.AddScoped<IMailDeltaEnumerator, MailDeltaEnumerator>();
 
     // Add GDC Binary Fetch services
     builder.Services.AddScoped<HybridGraphCollectorWorker.Services.GdcBinaryFetcher>();

@@ -90,6 +90,13 @@ try
     // Add Compliance Logger
     builder.Services.AddScoped<IComplianceLogger, ComplianceLogger>();
 
+    // Add health services
+    builder.Services.AddScoped<EDiscoveryIntakeApi.Services.EDiscoveryHealthService>();
+    builder.Services.AddHealthChecks()
+        .AddCheck<EDiscoveryIntakeApi.Services.DatabaseHealthCheck>("database")
+        .AddCheck<EDiscoveryIntakeApi.Services.KeyVaultHealthCheck>("keyvault")
+        .AddCheck<EDiscoveryIntakeApi.Services.ApplicationHealthCheck>("application");
+
     // TODO: Add Observability service after resolving compilation issues
     // builder.Services.AddSingleton<IObservabilityService, ObservabilityService>();
 
@@ -134,6 +141,12 @@ try
 
     app.UseHttpsRedirection();
     app.UseAuthorization();
+    
+    // Map health check endpoints
+    app.MapHealthChecks("/api/health");
+    app.MapHealthChecks("/api/health/ready");
+    app.MapHealthChecks("/api/health/live");
+    
     app.MapControllers();
 
     Log.Information("eDiscovery Intake API started successfully");

@@ -1,13 +1,74 @@
-# Hybrid eDiscovery Collector - v2.3 Production Ready ✅
+# Hybrid eDiscovery Collector - v2.5 Enterpr - **NEW**: Checkpoint recovery service for fault tolerance
 
-A comprehensive hybrid eDiscovery collection system with intelligent routing between Microsoft Graph API and Graph Data Connect, featuring enterprise job sharding, advanced observability, structured logging, health monitoring, and complete GDC binary fetch capabilities.
+- **NEW**: GdcBinaryFetcher service for Graph API binary downloads
+- AutoRouter with environment-specific thresholds
+- Delta Query service with database-backed cursors
+- **NEW**: ObservabilityService for metrics and health monitoring
+- **NEW**: Structured event models for comprehensive logging
+- Chain of Custody with digital signatures and WORM storage
 
-## 🎉 **LATEST UPDATE: Production Ready**
+## 🎯 **Engineering PRs Completed (v2.5)**
 
-✅ **All core projects compile successfully with zero errors**  
-✅ **GDC Binary Fetch platform fully implemented and tested**  
-✅ **All async method warnings resolved with proper patterns**  
-✅ **Production-ready with comprehensive observability and monitoring**
+### ✅ **PR 1: GDC→Graph Binary Fetcher + Manifests**
+
+**Documentation**: [`docs/gdc-binary-fetch.md`](docs/gdc-binary-fetch.md)
+
+- Complete post-GDC processing pipeline with Microsoft Graph binary downloads
+- SHA-256 manifests and integrity verification
+- Parallel processing with throttling respect and error handling
+
+### ✅ **PR 2: Source vs Collected Validation + Report**
+
+**Documentation**: [`docs/reconciliation-system.md`](docs/reconciliation-system.md)
+
+- Complete reconciliation validation with configurable tolerances
+- CSV/JSON/TXT reporting with detailed discrepancy analysis
+- Pass/fail gates for cardinality, extras, size, and hash validation
+
+### ✅ **PR 3: Ports & Compose Alignment**
+
+**Documentation**: [`docs/docker-port-alignment.md`](docs/docker-port-alignment.md)
+
+- Standardized port 7001 across development and production
+- Updated Docker Compose with environment consistency
+- Enhanced container networking and service discovery
+
+### ✅ **PR 4: OneDrive and Mail Delta Support**
+
+**Documentation**: [`docs/delta-queries.md`](docs/delta-queries.md)
+
+- Complete delta query implementation with cursor tracking
+- Database-backed DeltaCursor storage for incremental collection
+- Environment-specific collection intervals and performance optimization
+
+### ✅ **PR 5: DefaultAzureCredential + Key Vault**
+
+**Documentation**: [`docs/azure-keyvault-integration.md`](docs/azure-keyvault-integration.md)
+
+- Enterprise security with Azure Key Vault integration
+- DefaultAzureCredential authentication chain (Environment, Managed Identity, CLI, VS)
+- Secure configuration management with transparent local fallback
+
+### ✅ **PR 6: Structured Telemetry + /health Endpoint**
+
+**Documentation**: [`docs/pr6-telemetry-implementation.md`](docs/pr6-telemetry-implementation.md)
+
+- Complete health monitoring service with database, Key Vault, and application checks
+- Performance metrics collection and structured health reporting
+- ASP.NET Core health checks integration for production monitoring
+
+## 📁 **NEW: GDC Binary Fetch** ✅
+
+A comprehensive hybrid eDiscovery collection system with intelligent routing between Microsoft Graph API and Graph Data Connect, featuring enterprise job sharding, advanced observability, structured logging, health monitoring, complete GDC binary fetch capabilities, Azure Key Vault security, and comprehensive reconciliation validation.
+
+## 🎉 **LATEST UPDATE: v2.5 Enterprise Ready**
+
+✅ **6 Engineering PRs Successfully Implemented**  
+✅ **Azure Key Vault Security with DefaultAzureCredential**  
+✅ **Delta Mode for OneDrive & Mail with cursor tracking**  
+✅ **Production Health Monitoring & Telemetry Infrastructure**  
+✅ **Complete Source↔Collected Reconciliation System**  
+✅ **All core projects compile successfully with zero errors**
 
 ## 🏗️ Architecture
 

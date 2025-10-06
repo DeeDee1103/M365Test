@@ -120,3 +120,6 @@ C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollector
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\obj\Debug\net9.0\HybridGraphCollectorWorker.pdb
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\obj\Debug\net9.0\HybridGraphCollectorWorker.genruntimeconfig.cache
 C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\obj\Debug\net9.0\ref\HybridGraphCollectorWorker.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\bin\Debug\net9.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\bin\Debug\net9.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\dnnll\source\repos\_VisualStudio_Code\M365Test\src\HybridGraphCollectorWorker\bin\Debug\net9.0\System.Linq.Async.dll

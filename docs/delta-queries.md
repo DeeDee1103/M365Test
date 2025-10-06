@@ -53,18 +53,18 @@ graph TD
 
 ### Configuration Options
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `UseDelta` | bool | true | Global toggle for delta functionality |
-| `EnableMailDelta` | bool | true | Enable delta queries for email collections |
-| `EnableOneDriveDelta` | bool | true | Enable delta queries for OneDrive collections |
-| `MaxDeltaAgeDays` | int | 30 | Force full resync if cursor older than this |
-| `DeltaQueryIntervalMinutes` | int | 60 | How often to perform delta queries |
-| `MaxDeltaItemsPerQuery` | int | 1000 | Maximum items per delta request |
-| `MaxDeltaFailures` | int | 3 | Force full resync after this many failures |
-| `BackgroundDeltaQueries` | bool | true | Run delta queries in background |
-| `EnableAutomaticCleanup` | bool | true | Automatically clean stale cursors |
-| `CleanupIntervalHours` | int | 24 | How often to run cleanup |
+| Property                    | Type | Default | Description                                   |
+| --------------------------- | ---- | ------- | --------------------------------------------- |
+| `UseDelta`                  | bool | true    | Global toggle for delta functionality         |
+| `EnableMailDelta`           | bool | true    | Enable delta queries for email collections    |
+| `EnableOneDriveDelta`       | bool | true    | Enable delta queries for OneDrive collections |
+| `MaxDeltaAgeDays`           | int  | 30      | Force full resync if cursor older than this   |
+| `DeltaQueryIntervalMinutes` | int  | 60      | How often to perform delta queries            |
+| `MaxDeltaItemsPerQuery`     | int  | 1000    | Maximum items per delta request               |
+| `MaxDeltaFailures`          | int  | 3       | Force full resync after this many failures    |
+| `BackgroundDeltaQueries`    | bool | true    | Run delta queries in background               |
+| `EnableAutomaticCleanup`    | bool | true    | Automatically clean stale cursors             |
+| `CleanupIntervalHours`      | int  | 24      | How often to run cleanup                      |
 
 ## Delta Cursor Storage
 
@@ -117,12 +117,14 @@ graph TD
 **Endpoint**: `/me/drive/root/delta`
 
 **Features**:
+
 - Tracks file and folder changes across entire OneDrive
 - Identifies new, modified, and deleted items
 - Supports large datasets with automatic pagination
 - Filters out deleted items and folders (configurable)
 
 **Change Detection**:
+
 - New files added to OneDrive
 - Existing files modified (content or metadata)
 - Files moved or renamed
@@ -133,12 +135,14 @@ graph TD
 **Endpoint**: `/me/mailFolders/inbox/messages/delta`
 
 **Features**:
+
 - Tracks new and modified messages in inbox
 - Captures message metadata and properties
 - Supports attachment detection
 - Handles message deletion tracking
 
 **Change Detection**:
+
 - New messages received
 - Message properties modified (read status, categories, etc.)
 - Messages moved to/from inbox
@@ -179,66 +183,71 @@ if (shouldUseDelta)
     // Get existing cursor
     var cursor = await _deltaQueryService.GetDeltaCursorAsync(
         custodianEmail, DeltaType.Mail);
-        
+
     // Perform delta query
     var result = await _deltaQueryService.QueryMailDeltaAsync(
         custodianEmail, cursor, cancellationToken);
-        
+
     // Update cursor with new token
     await _deltaQueryService.UpdateDeltaCursorAsync(
-        cursor.ScopeId, result.NewDeltaToken, 
+        cursor.ScopeId, result.NewDeltaToken,
         result.ItemCount, result.TotalSizeBytes);
 }
 ```
 
 ## Delta vs Full Collection Decision Matrix
 
-| Scenario | Delta Used | Reason |
-|----------|------------|---------|
-| First collection for custodian | No | No baseline cursor exists |
-| Cursor age < MaxDeltaAgeDays | Yes | Recent baseline available |
-| Cursor age > MaxDeltaAgeDays | No | Cursor too stale, full resync needed |
-| Previous delta failures > MaxDeltaFailures | No | Reset to full collection mode |
-| UseDelta = false | No | Delta disabled globally |
-| EnableMailDelta = false (for mail) | No | Delta disabled for mail |
-| EnableOneDriveDelta = false (for OneDrive) | No | Delta disabled for OneDrive |
+| Scenario                                   | Delta Used | Reason                               |
+| ------------------------------------------ | ---------- | ------------------------------------ |
+| First collection for custodian             | No         | No baseline cursor exists            |
+| Cursor age < MaxDeltaAgeDays               | Yes        | Recent baseline available            |
+| Cursor age > MaxDeltaAgeDays               | No         | Cursor too stale, full resync needed |
+| Previous delta failures > MaxDeltaFailures | No         | Reset to full collection mode        |
+| UseDelta = false                           | No         | Delta disabled globally              |
+| EnableMailDelta = false (for mail)         | No         | Delta disabled for mail              |
+| EnableOneDriveDelta = false (for OneDrive) | No         | Delta disabled for OneDrive          |
 
 ## Performance Benefits
 
 ### API Efficiency
+
 - **Reduced API Calls**: Only query changed items instead of full enumeration
 - **Lower Throttling Risk**: Smaller, targeted requests reduce throttling probability
 - **Bandwidth Optimization**: Transfer only deltas instead of complete datasets
 
 ### Collection Speed
+
 - **Faster Processing**: Process 10-100x fewer items in typical delta scenarios
 - **Incremental Updates**: Near real-time collection capability
 - **Reduced Resource Usage**: Lower memory and storage requirements
 
 ### Example Performance Gains
 
-| Collection Type | Initial Collection | Delta Collection | Improvement |
-|-----------------|-------------------|------------------|-------------|
-| Small Mailbox (1K messages) | 30 seconds | 2 seconds | 15x faster |
-| Large Mailbox (50K messages) | 25 minutes | 1 minute | 25x faster |
-| OneDrive (10K files) | 45 minutes | 3 minutes | 15x faster |
-| OneDrive (100K files) | 6 hours | 15 minutes | 24x faster |
+| Collection Type              | Initial Collection | Delta Collection | Improvement |
+| ---------------------------- | ------------------ | ---------------- | ----------- |
+| Small Mailbox (1K messages)  | 30 seconds         | 2 seconds        | 15x faster  |
+| Large Mailbox (50K messages) | 25 minutes         | 1 minute         | 25x faster  |
+| OneDrive (10K files)         | 45 minutes         | 3 minutes        | 15x faster  |
+| OneDrive (100K files)        | 6 hours            | 15 minutes       | 24x faster  |
 
 ## Error Handling
 
 ### Failure Scenarios
 
 1. **Invalid Delta Token**
+
    - **Cause**: Token expired or invalid
    - **Response**: Reset cursor and perform full collection
    - **Recovery**: Automatic on next collection attempt
 
 2. **API Throttling**
+
    - **Cause**: Too many delta requests
    - **Response**: Exponential backoff with retry
    - **Recovery**: Resume with exponential delays
 
 3. **Cursor Corruption**
+
    - **Cause**: File system issues or manual editing
    - **Response**: Remove corrupted cursor
    - **Recovery**: Fall back to full collection
@@ -267,7 +276,7 @@ catch (Exception ex)
 {
     // Increment failure count
     cursor.FailureCount++;
-    
+
     if (cursor.FailureCount >= _options.MaxDeltaFailures)
     {
         // Too many failures, reset to full collection
@@ -306,11 +315,13 @@ catch (Exception ex)
 ### Configuration Recommendations
 
 1. **Development Environment**
+
    - `DeltaQueryIntervalMinutes`: 15
    - `MaxDeltaAgeDays`: 7
    - `MaxDeltaItemsPerQuery`: 100
 
 2. **Production Environment**
+
    - `DeltaQueryIntervalMinutes`: 60
    - `MaxDeltaAgeDays`: 30
    - `MaxDeltaItemsPerQuery`: 1000
@@ -368,8 +379,8 @@ Delta queries integrate seamlessly with existing collection jobs:
 {
   "custodianEmail": "john.doe@company.com",
   "jobType": "Mail",
-  "useDelta": true,  // Job-level override
-  "deltaMaxAge": 14  // Job-specific age limit
+  "useDelta": true, // Job-level override
+  "deltaMaxAge": 14 // Job-specific age limit
 }
 ```
 
